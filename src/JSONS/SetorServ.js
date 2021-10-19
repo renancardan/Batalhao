@@ -1,0 +1,30 @@
+export default  { 
+    setor:[
+    {id:000001, nome:"Cadastro conta serv", status:"cadastroServ"},
+    {id:000002, nome:"Caixa de Edição Conta Serv", status:"edicaoContaServ"},
+    {id:000003, nome:"Lista de Apps Serv", status:"listAppsServ"},
+    {id:000004, nome:"Ativar App Serv", status:"ativarAppServ"},
+    {id:000005, nome:"Bloquear App Serv", status:"ativarAppServ"},
+    {id:000006, nome:"Desativar App Serv", status:"ativarAppServ"},
+    {id:000007, nome:"Vizualizar App Serv", status:"VizualizarAppServ"},
+    {id:000010, nome:"Lista de Condicionais", status:"listaCondicionais"},
+    {id:000011, nome:"Criar Condicional Serv", status:"CriarCondicionais"},
+    {id:000012, nome:"Editar Condicional Serv", status:"EditarCondicionais"},
+    {id:000013, nome:"Desativando Condicional Serv", status:"DesativandoCondicionais"},
+    {id:000014, nome:"Lista Conta Serv", status:"listContServ"},
+    {id:000015, nome:"Desbloquear App Serv", status:"DesbloquearAppServ"},
+    {id:000016, nome:"Vizualizar Conta Serv", status:"VizualizarContaServ"},
+    {id:000016, nome:"Bloqueando Conta Serv", status:"BloqueandoContaServ"},
+    {id:000016, nome:"Criando Grupo Serv", status:"CriandoGrupoServ"},
+    {id:000016, nome:"Lista Grupos Serv", status:"ListGrupoServ"},
+    {id:000016, nome:"Vizualizar Grupo Serv", status:"CriandoGrupoServ"},
+    {id:000016, nome:"Desbloqueando Conta Serv", status:"DesbloquearContaServ"},
+    {id:000016, nome:"Criar Telefone Serv", status:"CriarTelefoneServ"},
+    {id:000016, nome:"Ativando Telefone Serv", status:"AtivarTelefoneServ"},
+    {id:000016, nome:"Desativando Telefone Serv", status:"DesativarTelefoneServ"},
+    {id:000016, nome:"Desativando Aviso Serv", status:"DesativarAvisoServ"},
+    {id:000016, nome:"Ativando Aviso Serv", status:"AtivarAvisoServ"},
+    {id:000016, nome:"Excluir Telefone Serv", status:"ExcluirTelefoneServ"},
+    ]
+    
+ };
