@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "salve": "^9.1.2",
+    "styled-components": "^5.2.1",
     "react-native-geocoding": "^0.5.0",
     "react-trix-rte": "^1.0.14",
     "react-happy-video": "^1.4.3",
