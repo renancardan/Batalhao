@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "react-happy-video": "^1.4.3",
+    "react-input-mask": "^2.0.4",
     "react-google-maps": "^9.4.5",
     "react-h5-audio-player": "^3.7.1",
     "react-finderselect": "^1.0.5",
