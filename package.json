@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "react-google-maps": "^9.4.5",
+    "react-h5-audio-player": "^3.7.1",
     "react-finderselect": "^1.0.5",
     "react-chartjs-2": "^3.0.5",
     "react-awesome-modal": "^2.0.5",
