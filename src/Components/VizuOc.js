@@ -52,10 +52,10 @@ export default ({Lista, Avisando, Fechar}) => {
     />
     </div>
     </div> 
-   
-     <table style={{"borderCollapse":"collapse", "border":"1px solid #000", "margin":20}} id="dados" >
-       <thead>
-         <tr>
+     <img src="assets/logoapp.jpeg" alt="15º Batalhão Logo"  style={{opacity: '1', width: 60, marginRight: 20, marginLeft:20, marginTop:20 }} />
+     <table style={{"borderCollapse":"collapse", "border":"1px solid #000", "margin":20, "fontSize":10}} id="dados" >
+       <thead style={{"backgroundColor":"yellow"}}>
+         <tr >
            <th style={{"borderCollapse":"collapse", "border":"1px solid #000"}} >Nº Copom</th>
            <th style={{"borderCollapse":"collapse", "border":"1px solid #000"}} >Atendente Copom</th>
            <th style={{"borderCollapse":"collapse", "border":"1px solid #000"}} >VTR</th>

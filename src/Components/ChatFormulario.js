@@ -20,7 +20,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
     const [DateIni, setDateIni] = useState('');
     const [time, setTime] = useState('');
     const [ListInt, setListInt] = useState([]);
-    const [NumOc, setNumOc] = useState(data);
+    const [NumOc, setNumOc] = useState('');
     const [Vtr, setVtr] = useState("");
     const [AtenCop, setAtenCop] = useState("");
     const [CompVt, setCompVt] = useState("");
@@ -212,7 +212,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
   
 
     const PegDados = ()=> {  
-        Api.DadosForm(data, setVtr, setAtenCop, setCompVt, setRua, setNumero, setBairro, setCidade, setEstado, setLat, setLng, setConduz, setViti, setObjAp, setResulOc, setRelato, setProv, setDataTime);
+        Api.DadosForm(data, setVtr, setAtenCop, setCompVt, setRua, setNumero, setBairro, setCidade, setEstado, setLat, setLng, setConduz, setViti, setObjAp, setResulOc, setRelato, setProv, setDataTime, setNumOc);
     }
 
     const EnviandoVtr = ()=> {
@@ -228,7 +228,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
            
           
 
-        Api.EnviVtr(data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad);
+        Api.EnviVtr(data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, NumOc);
     }
 
    
@@ -384,7 +384,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
                                  placeholder="Digite o Numero da Ocorrência..."
                                  value={NumOc}
                                  onChange={t=>setNumOc(t.target.value)}
-                                 disabled
+                                  onBlur={()=>EnviandoVtr()}
                                   />
                             </div>
                             </div>

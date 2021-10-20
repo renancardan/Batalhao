@@ -1285,7 +1285,7 @@ export default {
             querySnapshot.forEach((doc) => {
               if(doc.data().dataInicio){
                 res.push({
-                  id: doc.id,
+                  id: doc.data().Ocorr,
                   date: doc.data().dataInicio.seconds,
                   ativo: doc.data().ativo, 
                   dateIn: doc.data().dataInicio.seconds*1000,
@@ -2262,7 +2262,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
            
     },
 
-    EnviVtr: async (data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad) => {   
+    EnviVtr: async (data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, NumOc) => {   
       await db.collection('ocorrencia')
       .doc(data)
       .update({
@@ -2285,12 +2285,13 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         resultado: ResulOc,
         relato:Relato,
         providencias:Prov,
+        Ocorr:NumOc,
         
       })
            
     },
 
-    DadosForm: async (data, setVtr, setAtenCop, setCompVt, setRua, setNumero, setBairro, setCidade, setEstado, setLat, setLng, setConduz, setViti, setObjAp, setResulOc, setRelato, setProv, setDataTime ) => {   
+    DadosForm: async (data, setVtr, setAtenCop, setCompVt, setRua, setNumero, setBairro, setCidade, setEstado, setLat, setLng, setConduz, setViti, setObjAp, setResulOc, setRelato, setProv, setDataTime, setNumOc ) => {   
       await db.collection('ocorrencia')
       .doc(data)
       .get()
@@ -2312,6 +2313,8 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         setRelato(doc.data().relato);
         setProv(doc.data().providencias);
         setDataTime(doc.data().dataInicio.seconds*1000);
+        setNumOc(doc.data().Ocorr);
+      
       });
        
            
