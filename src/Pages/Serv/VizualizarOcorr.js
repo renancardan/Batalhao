@@ -159,9 +159,11 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
                                 {Infor.componentesVtr}<br />
                                 <strong>Conduzidos</strong><br />
                                 {Infor.conduzidos}<br />
+                                 <strong>Autores</strong><br />
+                                {Infor.autores}<br />
                                 <strong>Vítimas</strong><br />
                                 {Infor.vitimas}<br />
-                                  <strong>Testemunha</strong><br />
+                                <strong>Testemunha</strong><br />
                                 {Infor.testemunha}<br />
                                 <strong>Objetos Apreendidos</strong><br />
                                 {Infor.objetosApre}<br />

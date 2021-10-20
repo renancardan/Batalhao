@@ -46,6 +46,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
     const [Exc, setExc] = useState(false);
     const [DataTime, setDataTime] = useState(0);
     const [Test, setTest] = useState("");
+    const [Autor, setAutor] = useState("");
     
     
 
@@ -216,7 +217,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
         Api.DadosForm(data, setVtr, setAtenCop, setCompVt, setRua, 
         setNumero, setBairro, setCidade, setEstado, setLat, setLng,
         setConduz, setViti, setObjAp, setResulOc, setRelato, setProv, setDataTime, 
-        setTest, setNumOc, );
+        setTest, setNumOc, setAutor );
     }
 
     const EnviandoVtr = ()=> {
@@ -232,7 +233,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
            
           
 
-        Api.EnviVtr(data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, NumOc, Test);
+        Api.EnviVtr(data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, NumOc, Test, Autor);
     }
 
    
@@ -650,7 +651,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
                     {/* /.card-header */}
                     <div className="card-body">
                     <div className="row">
-                    <div className="col-sm-12">
+                            <div className="col-sm-12">
                             <div className="form-group">
                                 <label>Conduzidos</label>
                                 <textarea 
@@ -660,6 +661,20 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
                                  defaultValue={""}
                                  value={Conduz}
                                  onChange={t=>setConduz(t.target.value)}
+                                 onBlur={()=>EnviandoVtr()}
+                                 />
+                            </div>
+                            </div>
+                            <div className="col-sm-12">
+                            <div className="form-group">
+                                <label>Autores</label>
+                                <textarea 
+                                className="form-control" 
+                                rows={3}
+                                 placeholder="Digite as Informações Sobre Autores..." 
+                                 defaultValue={""}
+                                 value={Autor}
+                                 onChange={t=>setAutor(t.target.value)}
                                  onBlur={()=>EnviandoVtr()}
                                  />
                             </div>

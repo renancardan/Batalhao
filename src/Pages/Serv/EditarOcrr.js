@@ -33,6 +33,7 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
   const [Pdf, setPdf] = useState("")
   const [Visi2, setVisi2] = useState(false);
   const [Test, setTest] = useState("");
+  const [Autor, setAutor] = useState("");
   
 
 
@@ -53,6 +54,7 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
       setForms(Infor.condicionais);
       setPdf(Infor.Ocorr);
       setTest(Infor.testemunha);
+      setAutor(Infor.autores);
     }
     }, [Infor]);
 
@@ -102,7 +104,7 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
     setVisi2(true);
     Api.EnviOcSalvar(Id, Vtr, AtenCop, CompVt,  
     Conduz, Viti, ObjAp, ResulOc, Relato, Prov, 
-    setAlert, setAlertTipo, Arq, Pdf,setVisi2, Test);
+    setAlert, setAlertTipo, Arq, Pdf,setVisi2, Test, Autor);
 }
 
 const closeModal = ()=>{
@@ -332,6 +334,16 @@ const ExBo = ()=>{
                         defaultValue={""}
                         value={Conduz}
                         onChange={t=>setConduz(t.target.value)}
+                        />
+                     <br />
+                     <strong>Autores</strong><br />
+                      <textarea 
+                      className="form-control" 
+                      rows={3}
+                        placeholder="Digite as Informações dos Altores..." 
+                        defaultValue={""}
+                        value={Autor}
+                        onChange={t=>setAutor(t.target.value)}
                         />
                      <br />
                        <strong>Testemunha</strong><br />

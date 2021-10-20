@@ -103,6 +103,25 @@ export default ({Fechar, Avisando, Infor, Id}) => {
                 </div>
 
                 }
+                  {Infor.autores &&
+                <>
+                {Infor.autores !== "" &&
+                 <div className="RelatCent">
+                <div className="RelatEsq">
+                <string style={{"font-weight":"bolder", "font-size":15,}}>AUTORES</string>
+                </div>
+                <div className="RelatDire">
+                <string>
+                {Infor.autores}
+              </string>
+                </div>
+                </div>
+
+                }
+                </>
+
+                }
+                
                
                {Infor.vitimas !== "" &&
                 <div className="RelatCent">
@@ -135,6 +154,7 @@ export default ({Fechar, Avisando, Infor, Id}) => {
                 </>
 
                 }
+
                {Infor.objetosApre !== "" &&
                  <div className="RelatCent">
                 <div className="RelatEsq">
