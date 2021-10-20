@@ -1276,9 +1276,6 @@ export default {
         const result = await dados.data();
 
           await db.collection("ocorrencia")
-          .where("estado", "==", result.estado)
-          .where("cidade", "==", result.cidade)
-          .where("instituicao", "==", result.instituicao)
             .onSnapshot((querySnapshot) => {
             setQuant(querySnapshot.size);
             var res = []; 
@@ -2030,9 +2027,6 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         .then(async(dados)=>{
           const result = await dados.data();
             await db.collection("ocorrencia")
-            .where("estado", "==", result.estado)
-            .where("cidade", "==", result.cidade)
-            .where("instituicao", "==", result.instituicao)
             .where("ativo", "==", true)
             .onSnapshot((querySnapshot) => {
         
