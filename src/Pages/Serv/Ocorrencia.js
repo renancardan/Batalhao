@@ -318,15 +318,15 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
               Dia = Dia < 10 ? '0'+Dia : Dia;
               Mes = Mes < 10 ? '0'+Mes : Mes;
               currentDate = Ano+'-'+Mes+'-'+Dia;
-              let Dat  = new Date(currentDate +"T00:00:00.000").getTime();
-              console.log(Dat);
-              if(DataA > Dat){
+              let Dat  = new Date(currentDate +" 07:30:00.000").getTime();
+              let Dat2 = Dat + 86400000;
+              if(Dat2 > Dat){
                 setVerD(true);
                 let listanha = [];
                 for(let i in UsuariosContServ ) {
                   
                   if( UsuariosContServ[i].dateIn >= Dat ) {
-                    if( UsuariosContServ[i].dateIn <= DataA ) {
+                    if( UsuariosContServ[i].dateIn <= Dat2 ) {
                       listanha.push({
                         id: UsuariosContServ[i].id, 
                         date: UsuariosContServ[i].date,
@@ -898,21 +898,10 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                     {/* /.card-header */}
                     <div className="card-body">
                     <div className="row" >
-                    <div className="col-sm-2">
-                            <div className="form-group">
-                                <label>Antes</label>
-                                <DatePickerInput
-                                  onChange={DatandoA}
-                                  value={DataA}
-                                  className='my-custom-datepicker-component'
-                                  disabled={VerA}
-                                  
-                                />
-                            </div>
-                            </div>
+                
                             <div className="col-sm-2">
                             <div className="form-group">
-                                <label>Depois</label>
+                                <label>Dia</label>
                                 <DatePickerInput
                                 onChange={datando}
                                 value={DataP}
