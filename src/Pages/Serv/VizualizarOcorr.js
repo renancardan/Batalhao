@@ -30,7 +30,7 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
  Vizualizar();
  }, []);
 
- 
+ console.log(Id);
 
   const MsgBloque = ()=>{
       setAlert("Ok");
@@ -106,7 +106,8 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
                             <div className="col-sm-4 invoice-col">
                               <address>
                                 <strong>Nome da Vítima:</strong><br />
-                                {Infor.nomevitima}<br />
+                                {Infor.nomevitima}
+                                <br />
                                 <strong>Endereço</strong><br />
                                 {Infor.rua}, {Infor.numero} - {Infor.bairro}<br />
                                 <strong>Cidade:</strong><br />

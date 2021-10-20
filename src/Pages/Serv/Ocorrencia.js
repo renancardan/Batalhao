@@ -76,7 +76,6 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
 
       useEffect(() => {
         Listando();
-       
        }, [UsuariosContServ])
 
        useEffect(() => {
@@ -90,7 +89,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
        }, [Resu])
 
        useEffect(() => {
-       console.log(Lista)
+   
        }, [Lista])
 
      
@@ -344,7 +343,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                         excluir: UsuariosContServ[i].excluir,
                         periodo: UsuariosContServ[i].periodo,
                         numero: UsuariosContServ[i].numero,
-                          
+                        oCorr:UsuariosContServ[i].oCorr,  
                     });   
                     }
                    
@@ -390,7 +389,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       objetosApre:  UsuariosContServ[i].objetosApre,
                       excluir: UsuariosContServ[i].excluir,
                       periodo: UsuariosContServ[i].periodo,
-                      numero: UsuariosContServ[i].numero,   
+                      numero: UsuariosContServ[i].numero,
+                         oCorr:UsuariosContServ[i].oCorr,    
                   });   
                   }
                  
@@ -428,6 +428,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       excluir: UsuariosContServ[i].excluir,
                       periodo: UsuariosContServ[i].periodo,
                       numero: UsuariosContServ[i].numero,
+                         oCorr:UsuariosContServ[i].oCorr, 
                   });   
                   }
                  
@@ -469,6 +470,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                         excluir: UsuariosContServ[i].excluir,
                         periodo: UsuariosContServ[i].periodo,
                         numero: UsuariosContServ[i].numero,
+                           oCorr:UsuariosContServ[i].oCorr, 
                     });   
                     }
                    
@@ -506,6 +508,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       excluir: UsuariosContServ[i].excluir,
                       periodo: UsuariosContServ[i].periodo,
                       numero: UsuariosContServ[i].numero,
+                         oCorr:UsuariosContServ[i].oCorr, 
                   });   
                   }
                  
@@ -544,6 +547,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       excluir: UsuariosContServ[i].excluir,
                       periodo: UsuariosContServ[i].periodo,
                       numero: UsuariosContServ[i].numero,
+                         oCorr:UsuariosContServ[i].oCorr, 
                   });   
                   }
                  
@@ -582,6 +586,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       excluir: UsuariosContServ[i].excluir,
                       periodo: UsuariosContServ[i].periodo,
                       numero: UsuariosContServ[i].numero,
+                        oCorr:UsuariosContServ[i].oCorr, 
                   });   
                   }
                  
@@ -620,6 +625,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       excluir: UsuariosContServ[i].excluir,
                       periodo: UsuariosContServ[i].periodo,
                       numero: UsuariosContServ[i].numero,
+                         oCorr:UsuariosContServ[i].oCorr, 
                   });   
                   }
                  
@@ -658,6 +664,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       excluir: UsuariosContServ[i].excluir,
                       periodo: UsuariosContServ[i].periodo,
                       numero: UsuariosContServ[i].numero,
+                        oCorr:UsuariosContServ[i].oCorr, 
                   });   
                   }
                  
@@ -696,6 +703,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       excluir: UsuariosContServ[i].excluir,
                       periodo: UsuariosContServ[i].periodo,
                       numero: UsuariosContServ[i].numero,
+                         oCorr:UsuariosContServ[i].oCorr, 
                   });   
                   }
                  
@@ -734,6 +742,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                         excluir: UsuariosContServ[i].excluir,
                         periodo: UsuariosContServ[i].periodo,
                         numero: UsuariosContServ[i].numero,
+                           oCorr:UsuariosContServ[i].oCorr, 
                     });   
                     }
 
@@ -775,6 +784,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       excluir: UsuariosContServ[i].excluir,
                       periodo: UsuariosContServ[i].periodo,
                       numero: UsuariosContServ[i].numero,
+                         oCorr:UsuariosContServ[i].oCorr, 
                   });   
                   }
                  
@@ -1112,12 +1122,12 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                           <table class="table table-hover text-nowrap">
                             <thead>
                               <tr>
+                                <th>Ações</th>
                                 <th>Data</th>
                                 <th>Ocorrência</th>
-                                <th>Bairro</th>
                                 <th>Resultado</th>
                                 <th>Status</th>
-                                <th>Ações</th>
+                              
                                
                               </tr>
                             </thead>
@@ -1130,34 +1140,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
 
                                     
                                     <tr key={item.list.id}  style={{backgroundColor: item.list.ativo=== true ?"#98C0FF": item.list.excluir === false ? "#FFF": "#FF7878"}}>
-                                    <td >
-                                      <DataTime 
-                                      DateIni={item.list.date}
-                                      />
-                                      </td>
-                                      <td >
-                                        {item.list.condi[0] &&
-                                        <>
-                                           {item.list.condi[0].nome}
-                                        </>
-                                        }
-                                     
-                                      </td>
-                                      <td >
-                                      {item.list.bairro}
-                                      </td>
-                                      <td >
-                                      {item.list.resultado}
-                                      </td>
-                                    {item.list.ativo === false ?
-                                       <td>Concluido</td>
-                                    :
-                                       <td>Em andamento</td>
-                                    }
-                                   
-                                   
-                                   
-                                    <td>
+                                       <td>
                                     
                                     {Dados.grupo.menu.ocorrencia.listaOcorrencia.btn_vizualizar === true &&
                                     <Butao 
@@ -1175,6 +1158,36 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                                     }                        
                                                            
                                     </td>
+                                    <td >
+                                      <DataTime 
+                                      DateIni={item.list.date}
+                                      />
+                                      </td>
+                                      <td >
+                                        {item.list.condi[0] &&
+                                        <>
+                                           {item.list.condi[0].nome}
+                                        </>
+                                        }
+                                     
+                                      </td>
+
+
+                                    
+
+
+                                      <td >
+                                      {item.list.resultado}
+                                      </td>
+                                    {item.list.ativo === false ?
+                                       <td>Concluido</td>
+                                    :
+                                       <td>Em andamento</td>
+                                    }
+                                   
+                                    
+                                   
+                                  
                                   </tr>
                                  
                              ))}

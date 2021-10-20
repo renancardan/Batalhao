@@ -1285,7 +1285,7 @@ export default {
             querySnapshot.forEach((doc) => {
               if(doc.data().dataInicio){
                 res.push({
-                  id: doc.data().Ocorr,
+                  id: doc.id,
                   date: doc.data().dataInicio.seconds,
                   ativo: doc.data().ativo, 
                   dateIn: doc.data().dataInicio.seconds*1000,
@@ -1302,6 +1302,7 @@ export default {
                   excluir: doc.data().excluir,
                   periodo:doc.data().periodo,
                   numero:doc.data().numero,
+                  oCorr:doc.data().Ocorr,
                 });    
               }
               setCarreg(false);    
