@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 export default ({ DateIni}) => {
-  console.log(DateIni);
     const [time, setTime] = useState('');
     useEffect(()=>{
         tempo();

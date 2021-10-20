@@ -1529,13 +1529,31 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
     },
 
     DadosdeGraficos: async(Dados, ListDias, Cond, setListDados, QuatD)=> {
-      console.log("entrou");
-      const autenticado =  await Auth.currentUser;
+      console.log(Cond);
+      let list = [];
       for (var i = 0; i < QuatD; i++) {
         let march = i+1;
-        console.log(ListDias[i]+'-'+ListDias[march]);
+        let Antes = ListDias[i]/1000;
+        let Depois = ListDias[march]/1000;
+        console.log(Antes+'-'+Depois);
+
+      await db.collection("ocorrencia")
+      .where("dataInicio.seconds", ">=", Antes)
+      .where("dataInicio.seconds", "<=", Depois)
+      .get()
+      .then((querySnapshot) => {
+          console.log(querySnapshot);
+        querySnapshot.forEach((doc) => {
+          
+          // list.push({
+          //   id: doc.id,
+          // });             
+        });
+       
+      });
       }
     
+    // console.log(list);
     
 
       // await db.collection("gruposerv")
@@ -2060,6 +2078,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       const id = await autenticado.uid;
       let temp = new Date().getTime();
       let now = temp + (Varia*1000);
+      let nowD = now/1000
       await db.collection("ocorrencia")
       .add({
       ativo:true,
@@ -2080,7 +2099,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         date: now,
         type:"text"
       }],     
-      dataInicio:firebase.firestore.FieldValue.serverTimestamp(),
+      dataInicio:{seconds: nowD},
       ultimaMsg:{id:id, nome: came, data:now, msg:"Ocorrência criada pelo sistema"},
       DigiS:false,
       DigiV:false,

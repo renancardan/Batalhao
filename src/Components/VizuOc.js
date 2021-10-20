@@ -79,7 +79,7 @@ export default ({Lista, Avisando, Fechar}) => {
                
                <tr key={item.list.id}  >
                <td style={{"borderCollapse":"collapse", "border":"1px solid #000"}} >
-               {item.list.oCorr}
+               {item.list.id}
                 </td>
 
                  <td style={{"borderCollapse":"collapse", "border":"1px solid #000"}}>
