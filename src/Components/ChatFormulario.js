@@ -45,6 +45,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
     const [ExcOc, setExcOc] = useState("Não");
     const [Exc, setExc] = useState(false);
     const [DataTime, setDataTime] = useState(0);
+    const [Test, setTest] = useState("");
     
     
 
@@ -212,7 +213,10 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
   
 
     const PegDados = ()=> {  
-        Api.DadosForm(data, setVtr, setAtenCop, setCompVt, setRua, setNumero, setBairro, setCidade, setEstado, setLat, setLng, setConduz, setViti, setObjAp, setResulOc, setRelato, setProv, setDataTime, setNumOc);
+        Api.DadosForm(data, setVtr, setAtenCop, setCompVt, setRua, 
+        setNumero, setBairro, setCidade, setEstado, setLat, setLng,
+        setConduz, setViti, setObjAp, setResulOc, setRelato, setProv, setDataTime, 
+        setTest, setNumOc, );
     }
 
     const EnviandoVtr = ()=> {
@@ -228,7 +232,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
            
           
 
-        Api.EnviVtr(data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, NumOc);
+        Api.EnviVtr(data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, NumOc, Test);
     }
 
    
@@ -670,6 +674,20 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
                                 defaultValue={""} 
                                 value={Viti}
                                 onChange={t=>setViti(t.target.value)}
+                                onBlur={()=>EnviandoVtr()}
+                                />
+                            </div>
+                            </div>
+                            <div className="col-sm-12">
+                            <div className="form-group">
+                                <label>Testemunha</label>
+                                <textarea 
+                                className="form-control" 
+                                rows={3} 
+                                placeholder="Digite as Informações das Testemunhas..."  
+                                defaultValue={""} 
+                                value={Test}
+                                onChange={t=>setTest(t.target.value)}
                                 onBlur={()=>EnviandoVtr()}
                                 />
                             </div>

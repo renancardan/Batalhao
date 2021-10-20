@@ -1528,8 +1528,8 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         
     },
 
-    DadosdeGraficos: async(Dados, ListDias, Cond, setListDados, QuatD)=> {
-      console.log(Cond);
+    DadosdeGraficos: async(Dados, ListDias, setListDados, QuatD)=> {
+      
       let list = [];
       for (var i = 0; i < QuatD; i++) {
         let march = i+1;
@@ -1542,18 +1542,22 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       .where("dataInicio.seconds", "<=", Depois)
       .get()
       .then((querySnapshot) => {
-          console.log(querySnapshot);
+          
+
+        list.push(
+          querySnapshot.size,
+          );      
+
+
         querySnapshot.forEach((doc) => {
           
-          // list.push({
-          //   id: doc.id,
-          // });             
+               
         });
        
       });
       }
     
-    // console.log(list);
+    setListDados(list);
     
 
       // await db.collection("gruposerv")
@@ -2120,6 +2124,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       resultado: "",
       relato:"",
       providencias:"",
+      testemunha:"",
       excluir:false,
       }).then(async (doc)=>{
        setAlert("Ocorrência Cirada Com sucesso");
@@ -2226,8 +2231,8 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         
     },
 
-    EnviOcSalvar: async (Id, Vtr, AtenCop, CompVt,  Conduz, Viti, ObjAp, ResulOc, Relato, Prov, setAlert, setAlertTipo, Arq, Pdf,  setVisi2) => {   
-
+    EnviOcSalvar: async (Id, Vtr, AtenCop, CompVt,  Conduz, Viti, ObjAp, ResulOc, Relato, Prov, setAlert, setAlertTipo, Arq, Pdf,  setVisi2, Test) => {   
+     
       if(Arq !== "" ){
           const fileName = await Date.now() + Arq.name;
           const storageRef = storage.ref();
@@ -2250,6 +2255,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
             resultado: ResulOc,
             relato:Relato,
             providencias:Prov,
+            testemunha:Test,
           }).then(()=>{
             setVisi2(false);
             setAlertTipo("success");
@@ -2272,6 +2278,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
           resultado: ResulOc,
           relato:Relato,
           providencias:Prov,
+           testemunha:Test,
         }).then(()=>{
           setVisi2(false);
           setAlertTipo("success");
@@ -2282,7 +2289,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
            
     },
 
-    EnviVtr: async (data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, NumOc) => {   
+    EnviVtr: async (data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, NumOc, Test) => {   
       await db.collection('ocorrencia')
       .doc(data)
       .update({
@@ -2306,12 +2313,13 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         relato:Relato,
         providencias:Prov,
         Ocorr:NumOc,
+        testemunha:Test,
         
       })
            
     },
 
-    DadosForm: async (data, setVtr, setAtenCop, setCompVt, setRua, setNumero, setBairro, setCidade, setEstado, setLat, setLng, setConduz, setViti, setObjAp, setResulOc, setRelato, setProv, setDataTime, setNumOc ) => {   
+    DadosForm: async (data, setVtr, setAtenCop, setCompVt, setRua, setNumero, setBairro, setCidade, setEstado, setLat, setLng, setConduz, setViti, setObjAp, setResulOc, setRelato, setProv, setDataTime, setTest, setNumOc,  ) => {   
       await db.collection('ocorrencia')
       .doc(data)
       .get()
@@ -2334,6 +2342,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         setProv(doc.data().providencias);
         setDataTime(doc.data().dataInicio.seconds*1000);
         setNumOc(doc.data().Ocorr);
+        setTest(doc.data().testemunha);
       
       });
        

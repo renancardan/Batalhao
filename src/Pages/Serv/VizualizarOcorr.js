@@ -161,6 +161,8 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
                                 {Infor.conduzidos}<br />
                                 <strong>Vítimas</strong><br />
                                 {Infor.vitimas}<br />
+                                  <strong>Testemunha</strong><br />
+                                {Infor.testemunha}<br />
                                 <strong>Objetos Apreendidos</strong><br />
                                 {Infor.objetosApre}<br />
           

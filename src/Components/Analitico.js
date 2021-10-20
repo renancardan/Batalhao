@@ -90,7 +90,8 @@ export default ({Fechar, Avisando, Infor, Id}) => {
               </string>
                 </div>
                 </div>
-                <div className="RelatCent">
+                {Infor.conduzidos !== "" &&
+                   <div className="RelatCent">
                 <div className="RelatEsq">
                   <string style={{"font-weight":"bolder", "font-size":15,}}>CONDUZIDOS</string>
                 </div>
@@ -100,7 +101,10 @@ export default ({Fechar, Avisando, Infor, Id}) => {
               </string>
                 </div>
                 </div>
+
+                }
                
+               {Infor.vitimas !== "" &&
                 <div className="RelatCent">
                 <div className="RelatEsq">
                   <string style={{"font-weight":"bolder", "font-size":15,}}>VÍTIMA</string>
@@ -111,7 +115,28 @@ export default ({Fechar, Avisando, Infor, Id}) => {
               </string>
                 </div>
                 </div>
-                <div className="RelatCent">
+               }
+                
+                {Infor.testemunha &&
+                <>
+                {Infor.testemunha !== "" &&
+                 <div className="RelatCent">
+                <div className="RelatEsq">
+                <string style={{"font-weight":"bolder", "font-size":15,}}>TESTEMUNHA</string>
+                </div>
+                <div className="RelatDire">
+                <string>
+                {Infor.testemunha}
+              </string>
+                </div>
+                </div>
+
+                }
+                </>
+
+                }
+               {Infor.objetosApre !== "" &&
+                 <div className="RelatCent">
                 <div className="RelatEsq">
                   <string style={{"font-weight":"bolder", "font-size":15,}}>OBJETO (S) APREENDIDO (S)</string>
                 </div>
@@ -121,6 +146,8 @@ export default ({Fechar, Avisando, Infor, Id}) => {
               </string>
                 </div>
                 </div>
+               }
+               
               
                 <div className="RelatCent">
                 <div className="RelatEsq">
@@ -148,7 +175,7 @@ export default ({Fechar, Avisando, Infor, Id}) => {
                 </div>
                 <div className="RelatDire">
                 <string>
-                {Id}
+                {Infor.Ocorr}
                 </string>
                 </div>
                 </div>

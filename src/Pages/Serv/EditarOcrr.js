@@ -32,6 +32,7 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
   const [Arq, setArq] = useState("");
   const [Pdf, setPdf] = useState("")
   const [Visi2, setVisi2] = useState(false);
+  const [Test, setTest] = useState("");
   
 
 
@@ -51,6 +52,7 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
       setProv(Infor.providencias);
       setForms(Infor.condicionais);
       setPdf(Infor.Ocorr);
+      setTest(Infor.testemunha);
     }
     }, [Infor]);
 
@@ -98,7 +100,9 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
  
   const EnviandoOc = ()=> { 
     setVisi2(true);
-    Api.EnviOcSalvar(Id, Vtr, AtenCop, CompVt,  Conduz, Viti, ObjAp, ResulOc, Relato, Prov, setAlert, setAlertTipo, Arq, Pdf,setVisi2);
+    Api.EnviOcSalvar(Id, Vtr, AtenCop, CompVt,  
+    Conduz, Viti, ObjAp, ResulOc, Relato, Prov, 
+    setAlert, setAlertTipo, Arq, Pdf,setVisi2, Test);
 }
 
 const closeModal = ()=>{
@@ -328,6 +332,16 @@ const ExBo = ()=>{
                         defaultValue={""}
                         value={Conduz}
                         onChange={t=>setConduz(t.target.value)}
+                        />
+                     <br />
+                       <strong>Testemunha</strong><br />
+                      <textarea 
+                      className="form-control" 
+                      rows={3}
+                        placeholder="Digite as Informações das Testemunhas..." 
+                        defaultValue={""}
+                        value={Test}
+                        onChange={t=>setTest(t.target.value)}
                         />
                      <br />
                       <strong>Vítimas</strong><br />

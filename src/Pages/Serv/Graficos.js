@@ -37,7 +37,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       const [data, setdata] = useState({
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
       });
-      const [DataA, setDataA] = useState(new Date());
+      const [DataA, setDataA] = useState(0);
       const [VerA, setVerA] = useState(false);
       const [DataP, setDataP] = useState(new Date());
       const [QuatD, setQuatD] = useState(0);
@@ -58,10 +58,12 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
           }, []);
 
       useEffect(() => {
-       console.log(DataA)
-       }, [DataA])
+       console.log(ListDias)
+       EnviarDados();
+       }, [ListDias])
+
        useEffect(() => {
-        console.log(QuatD)
+         console.log(QuatD)
         DiasQuantizados();
         }, [QuatD])
 
@@ -261,7 +263,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                     }
 
                     const EnviarDados = ()=>{
-                      Api.DadosdeGraficos(Dados, ListDias, Cond, setListDados, QuatD)
+                      Api.DadosdeGraficos(Dados, ListDias, setListDados, QuatD)
                     }
                 
                 const DiasQuantizados = ()=>{
@@ -446,7 +448,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                           labels: LDGrafi,
                                 datasets: [{
                                     label: ['Bloco de Ocorrencia'],
-                                    data: [30, 12, 50, 3, 5, 2, 3],
+                                    data: ListDados,
                                     backgroundColor: [
                                         'green',   
                                     ],
