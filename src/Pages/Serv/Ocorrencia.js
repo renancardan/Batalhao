@@ -92,7 +92,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
    
        }, [Lista])
 
-     console.log(new Date().getTime());
+    
       
   
      
@@ -102,11 +102,25 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
               let Dia1 = now1.getDate();
               let Mes1 = (now1.getMonth()+1);
               let Ano1 = now1.getFullYear();
+              let hora = now1.getHours();
+              let minuto = now1.getMinutes();
+              hora = hora < 10 ? '0'+hora : hora;
+              minuto = minuto < 10 ? '0'+minuto : minuto;
               Dia1 = Dia1 < 10 ? '0'+Dia1 : Dia1;
               Mes1 = Mes1 < 10 ? '0'+Mes1 : Mes1;
               currentDate1 = Ano1+'-'+Mes1+'-'+Dia1;
-              let Dat  = new Date(currentDate1 +" 07:30:00.000").getTime();
-              let Dat2 = Dat + 86400000;
+              let CompDat = new Date(currentDate1 +" "+hora+":"+minuto+":00.000").getTime();
+              let Dataria  = new Date(currentDate1 +" 07:30:00.000").getTime();
+              let Dat = 0;
+              let Dat2 = 0;
+             if(CompDat > Dataria){
+               Dat = Dataria;
+               Dat2 = Dataria + 86400000;
+             } else {
+                Dat = Dataria + 86400000;
+                Dat2 = Dataria;
+             }
+          
             if (navigator.onLine) {
              await setCarreg(true);
               await Api.ListOcorr(Dados, setQuant, setUsuariosContServ, setCarreg, Dat, Dat2);
