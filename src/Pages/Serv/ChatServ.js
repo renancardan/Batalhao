@@ -251,7 +251,7 @@ useEffect(() => {
               onCancel={()=>Cancelar()}
               focusCancelBtn
             >
-              Tem certeza que deseja Excluir a Condicional {NomeCond}
+              Tem certeza que deseja Excluir a o Nome da Ocorrência {NomeCond}
             </SweetAlert>
             }
 
@@ -437,7 +437,7 @@ useEffect(() => {
                                       <div className="formularioCond">
                                       <div className="card card-info">
                                     <div className="card-header">
-                                      <h3 className="card-title">Condicionais Preenchidas</h3>
+                                      <h3 className="card-title">Ocorrência Preenchidas</h3>
                                     </div>
                                   
                                     {/* /.card-header */}
@@ -462,7 +462,7 @@ useEffect(() => {
                                   {Dados.grupo.menu.chat.caixaChat.btn_addCondicionais === true &&  
                                     <Butao 
                                         style={"btn .btn-sm btn-info"}
-                                        titulo={"Add Condicionais"}
+                                        titulo={"Add Nome da Ocorrência"}
                                         onClick={()=>AdicionaCond()}
                                         />  
                                   } 

@@ -390,7 +390,7 @@ const ExBo = ()=>{
                       <strong>Ocorrencia</strong><br />
                       <Butao 
                         style={"btn btn-xs btn-success"}
-                        titulo={"Mudar Condicional"}
+                        titulo={"Mudar o Nome da Ocorrência"}
                         onClick={()=>AbrirModal()}
                         />
                       <br />

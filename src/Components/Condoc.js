@@ -41,13 +41,13 @@ export default ({Forms, setForms, activeChat, setVirModal, setAlert, setAlertTip
             <div className="formularioCond">
             <div className="card card-warning">
             <div className="card-header">
-              <h3 className="card-title">Condicionais da Ocorrência</h3>
+              <h3 className="card-title">Escolha a Ocorrência</h3>
             </div>
             <div className="busca">
                         <div className="busca-input">
                         <SearchIcon fontSize="small" style={{color: '#919191'}} />
                         <input type="search" 
-                        placeholder="Procurar Condicional"
+                        placeholder="Procurar a Ocorrência"
                         onChange={e=>{setPesquisa(e.target.value)}}
                         value={Pesquisa}
                         />
