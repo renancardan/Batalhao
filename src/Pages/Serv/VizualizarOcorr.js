@@ -139,9 +139,9 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
                                       />
                                       </div>
                                       </div> <br /> 
-                                {Infor.Ocorr !== "" &&
+                                {Infor.grupoOcrr !== "" &&
                                 <>
-                                <a href={Infor.Ocorr} target="_blank">Link do B.O</a> <br />
+                                <a href={Infor.grupoOcrr} target="_blank">Link do B.O</a> <br />
                                 </>
                                 }
                                

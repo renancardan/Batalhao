@@ -2233,7 +2233,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
     },
 
     EnviOcSalvar: async (Id, Vtr, AtenCop, CompVt,  Conduz, Viti, ObjAp, ResulOc, Relato, Prov, setAlert, setAlertTipo, Arq, Pdf,  setVisi2, Test, Autor) => {   
-     
+ 
       if(Arq !== "" ){
           const fileName = await Date.now() + Arq.name;
           const storageRef = storage.ref();
@@ -2251,8 +2251,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
             conduzidos:Conduz,
             vitimas:Viti,
             objetosApre:ObjAp,
-            grupoOcrr:"",
-            Ocorr:Url,
+            grupoOcrr:Url,
             resultado: ResulOc,
             relato:Relato,
             providencias:Prov,
@@ -2265,7 +2264,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
           });
 
       } else {
-        
+        console.log("entrou");
         await db.collection('ocorrencia')
         .doc(Id)
         .update({
@@ -2275,13 +2274,11 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
           conduzidos:Conduz,
           vitimas:Viti,
           objetosApre:ObjAp,
-          grupoOcrr:"",
-          Ocorr:Pdf,
           resultado: ResulOc,
           relato:Relato,
           providencias:Prov,
-           testemunha:Test,
-           autores:Autor,
+          testemunha:Test,
+          autores:Autor,
         }).then(()=>{
           setVisi2(false);
           setAlertTipo("success");

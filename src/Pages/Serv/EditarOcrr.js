@@ -52,7 +52,7 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
       setRelato(Infor.relato);
       setProv(Infor.providencias);
       setForms(Infor.condicionais);
-      setPdf(Infor.Ocorr);
+      setPdf(Infor.grupoOcrr);
       setTest(Infor.testemunha);
       setAutor(Infor.autores);
     }
@@ -65,8 +65,8 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
 
  useEffect(() => {
 
- console.log(Arq);
-  }, [Arq]);
+ console.log(ResulOc);
+  }, [ResulOc]);
 
  
 
@@ -411,6 +411,7 @@ const ExBo = ()=>{
                                 value={ResulOc}
                                 onChange={t=>setResulOc(t.target.value)}
                                 >
+                                <option>Escolhar um Resultado</option>
                                 <option>Condução ao DP</option>
                                 <option>Resolvido no local</option>
                                 <option>Evadiu-se</option>
