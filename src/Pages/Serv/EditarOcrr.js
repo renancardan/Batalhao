@@ -34,6 +34,13 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
   const [Visi2, setVisi2] = useState(false);
   const [Test, setTest] = useState("");
   const [Autor, setAutor] = useState("");
+  const [NumOc, setNumOc] = useState("");
+  const [NomeOc, setNomeOc] = useState("");
+  const [Rua, setRua] = useState("");
+  const [Numero, setNumero] = useState("");
+  const [Bairro, setBairro] = useState("");
+  const [Cidade, setCidade] = useState("");
+  const [Estado, setEstado] = useState("");
   
 
 
@@ -55,6 +62,7 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
       setPdf(Infor.grupoOcrr);
       setTest(Infor.testemunha);
       setAutor(Infor.autores);
+      setNumOc(Infor.Ocorr);
     }
     }, [Infor]);
 
@@ -104,7 +112,7 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
     setVisi2(true);
     Api.EnviOcSalvar(Id, Vtr, AtenCop, CompVt,  
     Conduz, Viti, ObjAp, ResulOc, Relato, Prov, 
-    setAlert, setAlertTipo, Arq, Pdf,setVisi2, Test, Autor);
+    setAlert, setAlertTipo, Arq, Pdf,setVisi2, Test, Autor, NumOc);
 }
 
 const closeModal = ()=>{
@@ -228,7 +236,7 @@ const ExBo = ()=>{
                 <div className="row invoice-info">
                   <div className="col-sm-4 invoice-col">
                     <address>
-                      <strong>Nome da Vítima:</strong><br />
+                      <strong>Nome:</strong><br />
                       {Infor.nomevitima}<br />
                       <strong>Endereço</strong><br />
                       {Infor.rua}, {Infor.numero} - {Infor.bairro}<br />
@@ -300,6 +308,14 @@ const ExBo = ()=>{
                   <div className="col-sm-4 invoice-col">
                    
                        <address>
+                       <strong>Numero da Ocorrência:</strong><br />
+                       <input 
+                        type="text" 
+                        className="form-control" 
+                        placeholder="Digite o Número" 
+                        value={NumOc}
+                        onChange={t=>setNumOc(t.target.value)}
+                        /><br />
                        <strong>Vtr:</strong><br />
                        <input 
                         type="text" 

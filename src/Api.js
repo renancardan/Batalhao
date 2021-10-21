@@ -2232,7 +2232,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         
     },
 
-    EnviOcSalvar: async (Id, Vtr, AtenCop, CompVt,  Conduz, Viti, ObjAp, ResulOc, Relato, Prov, setAlert, setAlertTipo, Arq, Pdf,  setVisi2, Test, Autor) => {   
+    EnviOcSalvar: async (Id, Vtr, AtenCop, CompVt,  Conduz, Viti, ObjAp, ResulOc, Relato, Prov, setAlert, setAlertTipo, Arq, Pdf,  setVisi2, Test, Autor, NumOc) => {   
  
       if(Arq !== "" ){
           const fileName = await Date.now() + Arq.name;
@@ -2257,6 +2257,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
             providencias:Prov,
             testemunha:Test,
             autores:Autor,
+            Ocorr:NumOc,
           }).then(()=>{
             setVisi2(false);
             setAlertTipo("success");
@@ -2279,6 +2280,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
           providencias:Prov,
           testemunha:Test,
           autores:Autor,
+          Ocorr:NumOc,
         }).then(()=>{
           setVisi2(false);
           setAlertTipo("success");
