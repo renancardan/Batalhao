@@ -54,7 +54,11 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       const [Formu, setFormu] = useState(true);
       const [CodOc, setCodOc] = useState("");
       const [Letra, setLetra] = useState(["", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X", "Z"]);
-      
+      const [Let1, setLet1] = useState(0);
+      const [Let2, setLet2] = useState(0);
+      const [Let3, setLet3] = useState(0);
+      const [NumVal, setNumVal] = useState(0);
+      const [NuOc, setNuOc] = useState("")
       useEffect(() => {
           LevarTemp();
       }, [])
@@ -66,6 +70,10 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
      useEffect(() => {
        PegNumOcorr()
     }, [])
+
+      useEffect(() => {
+       console.log(NuOc)
+    }, [NuOc])
 
       useEffect(() => {
         if(CodOc !== "") {
@@ -133,16 +141,20 @@ useEffect(() => {
             Mart = 0
             l1= l1+1;
             if(l1 === 25) {
-              l1=0;
+              l1=1;
               l2 = l2+1;
-              if(l2 === 24){
-                l2=0;
+              if(l2 === 25){
+                l2=1;
                 l3 = l3 + 1;
               }
             }
           }
+          setLet1(l1);
+          setLet2(l2);
+          setLet3(l3);
+          setNumVal(Mart);
         
-          console.log(Letra[l3]+Letra[l2]+Letra[l1]+Mart);
+          setNuOc(Letra[l3]+Letra[l2]+Letra[l1]+Mart);
         }
 
      const LevarTemp = async ()=>{
@@ -259,7 +271,8 @@ useEffect(() => {
         setAlert(" ");
         setAlertTipo(" ");
         let came = `${nome}`+" Via Sist"
-        Api.AddOcorrencia(Dados, came, Varia, setAlert, setAlertTipo);
+        Api.AtulUltOc(Let1, Let2, Let3, NumVal);
+        Api.AddOcorrencia(Dados, came, Varia, NuOc, setAlert, setAlertTipo);
       
       }
       

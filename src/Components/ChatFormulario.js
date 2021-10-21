@@ -407,6 +407,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
                                  value={NumOc}
                                  onChange={t=>setNumOc(t.target.value)}
                                   onBlur={()=>EnviandoVtr()}
+                                  disabled
                                   />
                             </div>
                             </div>

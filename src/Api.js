@@ -2087,7 +2087,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         
     },
 
-    AddOcorrencia: async(Dados, came,  Varia, setAlert, setAlertTipo)=> {
+    AddOcorrencia: async(Dados, came,  Varia, NuOc, setAlert, setAlertTipo)=> {
       const autenticado =  await Auth.currentUser;
       const id = await autenticado.uid;
       let temp = new Date().getTime();
@@ -2130,7 +2130,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       vitimas:"",
       objetosApre:"",
       grupoOcrr:"",
-      Ocorr:"",
+      Ocorr: NuOc,
       resultado: "",
       relato:"",
       providencias:"",
@@ -2176,6 +2176,20 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         //       // doc.data() will be undefined in this case
         //       console.log("No such document!");
         //   }
+      }).catch((error) => {
+         
+      });   
+    },
+
+    AtulUltOc: async(Let1, Let2, Let3, NumVal)=> {
+   
+         await db.collection("ultimaOcorr")
+         .doc("FTKRA384rOgVMPawzEpf").update({
+           letra1:Let1,
+           letra2:Let2,
+           letra3:Let3,
+           numero:NumVal,
+       }).then((doc)=>{
       }).catch((error) => {
          
       });   
