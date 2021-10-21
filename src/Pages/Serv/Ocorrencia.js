@@ -92,14 +92,24 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
    
        }, [Lista])
 
-     
+     console.log(new Date().getTime());
       
   
      
           const ListOc = async ()=>{
+             let currentDate1 = '';
+              let now1 =new Date();
+              let Dia1 = now1.getDate();
+              let Mes1 = (now1.getMonth()+1);
+              let Ano1 = now1.getFullYear();
+              Dia1 = Dia1 < 10 ? '0'+Dia1 : Dia1;
+              Mes1 = Mes1 < 10 ? '0'+Mes1 : Mes1;
+              currentDate1 = Ano1+'-'+Mes1+'-'+Dia1;
+              let Dat  = new Date(currentDate1 +" 07:30:00.000").getTime();
+              let Dat2 = Dat + 86400000;
             if (navigator.onLine) {
              await setCarreg(true);
-              await Api.ListOcorr(Dados, setQuant, setUsuariosContServ, setCarreg);
+              await Api.ListOcorr(Dados, setQuant, setUsuariosContServ, setCarreg, Dat, Dat2);
              
             } else {
               setAlert("Sem Internet");
@@ -308,6 +318,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
 
 
             const datando = async (jsDate, dateString)=>{
+             
               setDataP(jsDate)
               let currentDate = '';
               let now =new Date(jsDate);
@@ -321,38 +332,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
               let Dat2 = Dat + 86400000;
               if(Dat2 > Dat){
                 setVerD(true);
-                let listanha = [];
-                for(let i in UsuariosContServ ) {
-                  
-                  if( UsuariosContServ[i].dateIn >= Dat ) {
-                    if( UsuariosContServ[i].dateIn <= Dat2 ) {
-                      listanha.push({
-                        id: UsuariosContServ[i].id, 
-                        date: UsuariosContServ[i].date,
-                        ativo: UsuariosContServ[i].ativo, 
-                        dateIn: UsuariosContServ[i].dateIn,
-                        bairro:  UsuariosContServ[i].bairro,
-                        resultado: UsuariosContServ[i].resultado,
-                        condi: UsuariosContServ[i].condi,
-                        vtr:  UsuariosContServ[i].vtr, 
-                        atendenteCopom:  UsuariosContServ[i].atendenteCopom,
-                        componentesVtr:  UsuariosContServ[i].componentesVtr,
-                        conduzidos:  UsuariosContServ[i].conduzidos,
-                        vitimas:  UsuariosContServ[i].vitimas,
-                        objetosApre:  UsuariosContServ[i].objetosApre,
-                        excluir: UsuariosContServ[i].excluir,
-                        periodo: UsuariosContServ[i].periodo,
-                        numero: UsuariosContServ[i].numero,
-                        oCorr:UsuariosContServ[i].oCorr,  
-                    });   
-                    }
-                   
-                  }
-                 
-              }
-              await setLista(["list"]);
-              await  setQuant(listanha.length);
-              await setUsuariosContServ(listanha);
+               await Api.ListOcorr(Dados, setQuant, setUsuariosContServ, setCarreg, Dat, Dat2);
 
               } else {
                 setAlert("A data Depois tem que ser menor que a de Antes");

@@ -1263,8 +1263,9 @@ export default {
     
   },
 
-  ListOcorr: async(Dados, setQuant, setUsuariosContServ, setCarreg)=> {
-   
+  ListOcorr: async(Dados, setQuant, setUsuariosContServ, setCarreg, Dat, Dat2)=> {
+   let Antes = Dat/1000;
+   let Depois = Dat2/1000;
     await Auth.onAuthStateChanged( async function(user) {
       if (user) {
       const ID = user.uid;
@@ -1274,8 +1275,11 @@ export default {
       get()
       .then(async(dados)=>{
         const result = await dados.data();
-
+          console.log(Dat);
+          console.log(Dat2);
           await db.collection("ocorrencia")
+            .where("dataInicio.seconds", ">=", Antes)
+            .where("dataInicio.seconds", "<=", Depois)
             .onSnapshot((querySnapshot) => {
             setQuant(querySnapshot.size);
             var res = []; 
@@ -1329,6 +1333,8 @@ export default {
     
     
   },
+
+ 
 
   ListNoti: async(Dados, setQuant, setUsuariosContServ, setCarreg)=> {
    
@@ -2127,7 +2133,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
        console.log(doc.id);
        
       }).catch((error) => {
-        setAlert("Ocorrência não Foi Cirada Com sucesso");
+        setAlert("Ocorrência não Foi Criada Com sucesso");
         setAlertTipo("danger");
       });  
     },
