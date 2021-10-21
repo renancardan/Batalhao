@@ -4,12 +4,15 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 import Modal from 'react-awesome-modal';
 import Geocoder from 'react-native-geocoding';
 import Api from '../Api';
+import Butao from './Butao_list';
+import Condic from './Condoc';
+
 
 
 
 let recorder = '';
 let timer = '';
-export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTipo, Alert, AlertTipo,  setFormu, Forms, setActiveChat}) => {
+export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTipo, Alert, AlertTipo,  setFormu, Forms, setActiveChat, AdicionaCond}) => {
    
     const [User, setUser] = useState('');
     const [list, setList] = useState([]);
@@ -47,11 +50,16 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
     const [DataTime, setDataTime] = useState(0);
     const [Test, setTest] = useState("");
     const [Autor, setAutor] = useState("");
-    
+    const [Letra, setLetra] = useState(["", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "L", "M", "N", "O", "P", "Q", "U", "V", "X", "Z"]);
+    const [VisuModal, setVisuModal] = useState(false);
     
 
     useEffect(()=>{ 
        PegandoList()
+    }, []);
+
+     useEffect(()=>{ 
+       
     }, []);
 
    
@@ -140,6 +148,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
         
     }
 
+  
 
     const ListandoList = ()=>{
         for(let i in list){
@@ -255,14 +264,16 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
 
    
 
- 
+ const Abrirmodal = ()=>{
+     setVisuModal(true);
+ }
 
   
 
   
 
     const closeModal = ()=>{
-            setVisible(false);
+            setVisuModal(false);
             setBody('');
     }
 
@@ -313,18 +324,24 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
               Tem certeza que deseja Concluir a Ocorrencia {Nome}!
             </SweetAlert>
             }
-            <Modal visible={Visible} width="500" height="500" effect="fadeInUp" onClickAway={() =>closeModal()}>
-                    <div>
-                    <video width="500" height="500" controls
-                    preload="auto"
-                source src={Body} type="video/mp4" type="video/ogg"
-                >
-
-                    
-               
-                </video>
-                        <a href="javascript:void(0);" onClick={() => closeModal()}>Close</a>
-                    </div>
+            <Modal visible={VisuModal} width="500" height="500" effect="fadeInUp" onClickAway={() =>closeModal()}>
+                  <div className="ModalP2" >
+                     <Butao 
+                        style={"btn .btn-xs btn-danger"}
+                        titulo={"X"}
+                        onClick={()=>closeModal()}
+                        />    
+                       <div style={{width:"2000px", height:"500px" }}> 
+                   <Condic
+                                setAlert={setAlert}
+                                setAlertTipo={setAlertTipo}
+                                Forms={Forms}
+                                setForms={setFormu}
+                                activeChat={data}
+                                setVirModal={setVisuModal}
+                                /> 
+                                </div>
+                                </div> 
                 </Modal>
             <div className="chatWindow--header">
             <div className="chatWindow--headerinfo">
@@ -438,6 +455,11 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
                             <div className="col-sm-6">
                             <div className="form-group">
                                 <label>Ocorrência</label>
+                                 <Butao 
+                                        style={"btn .btn-sm btn-info"}
+                                        titulo={"Add Nome da Ocorrência"}
+                                        onClick={()=>Abrirmodal()}
+                                        />  
                                 {Forms.map((item,key)=>(
                                           <>
                                           <div className="listCond1">

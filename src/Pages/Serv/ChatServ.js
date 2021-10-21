@@ -52,6 +52,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       const [Result, setResult] = useState([]);
       const [Pesq1, setPesq1] = useState("");
       const [Formu, setFormu] = useState(true);
+      const [CodOc, setCodOc] = useState("");
+      const [Letra, setLetra] = useState(["", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X", "Z"]);
       
       useEffect(() => {
           LevarTemp();
@@ -60,6 +62,16 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
        
         PegarList();
     }, [])
+
+     useEffect(() => {
+       PegNumOcorr()
+    }, [])
+
+      useEffect(() => {
+        if(CodOc !== "") {
+          ConstNumOc();
+        }
+    }, [CodOc]);
 
     useEffect(() => {
       Geocoder.init('AIzaSyBVYpwN6IT9kjonTs76bq1G9aSxYRhYU7U', {language:'pt-br'});
@@ -104,7 +116,34 @@ useEffect(() => {
  
 }, [DigEnd]);
 
-     
+       const PegNumOcorr = ()=>{
+        Api.PesquisarNumOc(Dados, setCodOc);
+        }
+
+
+        const ConstNumOc = () =>{
+          let Mart = CodOc.numero + 1;
+          let l1 = CodOc.letra1
+          let l2 = CodOc.letra2
+          let l3 = CodOc.letra3
+          let l4 = CodOc.letra4
+          let l5 = CodOc.letra5
+          let l6 = CodOc.letra6
+          if (Mart === 1001){
+            Mart = 0
+            l1= l1+1;
+            if(l1 === 25) {
+              l1=0;
+              l2 = l2+1;
+              if(l2 === 24){
+                l2=0;
+                l3 = l3 + 1;
+              }
+            }
+          }
+        
+          console.log(Letra[l3]+Letra[l2]+Letra[l1]+Mart);
+        }
 
      const LevarTemp = async ()=>{
       await Api.VariacaoTemp();
@@ -344,6 +383,7 @@ useEffect(() => {
                            />
                         :
                         <ChatFormulario
+                        AdicionaCond={AdicionaCond}
                         data={activeChat}
                         setActiveChat={setActiveChat}
                         setAlert={setAlert}

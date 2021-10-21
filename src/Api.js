@@ -2076,6 +2076,16 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       });
         
     },
+     PesquisarNumOc: async(Dados, setCodOc)=> {
+    
+        const dados = await db.collection('ultimaOcorr')
+        .doc("FTKRA384rOgVMPawzEpf")
+        .onSnapshot((querySnapshot) => {
+        
+          setCodOc(querySnapshot.data());
+      });
+        
+    },
 
     AddOcorrencia: async(Dados, came,  Varia, setAlert, setAlertTipo)=> {
       const autenticado =  await Auth.currentUser;
@@ -2189,6 +2199,8 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         setAlertTipo("danger");
       });   
     },
+
+    
 
     PesquisarConversa: async(data, Dados, setList, setUser, setTemUmlt, setDateIni)=> {
      
