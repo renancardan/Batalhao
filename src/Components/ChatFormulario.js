@@ -809,8 +809,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
                     </div>
                     </div>
                     
-{/* /.card */}
-{/* general form elements disabled */}
+
                    
            
             
