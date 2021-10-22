@@ -67,19 +67,13 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
         PegarList();
     }, [])
 
-     useEffect(() => {
-       PegNumOcorr()
-    }, [])
+  
 
       useEffect(() => {
       
     }, [activeChat])
 
-      useEffect(() => {
-        if(CodOc !== "") {
-          ConstNumOc();
-        }
-    }, [CodOc]);
+     
 
     useEffect(() => {
       Geocoder.init('AIzaSyBVYpwN6IT9kjonTs76bq1G9aSxYRhYU7U', {language:'pt-br'});
@@ -88,7 +82,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
    
 
   useEffect(() => {
-   
+   console.log(activeChat);
     CondPegar();
  }, [activeChat])
  
@@ -124,38 +118,10 @@ useEffect(() => {
  
 }, [DigEnd]);
 
-       const PegNumOcorr = ()=>{
-        Api.PesquisarNumOc(Dados, setCodOc);
-        }
+     
 
 
-        const ConstNumOc = () =>{
-          let Mart = CodOc.numero + 1;
-          let l1 = CodOc.letra1
-          let l2 = CodOc.letra2
-          let l3 = CodOc.letra3
-          let l4 = CodOc.letra4
-          let l5 = CodOc.letra5
-          let l6 = CodOc.letra6
-          if (Mart === 1001){
-            Mart = 0
-            l1= l1+1;
-            if(l1 === 25) {
-              l1=1;
-              l2 = l2+1;
-              if(l2 === 25){
-                l2=1;
-                l3 = l3 + 1;
-              }
-            }
-          }
-          setLet1(l1);
-          setLet2(l2);
-          setLet3(l3);
-          setNumVal(Mart);
-        
-          setNuOc(Letra[l3]+Letra[l2]+Letra[l1]+Mart);
-        }
+       
 
      const LevarTemp = async ()=>{
       await Api.VariacaoTemp();
@@ -271,8 +237,8 @@ useEffect(() => {
         setAlert(" ");
         setAlertTipo(" ");
         let came = `${nome}`+" Via Sist"
-        Api.AtulUltOc(Let1, Let2, Let3, NumVal);
-        Api.AddOcorrencia(Dados, came, Varia, NuOc, setAlert, setAlertTipo);
+       
+        Api.AddOcorrencia(Dados, came, Varia,  setAlert, setAlertTipo);
       
       }
       

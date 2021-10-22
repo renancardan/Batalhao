@@ -50,9 +50,14 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
     const [DataTime, setDataTime] = useState(0);
     const [Test, setTest] = useState("");
     const [Autor, setAutor] = useState("");
-    const [Letra, setLetra] = useState(["", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "L", "M", "N", "O", "P", "Q", "U", "V", "X", "Z"]);
+    const [Letra, setLetra] = useState(["", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X", "Z"]);
     const [VisuModal, setVisuModal] = useState(false);
-    
+    const [CodOc, setCodOc] = useState("");
+    const [Let1, setLet1] = useState(0);
+    const [Let2, setLet2] = useState(0);
+    const [Let3, setLet3] = useState(0);
+    const [NumVal, setNumVal] = useState(0);
+    const [NuOc, setNuOc] = useState("")
 
     useEffect(()=>{ 
        PegandoList()
@@ -62,7 +67,9 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
        
     }, []);
 
-   
+    useEffect(() => {
+        PegNumOcorr()
+     }, [])
    
 
     useEffect(()=>{  
@@ -117,6 +124,46 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
         }
        
       }, [End]);
+
+      useEffect(() => {
+        if(CodOc !== "") {
+          ConstNumOc();
+        }
+    }, [CodOc]);
+
+
+      const PegNumOcorr = ()=>{
+        Api.PesquisarNumOc(Dados, setCodOc);
+        }
+
+        const ConstNumOc = () =>{
+            let Mart = CodOc.numero + 1;
+            let l1 = CodOc.letra1
+            let l2 = CodOc.letra2
+            let l3 = CodOc.letra3
+            let l4 = CodOc.letra4
+            let l5 = CodOc.letra5
+            let l6 = CodOc.letra6
+            if (Mart === 1001){
+              Mart = 0
+              l1= l1+1;
+              if(l1 === 25) {
+                l1=1;
+                l2 = l2+1;
+                if(l2 === 25){
+                  l2=1;
+                  l3 = l3 + 1;
+                }
+              }
+            }
+            setLet1(l1);
+            setLet2(l2);
+            setLet3(l3);
+            setNumVal(Mart);
+          
+            setNuOc(Letra[l3]+Letra[l2]+Letra[l1]+Mart);
+          }
+
 
     const tempo = ()=>{
         let currentDate = '';
@@ -240,7 +287,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
            
           
 
-        Api.EnviVtr(data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, NumOc, Test, Autor);
+        Api.EnviVtr(data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, Test, Autor);
     }
 
    
@@ -288,7 +335,8 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
       const ConclusaoOc = ()=>{
         setAlert(" ");
         setAlertTipo(" ");
-        Api.ConcluirOc(data, Exc);
+        Api.ConcluirOc(data, Exc, NumOc);
+        Api.AtulUltOc(Let1, Let2, Let3, NumVal);
         setActiveChat(null);
     }
 
@@ -411,19 +459,6 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
                     <div className="card-body">
                         
                         <div className="row">
-                        <div className="col-sm-6">
-                            <div className="form-group">
-                                <label>Nº da Ocorrência</label>
-                                <input type="text" 
-                                className="form-control"
-                                 placeholder="Digite o Numero da Ocorrência..."
-                                 value={NumOc}
-                                 onChange={t=>setNumOc(t.target.value)}
-                                  onBlur={()=>EnviandoVtr()}
-                                  disabled
-                                  />
-                            </div>
-                            </div>
                             <div className="col-sm-6">
                             <div className="form-group">
                                 <label>Vtr</label>

@@ -2087,7 +2087,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         
     },
 
-    AddOcorrencia: async(Dados, came,  Varia, NuOc, setAlert, setAlertTipo)=> {
+    AddOcorrencia: async(Dados, came,  Varia, setAlert, setAlertTipo)=> {
       const autenticado =  await Auth.currentUser;
       const id = await autenticado.uid;
       let temp = new Date().getTime();
@@ -2130,7 +2130,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       vitimas:"",
       objetosApre:"",
       grupoOcrr:"",
-      Ocorr: NuOc,
+      Ocorr:"",
       resultado: "",
       relato:"",
       providencias:"",
@@ -2317,7 +2317,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
            
     },
 
-    EnviVtr: async (data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, NumOc, Test, Autor) => {   
+    EnviVtr: async (data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, Test, Autor) => {   
       await db.collection('ocorrencia')
       .doc(data)
       .update({
@@ -2340,7 +2340,6 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         resultado: ResulOc,
         relato:Relato,
         providencias:Prov,
-        Ocorr:NumOc,
         testemunha:Test,
         autores:Autor,
         
@@ -2447,7 +2446,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
     },
 
 
-    ConcluirOc: async(data, Exc)=> {
+    ConcluirOc: async(data, Exc, NumOc)=> {
       const autenticado =  await Auth.currentUser;
       const id = await autenticado.uid;
        await db.collection('ocorrencia')
@@ -2456,6 +2455,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         ativo: false,
         dataFim: firebase.firestore.FieldValue.serverTimestamp(),
         excluir:Exc,
+        Ocorr:NumOc,
     })
     .then(() => {
        
