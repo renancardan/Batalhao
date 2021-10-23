@@ -63,9 +63,11 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       const [VerOcrr, setVerOcrr] = useState(false);
       const [PesqBtn, setPesqBtn] = useState(false);
       const [Exc, setExc] = useState(true);
+      const [TemAtu, setTemAtu] = useState(0);
+      const [TemPad, setTemPad] = useState(0)
      
      
-
+      console.log(Dados.grupo.nome);
       useEffect(() => {
        ListOc();     
       }, [])
@@ -110,7 +112,9 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
               Mes1 = Mes1 < 10 ? '0'+Mes1 : Mes1;
               currentDate1 = Ano1+'-'+Mes1+'-'+Dia1;
               let CompDat = new Date(currentDate1 +" "+hora+":"+minuto+":00.000").getTime();
-              let Dataria  = new Date(currentDate1 +" 07:30:00.000").getTime();
+              let Dataria  = new Date(currentDate1 +" 07:40:00.000").getTime();
+              setTemAtu(CompDat);
+              setTemPad(Dataria);
               let Dat = 0;
               let Dat2 = 0;
              if(CompDat > Dataria){
@@ -342,7 +346,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
               Dia = Dia < 10 ? '0'+Dia : Dia;
               Mes = Mes < 10 ? '0'+Mes : Mes;
               currentDate = Ano+'-'+Mes+'-'+Dia;
-              let Dat  = new Date(currentDate +" 07:30:00.000").getTime();
+              let Dat  = new Date(currentDate +" 07:41:00.000").getTime();
+              setTemAtu(Dat);
               let Dat2 = Dat + 86400000;
               if(Dat2 > Dat){
                 setVerD(true);
@@ -1137,11 +1142,27 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                                     />
                                     }
                                     {Dados.grupo.menu.ocorrencia.listaOcorrencia.btn_editar === true &&
-                                    <Butao 
-                                    style={"btn btn-xs btn-success"}
-                                    titulo={"Editar"}
-                                    onClick={()=>Pagina2(item.list.id)}
-                                    />
+                                    <>
+                                    {Dados.grupo.nome === "Copom" && TemAtu > TemPad &&
+                                        <Butao 
+                                        style={"btn btn-xs btn-success"}
+                                        titulo={"Editar"}
+                                        onClick={()=>Pagina2(item.list.id)}
+                                        />
+
+
+                                    }
+                                      {Dados.grupo.nome !== "Copom" && 
+                                        <Butao 
+                                        style={"btn btn-xs btn-success"}
+                                        titulo={"Editar"}
+                                        onClick={()=>Pagina2(item.list.id)}
+                                        />
+
+
+                                    }
+                                  
+                                    </>
                                     }                        
                                                            
                                     </td>
