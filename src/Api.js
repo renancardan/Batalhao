@@ -1264,6 +1264,8 @@ export default {
   },
 
   ListOcorr: async(Dados, setQuant, setUsuariosContServ, setCarreg, Dat, Dat2)=> {
+    console.log(Dat);
+    console.log(Dat2);
    let Antes = Dat/1000;
    let Depois = Dat2/1000;
     await Auth.onAuthStateChanged( async function(user) {

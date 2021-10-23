@@ -114,11 +114,11 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
               let Dat = 0;
               let Dat2 = 0;
              if(CompDat > Dataria){
-               Dat = Dataria;
-               Dat2 = Dataria + 86400000;
+               Dat = Dataria ;
+               Dat2 = Dataria + 86400000 ;
              } else {
-                Dat = Dataria + 86400000;
-                Dat2 = Dataria;
+                Dat = Dataria - 86400000;
+                Dat2 = Dataria  ;
              }
           
             if (navigator.onLine) {
