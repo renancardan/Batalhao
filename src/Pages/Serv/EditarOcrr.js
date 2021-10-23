@@ -315,6 +315,7 @@ const ExBo = ()=>{
                         placeholder="Digite o Número" 
                         value={NumOc}
                         onChange={t=>setNumOc(t.target.value)}
+                        disabled
                         /><br />
                        <strong>Vtr:</strong><br />
                        <input 

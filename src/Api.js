@@ -2446,7 +2446,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
     },
 
 
-    ConcluirOc: async(data, Exc, NumOc)=> {
+    ConcluirOc: async(data, Exc, NuOc)=> {
       const autenticado =  await Auth.currentUser;
       const id = await autenticado.uid;
        await db.collection('ocorrencia')
@@ -2455,7 +2455,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         ativo: false,
         dataFim: firebase.firestore.FieldValue.serverTimestamp(),
         excluir:Exc,
-        Ocorr:NumOc,
+        Ocorr:NuOc,
     })
     .then(() => {
        

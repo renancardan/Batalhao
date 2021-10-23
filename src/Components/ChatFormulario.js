@@ -64,8 +64,8 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
     }, []);
 
      useEffect(()=>{ 
-       
-    }, []);
+      console.log(NuOc);
+    }, [NuOc]);
 
     useEffect(() => {
         PegNumOcorr()
@@ -335,7 +335,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
       const ConclusaoOc = ()=>{
         setAlert(" ");
         setAlertTipo(" ");
-        Api.ConcluirOc(data, Exc, NumOc);
+        Api.ConcluirOc(data, Exc, NuOc);
         Api.AtulUltOc(Let1, Let2, Let3, NumVal);
         setActiveChat(null);
     }
