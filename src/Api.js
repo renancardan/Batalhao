@@ -1533,9 +1533,10 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         
     },
 
-    DadosdeGraficos: async(Dados, ListDias, setListDados, QuatD)=> {
+    DadosdeGraficos: async(Dados, ListDias, setListDados, setListLoc, QuatD  )=> {
       
       let list = [];
+      let listCod = [];
       for (var i = 0; i < QuatD; i++) {
         let march = i+1;
         let Antes = ListDias[i]/1000;
@@ -1551,17 +1552,43 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
 
         list.push(
           querySnapshot.size,
-          );      
+          );  
+         
 
 
         querySnapshot.forEach((doc) => {
-          
+           
+          listCod.push({
+            Loc:doc.data().localizacao,
+            cidade:doc.data().cidade,
+            estado:doc.data().estado,
+            id: doc.id,
+            date: doc.data().dataInicio.seconds,
+            ativo: doc.data().ativo, 
+            dateIn: doc.data().dataInicio.seconds*1000,
+            condi: doc.data().condicionais,
+            bairro: doc.data().bairro,
+            resultado:doc.data().resultado,
+            rua:doc.data().rua,
+            vtr:doc.data().vtr,
+            atendenteCopom:doc.data().atendenteCopom,
+            componentesVtr: doc.data().componentesVtr,
+            conduzidos: doc.data().conduzidos,
+            vitimas: doc.data().vitimas,
+            objetosApre: doc.data().objetosApre,
+            excluir: doc.data().excluir,
+            periodo:doc.data().periodo,
+            numero:doc.data().numero,
+            oCorr:doc.data().Ocorr,
+          });  
                
         });
        
       });
       }
-    
+
+     
+    setListLoc(listCod);
     setListDados(list);
     
 

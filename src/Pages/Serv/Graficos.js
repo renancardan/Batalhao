@@ -14,7 +14,9 @@ import {Bar, Line, Radar, PolarArea } from 'react-chartjs-2';
 import { DatePicker, DatePickerInput } from 'rc-datepicker';
 import FinderSelect from 'react-finderselect';
 import 'react-finderselect/dist/index.css'
-
+import Maps from '../../Components/mapsOc';
+import ChatWindow from '../../Components/ChatMaps';
+import Modal from 'react-awesome-modal';
 
 
 
@@ -46,12 +48,15 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       const [ListDias, setListDias] = useState([]);
       const [LDGrafi, setLDGrafi] = useState([]);
       const [ListDados, setListDados] = useState([]);
+      const [Loc, setLoc] = useState({lat:-4.22995432532184, lng: -44.77992046604799});
+      const [MapsCaixa, setMapsCaixa] = useState(true);
+      const [AtuaMaps, setAtuaMaps] = useState(false);
+     const [ListLoc, setListLoc] = useState([]);
+     const [Visible, setVisible] = useState(false);
      
-      
+    
 
-      useEffect(() => {
-       ListApp();     
-      }, [])
+     
 
       useEffect(() => {
         listandoCond();
@@ -71,80 +76,32 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
           EnviarDados();
           }, [Cond]);
 
+          useEffect(() => {
+            if(ListLoc !== []){
+              MostarMap();
+            }
+        
+            }, [ListLoc]);
 
 
-      useEffect(() => {
-        Listando();   
-       }, [UsuariosContServ])
 
-       useEffect(() => {
-        Listando();
-       }, [Offset])
+    
+
+    
      
        const listandoCond = ()=>{
         Api.Condconta(Dados, setListCond);
       }
+
+      const MostarMap = ()=>{
+        setAtuaMaps(true);
+      }
   
      
-          const ListApp = async ()=>{
-            if (navigator.onLine) {
-             setCarreg(true);
-              await Api.ListGrupos(Dados, setQuant, setUsuariosContServ);
-             
-            } else {
-              setAlert("Sem Internet");
-              setAlertTipo("danger");
-            }
-
-               
-          }
-
-          const Listando = async ()=>{
-                
-                  const cal1 = Quant/Limit;
-                  const cal2 = Math.trunc(cal1);
-                  const cal3 = cal2*10;
-                  const cal4 = Quant - cal3;
-                  if(Offset === cal3) {
-                      
-                          const inicio = Offset;
-                          const fim = Quant;
-                          var Listinha =[];
-                          for (var i = inicio; i < fim; i++) {
-                            Listinha.push({
-                              list:UsuariosContServ[i],
-                            });
-                            setLista(Listinha);
-                          
-                    
-
-                          }
-
-                  } else {
-
-                          const inicio = Offset;
-                          const fim = (Offset + Limit) 
-                          var Listinha =[];
-                          for (var i = inicio; i < fim; i++) {
-                            Listinha.push({
-                              list:UsuariosContServ[i],
-                            });
-                            setLista(Listinha);
-                           
-                   
-
-                        }
-                  
-
-                    } 
-
-                    var num= Cont + 1;
-                    setCont(num);
-                    if(Cont === 1){
-                      setCarreg(false); 
-                    }          
-                         
-          }
+      const EnviarDados = ()=>{
+        Api.DadosdeGraficos(Dados, ListDias, setListDados, setListLoc, QuatD)
+      }
+         
 
           function confirma() {
             setAlert(" ");
@@ -186,13 +143,6 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
 
               }
 
-                const MsgDesativar = (id, nome)=>{
-                  setId(id);
-                  setNome(nome);
-                  setAlert("Ok");
-                  setAlertTipo("Desativar");
-                  
-                }
 
                 const Desativar = async ()=>{
                  
@@ -253,18 +203,14 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                   setDataP(jsDate)
                 }
 
-                const ColocandoCond = ( Valeu)=>{
-                  setCond(Valeu);
-                }
+              
 
                 const printValue = (target) => {
                   setCond(target.value);
                   
                     }
 
-                    const EnviarDados = ()=>{
-                      Api.DadosdeGraficos(Dados, ListDias, setListDados, QuatD)
-                    }
+                   
                 
                 const DiasQuantizados = ()=>{
                   let ListaD = [];
@@ -292,6 +238,11 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                  }
                  setLDGrafi(ListGrafi);
                  setListDias(ListaD);
+                
+                }
+
+                const closeModal = ()=>{
+                  setVisible(false);
                 }
                
                
@@ -343,7 +294,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
               <HeaderPage
               Avisando={Avisando} 
               Titulo={Titulo}
-              />            
+              /> 
+                   
               <section className="content">
                 <div className="container-fluid">
                   
@@ -433,7 +385,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                     </div>
                     {/* /.card-body */}
                     </div>
-                  {Dados.grupo.menu.permissao.listaGrupo.Ver === true &&
+                  
                     <div className="card card-primary">
                           
                       <div className="card-header">
@@ -459,14 +411,46 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                         options={{ maintainAspectRatio: false }}
                         />
 
-
-
-
-
-                          
                          </div>
                         </div>
-                          }
+                        <div className="card ">
+                           <div className="app-window">
+                          <div className="contentarea">
+                          {Id !== null &&
+                                  <>
+                                  <ChatWindow
+                                  data={Id}
+                                  setActiveChat={null}
+                                  setAlert={setAlert}
+                                  setAlertTipo={setAlertTipo}
+                                  Alert={Alert}
+                                  AlertTipo={AlertTipo}
+                                  AbrirMaps={null} 
+                                  MapsCaixa={MapsCaixa}
+                                  Nome={null} 
+                                  Dados={Dados} 
+                                  Vizul={null}
+                                  Varia={null}
+                                  setVizul={null}
+                                  />
+                                {Dados.grupo.menu.ocorrencia.vizualizarOcorrencia.btn_maps === true &&
+                                <>
+                                  {AtuaMaps === true &&
+                                   <Maps 
+                                   setModal={setVisible}
+                                   MapsCaixa={MapsCaixa}
+                                   Loc={ListLoc}
+                                   />
+                                  }
+                                 
+                                  </>
+                                 }
+                                 </>
+                              }
+                                
+                          </div>
+                          </div>
+                          </div>
                         </>
                         }
                     </section>       

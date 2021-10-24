@@ -77,48 +77,48 @@ export default ({Lista, Avisando, Fechar}) => {
               
 
                
-               <tr key={item.list.id}  >
+               <tr key={item.id}  >
                <td style={{"borderCollapse":"collapse", "border":"1px solid #000"}} >
-               {item.list.oCorr}
+               {item.oCorr}
                 </td>
 
                  <td style={{"borderCollapse":"collapse", "border":"1px solid #000"}}>
-                 {item.list.atendenteCopom} 
+                 {item.atendenteCopom} 
                  </td>
 
                  <td style={{"borderCollapse":"collapse", "border":"1px solid #000"}}>
-                 {item.list.vtr}
+                 {item.vtr}
                  </td>
 
                  <td style={{"borderCollapse":"collapse", "border":"1px solid #000"}}>
-                 {item.list.componentesVtr}
+                 {item.componentesVtr}
                  </td>
 
                  <td style={{"borderCollapse":"collapse", "border":"1px solid #000"}}>
                  <DataTime 
-                  DateIni={item.list.date}
+                  DateIni={item.date}
                   />
                  </td >
 
                  <td style={{"borderCollapse":"collapse", "border":"1px solid #000"}}>
-                 {item.list.periodo}
+                 {item.periodo}
                  </td>
 
                  <td style={{"borderCollapse":"collapse", "border":"1px solid #000"}}>
-                 {item.list.rua}
+                 {item.rua}
                  </td>
 
                  <td style={{"borderCollapse":"collapse", "border":"1px solid #000"}}>
-                 {item.list.numero}
+                 {item.numero}
                  </td>
 
                  <td style={{"borderCollapse":"collapse", "border":"1px solid #000"}}>
-                 {item.list.bairro}
+                 {item.bairro}
                  </td>
 
 
                  <td style={{"borderCollapse":"collapse", "border":"1px solid #000"}}>
-                 {item.list.condi.map((item, key)=>(
+                 {item.condi.map((item, key)=>(
                    <>
                    <sting>{item.nome}/</sting><br/>
                    </>
@@ -126,7 +126,7 @@ export default ({Lista, Avisando, Fechar}) => {
                  </td>
 
                  <td style={{"borderCollapse":"collapse", "border":"1px solid #000"}}>
-                 {item.list.resultado}
+                 {item.resultado}
                  </td>
              </tr>
             

@@ -67,7 +67,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       const [TemPad, setTemPad] = useState(0)
      
      
-      console.log(Dados.grupo.nome);
+   
       useEffect(() => {
        ListOc();     
       }, [])
@@ -89,10 +89,6 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
             PesqResult();
         }
        }, [Resu])
-
-       useEffect(() => {
-   
-       }, [Lista])
 
     
       
@@ -763,7 +759,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
              
               let listra11 = [];
               for(let i in UsuariosContServ ) {
-                console.log(UsuariosContServ[i].excluir)
+               
                   if( UsuariosContServ[i].excluir === Exc)   {
                     listra11.push({
                       id: UsuariosContServ[i].id, 
@@ -1129,8 +1125,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                              
   
                                     <tr key={item.list.id}  style={{backgroundColor: item.list.ativo=== true ?"#98C0FF": item.list.excluir === false ? "#FFF": "#FF7878"}}>
-                                         {item.list.excluir === false &&
-                                            <>     
+                                        
+                                            
                                        <td>
                                     
                             
@@ -1192,8 +1188,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                                     :
                                        <td>Em andamento</td>
                                     }
-                                    </>
-                                        }
+                                  
                                      
                                    
                                   
@@ -1266,7 +1261,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
             />
             :
             <ViOcrr
-            Lista={Lista}
+            Lista={UsuariosContServ}
             Avisando={Avisando}
             Fechar={Fechar}
             />
