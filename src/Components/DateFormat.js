@@ -5,8 +5,8 @@ export default ({ DateIni}) => {
     useEffect(()=>{
         tempo();
     }, []);
-    console.log(DateIni)
-    const tempo = (DateIni)=>{
+
+    const tempo = ()=>{
         let currentDate = '';
         let now =new Date(DateIni * 1000);
         let hours = now.getHours();
