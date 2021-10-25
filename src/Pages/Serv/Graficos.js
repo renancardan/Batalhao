@@ -41,6 +41,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       });
       const [DataA, setDataA] = useState(0);
       const [VerA, setVerA] = useState(false);
+      const [DataB, setDataB] = useState(0);
+      const [VerB, setVerB] = useState(false);
       const [DataP, setDataP] = useState(new Date());
       const [QuatD, setQuatD] = useState(0);
       const [Cond, setCond] = useState();
@@ -63,7 +65,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
           }, []);
 
       useEffect(() => {
-       console.log(ListDias)
+       
        EnviarDados();
        }, [ListDias])
 
@@ -73,17 +75,26 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
         }, [QuatD])
 
         useEffect(() => {
-          EnviarDados();
+          setAtuaMaps(false);
+         PesqOcrr();
           }, [Cond]);
 
           useEffect(() => {
             if(ListLoc !== []){
               MostarMap();
+              
             }
-        
+       
             }, [ListLoc]);
 
+            useEffect(() => {
+           console.log(DataB);
+              }, [DataB]);
 
+
+              useEffect(() => {
+                console.log(DataA);
+                   }, [DataA]);
 
     
 
@@ -120,6 +131,13 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
           const Fechar = ()=>{
             setPag2(false);
             setPag1(false);
+          }
+
+
+
+          const LimparCampo = ()=>{
+            window.location.reload()
+         
           }
 
 
@@ -200,7 +218,24 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                   let variac = new Date(currentDate +"T00:00:00.000").getTime();
                   setDataA(variac) 
                   setVerA(true)  
-                  setDataP(jsDate)
+                  
+                }
+
+                const DatandoB = (jsDate, dateString)=>{
+                  let currentDate = '';
+                  let now =new Date(jsDate);
+                  let Dia = now.getDate();
+                  let Mes = (now.getMonth()+1);
+                  let Ano = now.getFullYear();
+                  Dia = Dia < 10 ? '0'+Dia : Dia;
+                  Mes = Mes < 10 ? '0'+Mes : Mes;
+                  currentDate = Ano+'-'+Mes+'-'+Dia;
+                  let variac = new Date(currentDate +"T00:00:00.000").getTime();
+                  setDataB(variac); 
+                  setVerB(true); 
+
+                  var days = (variac - DataA) / (60 * 60 * 24 * 1000);
+                  setQuatD(days);
                 }
 
               
@@ -243,6 +278,72 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
 
                 const closeModal = ()=>{
                   setVisible(false);
+                }
+
+                const PesqOcrr = ()=>{
+                 
+                 
+                  let listra10 = [];
+                  for(let i in ListLoc ) {
+                    for(let j in ListLoc[i].condi ){
+                        if( ListLoc[i].condi[j].nome.toLowerCase().includes(Cond.toLowerCase())  ) {
+                          listra10.push({
+                            Loc:ListLoc[i].Loc, 
+                            cidade:ListLoc[i].cidade,
+                            estado:ListLoc[i].estado,
+                            id: ListLoc[i].id,
+                            date: ListLoc[i].date,
+                            ativo: ListLoc[i].ativo, 
+                            dateIn:  ListLoc[i].dateIn,
+                            condi:  ListLoc[i].condi,
+                            bairro:  ListLoc[i].bairro,
+                            resultado: ListLoc[i].resultado,
+                            rua: ListLoc[i].rua,
+                            vtr: ListLoc[i].vtr,
+                            atendenteCopom: ListLoc[i].atendenteCopom,
+                            componentesVtr:  ListLoc[i].componentesVtr,
+                            conduzidos: ListLoc[i].conduzidos,
+                            vitimas: ListLoc[i].vitimas,
+                            objetosApre: ListLoc[i].objetosApre,
+                            excluir:  ListLoc[i].excluir,
+                            periodo: ListLoc[i].periodo,
+                            numero: ListLoc[i].numero,
+                            oCorr: ListLoc[i].oCorr,
+                        });   
+                        }
+    
+                      }
+                     
+                     
+                    }
+                    let ListQuant = [];
+                    for (let i = 0; i < QuatD; i++) {
+                      let march = i+1;
+                      let Antes = ListDias[i];
+                      let Depois = ListDias[march];
+                      console.log(Antes+'-'+Depois);
+                      let size = 0;
+                      for(let j in listra10 ) {
+                          if(listra10[j].dateIn >= Antes && listra10[j].dateIn <= Depois){
+                            size +=1;
+                            console.log(size);
+                            console.log("entrou");
+                          }
+                      }
+                      ListQuant.push(
+                        size,
+                      );
+                    }
+                      console.log(ListQuant);
+                      setListLoc(listra10);
+                      setListDados(ListQuant);
+                   
+                  
+                }
+                 
+                const ColDias = (t)=>{
+                  setQuatD(parseInt(t.target.value));
+                  setVerB(true);
                 }
                
                
@@ -328,21 +429,36 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                                 />
                             </div>
                             </div>
+                            <div className="col-sm-2">
+                            <div className="form-group">
+                            <label>Data de Fim</label>
+                                <DatePickerInput
+                                  onChange={DatandoB}
+                                  value={DataB}
+                                  className='my-custom-datepicker-component'
+                                  disabled={VerB}
+                                  
+                                />
+                            </div>
+                            </div>
 
                             <div className="col-sm-2">
                             <div className="form-group">
                                 <label>Quantidades de Dias</label>
                                 <input 
-                              type="number" 
+                              type="text" 
                               className="form-control" 
                               placeholder="Digite a quantidade" 
                               value={QuatD}
-                              onChange={t=>setQuatD(parseInt(t.target.value))}
+                              onChange={t=>ColDias(t)}
+                              disabled={VerB}
                               />
                                 
                               
                             </div>
                             </div>
+
+                        
                             <div className="col-sm-6">
                             <div className="form-group">
                                 <label>Oocorrência</label>
@@ -373,7 +489,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                             <Butao 
                             style={"btn btn-sm btn-secondary"}
                             titulo={"Limpar Pesquisa"}
-                            onClick={null}
+                            onClick={()=>LimparCampo()}
                             />
                             </div>
                             </div> 

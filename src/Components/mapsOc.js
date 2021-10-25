@@ -63,6 +63,7 @@ export default ({MapsCaixa, setModal, Loc, }) => {
       }
 
       const tempo = ()=>{
+        console.log(Tem);
         let currentDate = '';
         let now =new Date(Tem * 1000);
         let hours = now.getHours();
