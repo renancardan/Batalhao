@@ -167,6 +167,8 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
                                 {Infor.testemunha}<br />
                                 <strong>Objetos Apreendidos</strong><br />
                                 {Infor.objetosApre}<br />
+                                <strong>Objetos Roubados/Furtados</strong><br />
+                                {Infor.objRoubados}<br />
           
                                
                                 

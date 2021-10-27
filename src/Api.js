@@ -2166,6 +2166,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       testemunha:"",
       excluir:false,
       autores:"",
+      objRoubados:"",
       }).then(async (doc)=>{
        setAlert("Ocorrência Cirada Com sucesso");
        setAlertTipo("success");
@@ -2287,7 +2288,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         
     },
 
-    EnviOcSalvar: async (Id, Vtr, AtenCop, CompVt,  Conduz, Viti, ObjAp, ResulOc, Relato, Prov, setAlert, setAlertTipo, Arq, Pdf,  setVisi2, Test, Autor, NumOc) => {   
+    EnviOcSalvar: async (Id, Vtr, AtenCop, CompVt,  Conduz, Viti, ObjAp, ResulOc, Relato, Prov, setAlert, setAlertTipo, Arq, Pdf,  setVisi2, Test, Autor, NumOc, ObjRF) => {   
  
       if(Arq !== "" ){
           const fileName = await Date.now() + Arq.name;
@@ -2313,6 +2314,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
             testemunha:Test,
             autores:Autor,
             Ocorr:NumOc,
+            objRoubados:ObjRF,
           }).then(()=>{
             setVisi2(false);
             setAlertTipo("success");
@@ -2336,6 +2338,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
           testemunha:Test,
           autores:Autor,
           Ocorr:NumOc,
+          objRoubados:ObjRF,
         }).then(()=>{
           setVisi2(false);
           setAlertTipo("success");
@@ -2346,7 +2349,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
            
     },
 
-    EnviVtr: async (data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, Test, Autor) => {   
+    EnviVtr: async (data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, Test, Autor, ObjRF) => {   
       await db.collection('ocorrencia')
       .doc(data)
       .update({
@@ -2371,12 +2374,12 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         providencias:Prov,
         testemunha:Test,
         autores:Autor,
-        
+        objRoubados:ObjRF,
       })
            
     },
 
-    DadosForm: async (data, setVtr, setAtenCop, setCompVt, setRua, setNumero, setBairro, setCidade, setEstado, setLat, setLng, setConduz, setViti, setObjAp, setResulOc, setRelato, setProv, setDataTime, setTest, setNumOc, setAutor  ) => {   
+    DadosForm: async (data, setVtr, setAtenCop, setCompVt, setRua, setNumero, setBairro, setCidade, setEstado, setLat, setLng, setConduz, setViti, setObjAp, setResulOc, setRelato, setProv, setDataTime, setTest, setNumOc, setAutor, setObjRF  ) => {   
       await db.collection('ocorrencia')
       .doc(data)
       .get()
@@ -2401,6 +2404,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         setNumOc(doc.data().Ocorr);
         setTest(doc.data().testemunha);
         setAutor(doc.data().autores);
+        setObjRF(doc.data().objRoubados);
       });
        
            

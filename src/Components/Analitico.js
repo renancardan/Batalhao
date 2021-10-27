@@ -167,6 +167,18 @@ export default ({Fechar, Avisando, Infor, Id}) => {
                 </div>
                 </div>
                }
+                {Infor.objRoubados !== "" &&
+                 <div className="RelatCent">
+                <div className="RelatEsq">
+                  <string style={{"font-weight":"bolder", "font-size":15,}}>OBJETO(S) ROUBO/FURTO</string>
+                </div>
+                <div className="RelatDire">
+                <string>
+                {Infor.objRoubados}
+              </string>
+                </div>
+                </div>
+               }
                
               
                 <div className="RelatCent">

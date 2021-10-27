@@ -58,7 +58,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       const [Let2, setLet2] = useState(0);
       const [Let3, setLet3] = useState(0);
       const [NumVal, setNumVal] = useState(0);
-      const [NuOc, setNuOc] = useState("")
+      const [NuOc, setNuOc] = useState("");
+      const [Qantlis, setQantlis] = useState(0);
       useEffect(() => {
           LevarTemp();
       }, [])
@@ -69,10 +70,21 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
 
   
 
-      useEffect(() => {
-      
-    }, [activeChat])
+     useEffect(() => {
+       if(Chatlist !== []){
+         
+         if(Chatlist.length > Qantlis){
+            // NotFic();
+         }
+       }
+  
+    
+    }, [Chatlist])
 
+    useEffect(() => {
+     console.log(Qantlis);
+     console.log(Chatlist.length);
+    }, [Qantlis]);
      
 
     useEffect(() => {
@@ -82,7 +94,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
    
 
   useEffect(() => {
-   console.log(activeChat);
+   
     CondPegar();
  }, [activeChat])
  
@@ -120,7 +132,25 @@ useEffect(() => {
 
      
 
+const NotFic = ()=>{
+  console.log(Notification.permission);
+  if(Notification.permission === "granted") {
+    ShowNot();
+  } else if(Notification.permission !== "denied") {
+     Notification.requestPermission().then(permission => {
+         ShowNot();
+     });
+  }
+  setQantlis(Chatlist.length)
+}
 
+const ShowNot = ()=>{
+  let n = new Notification("OCORRÊNCIA",{
+      body: "Ocorrência Iniciada",
+      icon: "https://bpmbacabal.herokuapp.com/graficos/assets/logoapp.jpeg"
+    } 
+   )
+}
        
 
      const LevarTemp = async ()=>{

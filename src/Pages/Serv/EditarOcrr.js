@@ -41,6 +41,7 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
   const [Bairro, setBairro] = useState("");
   const [Cidade, setCidade] = useState("");
   const [Estado, setEstado] = useState("");
+  const [ObjRF, setObjRF] = useState("")
   
 
 
@@ -63,6 +64,7 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
       setTest(Infor.testemunha);
       setAutor(Infor.autores);
       setNumOc(Infor.Ocorr);
+      setObjRF(Infor.objRoubados);
     }
     }, [Infor]);
 
@@ -73,8 +75,7 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
 
  useEffect(() => {
 
- console.log(ResulOc);
-  }, [ResulOc]);
+  }, [ObjRF]);
 
  
 
@@ -112,7 +113,7 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
     setVisi2(true);
     Api.EnviOcSalvar(Id, Vtr, AtenCop, CompVt,  
     Conduz, Viti, ObjAp, ResulOc, Relato, Prov, 
-    setAlert, setAlertTipo, Arq, Pdf,setVisi2, Test, Autor, NumOc);
+    setAlert, setAlertTipo, Arq, Pdf,setVisi2, Test, Autor, NumOc, ObjRF );
 }
 
 const closeModal = ()=>{
@@ -391,6 +392,20 @@ const ExBo = ()=>{
                                 value={ObjAp}
                                 onChange={t=>setObjAp(t.target.value)}
                                 /><br />
+                              
+
+                              <strong>Objetos Roubados/Furtados</strong><br />
+                              <textarea 
+                                        className="form-control" 
+                                        rows={3} 
+                                        placeholder="Digite os objetos que foram Roubados ou furtados que Não foi apreendidos"  
+                                        defaultValue={""} 
+                                        value={ObjRF}
+                                        onChange={t=>setObjRF(t.target.value)}
+                                        /><br />
+                              
+                              
+                     
 
                      
                       

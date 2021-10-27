@@ -57,7 +57,8 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
     const [Let2, setLet2] = useState(0);
     const [Let3, setLet3] = useState(0);
     const [NumVal, setNumVal] = useState(0);
-    const [NuOc, setNuOc] = useState("")
+    const [NuOc, setNuOc] = useState("");
+    const [ObjRF, setObjRF] = useState("");
 
     useEffect(()=>{ 
        PegandoList()
@@ -271,7 +272,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
         Api.DadosForm(data, setVtr, setAtenCop, setCompVt, setRua, 
         setNumero, setBairro, setCidade, setEstado, setLat, setLng,
         setConduz, setViti, setObjAp, setResulOc, setRelato, setProv, setDataTime, 
-        setTest, setNumOc, setAutor );
+        setTest, setNumOc, setAutor, setObjRF );
     }
 
     const EnviandoVtr = ()=> {
@@ -287,7 +288,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
            
           
 
-        Api.EnviVtr(data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, Test, Autor);
+        Api.EnviVtr(data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, Test, Autor, ObjRF);
     }
 
    
@@ -788,6 +789,20 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
                                 defaultValue={""} 
                                 value={ObjAp}
                                 onChange={t=>setObjAp(t.target.value)}
+                                onBlur={()=>EnviandoVtr()}
+                                />
+                            </div>
+                            </div>
+                            <div className="col-sm-12">
+                            <div className="form-group">
+                                <label>Objetos Roubados/Furtados</label>
+                                <textarea 
+                                className="form-control" 
+                                rows={3} 
+                                placeholder="Digite os objetos Roubados ou Furtados caso não esteja apreendidos"  
+                                defaultValue={""} 
+                                value={ObjRF}
+                                onChange={t=>setObjRF(t.target.value)}
                                 onBlur={()=>EnviandoVtr()}
                                 />
                             </div>
