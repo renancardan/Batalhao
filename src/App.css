@@ -1,0 +1,1179 @@
+.app-window {
+  display: flex;
+  height: 100vh;
+  background-color: #ededed;
+}
+
+.contatos {
+  width: 25%;
+  max-width: 415px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #ddd;
+}
+
+.listCond {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+.listCondText {
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+.listCond1 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.ModalCond {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+}
+
+.ModalP1 {
+  width: 250px;
+  height: 500px;
+  overflow: scroll;
+}
+
+.FotosArqui {
+  width: 600px;
+  height: 170px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.FotosArqui1 {
+  width: 600px;
+  height: 170px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.FotoQua {
+  width: 120px;
+  height: 120px;
+  border: 1px solid #ccc;
+  object-fit: cover;
+  justify-content: center;
+}
+
+.FotoQua2 {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #ccc;
+  object-fit: cover;
+  justify-content: center;
+}
+
+.FotoQua1 {
+  width: 400px;
+  height: 100px;
+  border: 1px solid #ccc;
+  object-fit: cover;
+  justify-content: center;
+}
+
+.FotoQuaAnun {
+  width: 400px;
+  height: 100px;
+  border: 1px solid #ccc;
+  object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.FotoArqui {
+  width: 135px;
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Arquivos {
+  width: 135px;
+}
+
+.ModalP2 {
+  width: 250px;
+  height: 500px;
+}
+
+.topo {
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+}
+.Document {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Relatorio {
+  width: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fff;
+}
+.RelatCent {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #000;
+}
+
+.RelatAssi {
+  height: 100px;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #000;
+}
+.RelatEsq {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bolder;
+}
+.RelatDire {
+  width: 70%;
+  display: flex;
+  border-left: 1px solid #000;
+}
+.topo--avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.topo--buttons {
+  display: flex;
+}
+
+.topo--btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.busca {
+  background-color: #f6f6f6;
+  border-bottom: 1px solid #eee;
+  padding: 5px 15px;
+}
+.busca-input {
+  background-color: #fff;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.busca-input input {
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  margin-left: 10px;
+}
+
+.CaixaDeMaps {
+  display: flex;
+  background-color: #fff;
+  width: 100%;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+}
+.CaixaDeMapsPes {
+  display: flex;
+  background-color: #fff;
+  width: 100%;
+  height: 50%;
+  align-items: center;
+  flex-direction: column;
+}
+
+.CaixaInputPes {
+  display: flex;
+  background-color: #999;
+  padding-top: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 100%;
+  height: 60px;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.CaixaEndPes {
+  display: flex;
+  background-color: #fff;
+  padding-top: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 100%;
+  height: 40px;
+  justify-content: space-between;
+}
+
+.CaixaPesquisada {
+  display: flex;
+  background-color: #fff;
+  width: 100%;
+  height: 300px;
+  margin-top: 30px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.contentarea {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.maps-contener {
+  width: 100%;
+  transition: all ease 0.3s;
+  background-color: red;
+}
+.maps--header {
+  height: 30px;
+  border-bottom: 1px solid #ccc;
+  background-color: #5d0bf7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatListItem {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  height: 70px;
+}
+.chatListItem:hover {
+  background-color: #f5f5f5;
+}
+.chatListItem.active {
+  background-color: #a986e959;
+}
+.chatListItem--avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-left: 15px;
+}
+
+.textTitulo {
+  font-size: 14px;
+}
+
+.chatListItem--lines {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid #eee;
+  padding-right: 15px;
+  margin-left: 15px;
+
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.chatListItem--line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.chatListItem--name {
+  font-size: 17px;
+  color: #000;
+}
+.chatListItem--date {
+  font-size: 12px;
+  color: #999;
+}
+.chatListItem--lastMsg {
+  font-size: 14px;
+  color: #999;
+  display: flex;
+  width: 100%;
+}
+.chatListItem--lastMsg p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.chatlist {
+  flex: 1;
+  background-color: #fff;
+  overflow-y: auto;
+}
+/* Organizando a barrinha  com sua cor  */
+.chatlist::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.chatlist::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.chatIntro {
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  border-bottom: 6px solid #5d0bf7;
+}
+.chatIntro img {
+  width: 250px;
+  height: auto;
+}
+.chatIntro h1 {
+  font-size: 32px;
+  color: #525252;
+  font-weight: normal;
+  margin-top: 30px;
+}
+.chatIntro h2 {
+  font-size: 14px;
+  color: #777;
+  font-weight: normal;
+  margin-top: 20px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.formularioCond {
+  height: 100%;
+  width: 25%;
+  overflow-y: auto;
+}
+.formularioCond1 {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.formularioCond::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.formularioCond::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.chatWindow {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.chatWindow--header {
+  height: 60px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.chatWindow--headerinfo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.chatWindow--avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.chatWindow--name {
+  font-size: 17px;
+  color: #000;
+}
+.chatWindow--headerbuttons {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+.chatWindow--btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all ease 0.3s;
+}
+
+.chatWindow--btn1 {
+  height: 30px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all ease 0.3s;
+  background-color: #5d0bf7;
+}
+
+.chatWindow--btn2 {
+  width: 60px;
+  height: 30px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all ease 0.3s;
+  background-color: red;
+  margin-right: 5px;
+}
+
+.chatWindow--btn3 {
+  height: 30px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all ease 0.3s;
+  background-color: green;
+  margin-right: 5px;
+}
+.FormWindow--footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #fff;
+  padding-left: 30px;
+}
+
+.textButao {
+  font-size: 12px;
+  color: #fff;
+  font-weight: bold;
+  margin: 5px;
+}
+
+.chatWindow--body {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #fff;
+  background-size: cover;
+  background-position: center;
+  padding: 20px 30px;
+  background-image: url("image/logoapp.png");
+}
+.chatWindow--body1 {
+  height: 600;
+  overflow-y: auto;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px 30px;
+}
+.chatWindow--body::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.chatWindow--body::-webkit-scrollbar-thumb {
+  background-color: rgba(240, 223, 223, 0.911);
+}
+
+.chatWindow--footer {
+  height: 62px;
+  display: flex;
+  align-items: center;
+}
+.chatWindow--pre {
+  display: flex;
+  margin: 0 15px;
+}
+.chatWindow--inputarea {
+  flex: 1;
+}
+.chatWindow--input {
+  width: 100%;
+  height: 40px;
+  border: 0;
+  outline: 0;
+  background-color: #fff;
+  border-radius: 20px;
+  font-size: 15px;
+  color: #4a4a4a;
+  padding-left: 15px;
+}
+.chatWindow--input1 {
+  width: 70%;
+  height: 40px;
+  border: 0;
+  outline: 0;
+  background-color: #fff;
+  border-radius: 20px;
+  font-size: 15px;
+  color: #4a4a4a;
+  padding-left: 15px;
+}
+.chatWindow--pos {
+  display: flex;
+  margin: 0 15px;
+}
+
+.chatWindow--emojiarea {
+  height: 200px;
+  overflow-y: hidden;
+  transition: all ease 0.3s;
+}
+
+aside.emoji-picker-react {
+  width: auto;
+  background: none;
+}
+
+.messageLine {
+  margin-bottom: 10px;
+  display: flex;
+}
+.messageItem {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 1px #ccc;
+  display: flex;
+  flex-direction: column;
+  padding: 3px;
+  max-width: 90%;
+}
+.messageText {
+  font-size: 14px;
+  margin: 1px 40px 5px 5px;
+}
+
+.imgChat {
+  width: 100px;
+}
+
+.imgChat1 {
+  width: 400px;
+}
+.messageDate {
+  font-size: 11px;
+  color: #999;
+  margin-right: 5px;
+  text-align: right;
+  height: 15px;
+}
+
+.video--btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all ease 0.3s;
+}
+
+/*Fim  Parte dos chat */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox {
+  display: flex;
+  width: 40px;
+  height: 20px;
+  background-color: red;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkbox.checked {
+  background-color: #008000;
+  cursor: pointer;
+}
+
+.checkbox-container span {
+  margin-left: 15px;
+}
+
+.checkboxcond-container {
+  display: flex;
+  align-items: center;
+}
+
+.checkboxcond {
+  display: flex;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #fff;
+  cursor: pointer;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #000;
+}
+
+.checkboxcond.checked {
+  background-color: #000;
+  cursor: pointer;
+}
+
+.checkboxcond-container span {
+  margin-left: 15px;
+}
+
+.btn-close {
+  width: 1em;
+  height: 1em;
+  padding: 0.25em;
+  padding: 0.25em;
+  color: black;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$btn-close-color}'><path d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/></svg>");
+}
+
+.btn {
+  margin-right: 5px;
+}
+.conteiner_pages {
+  width: 98%;
+  float: right;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 10px;
+}
+.Header_pages {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.Titulo_pages {
+  color: #999;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.Body_pages {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.Caixa_informe {
+  width: 30%;
+  min-width: 350px;
+  margin: 10px;
+}
+.Campo_pesquisa {
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  flex-wrap: wrap;
+}
+.pesquisa_unitaria {
+  margin-right: 5px;
+}
+
+/* Aqui inicia a estilização da pagina de loginSev */
+.login {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.quadroAcesso {
+  background-color: #fff;
+  width: 250px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.tituloQuadro {
+  color: #999;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+.caixaAcesso {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.quadroLink {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.imagem_top {
+  margin-bottom: 10px;
+  width: 100px;
+  height: 137.98;
+
+  animation-name: imagemacao;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+}
+
+@keyframes imagemacao {
+  0% {
+    height: 0px;
+    width: 0px;
+  }
+  25% {
+    height: 34.495px;
+    width: 25px;
+  }
+  50% {
+    height: 68.99px;
+    width: 50px;
+  }
+  100% {
+    height: 137.98px;
+    width: 100px;
+  }
+}
+.imagem_aviao {
+  position: fixed;
+  width: 60px;
+  left: 900px;
+  top: 150px;
+  animation-name: imagem_aviaoacao;
+  animation-duration: 3s;
+
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+}
+
+@keyframes imagem_aviaoacao {
+  0% {
+    left: 100px;
+    top: 400px;
+  }
+  25% {
+    left: 400px;
+    top: 300px;
+  }
+  50% {
+    left: 650px;
+    top: 200px;
+  }
+  100% {
+    left: 1000px;
+    top: 100px;
+  }
+}
+.imagem_ambulancia {
+  position: fixed;
+  width: 60px;
+  left: 1000px;
+  bottom: 0px;
+  animation-name: imagem_ambulanciaacao;
+  animation-duration: 3s;
+
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+}
+
+@keyframes imagem_ambulanciaacao {
+  0% {
+    left: 10px;
+  }
+  25% {
+    left: 400px;
+  }
+  50% {
+    left: 650px;
+  }
+  100% {
+    left: 1000px;
+  }
+}
+.imagem_bombeiro {
+  position: fixed;
+  width: 60px;
+  left: 200px;
+  bottom: 0px;
+  animation-name: imagem_bombeiroacao;
+  animation-duration: 3s;
+
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+}
+
+@keyframes imagem_bombeiroacao {
+  0% {
+    left: 1000px;
+  }
+  25% {
+    left: 800px;
+  }
+  50% {
+    left: 400px;
+  }
+  100% {
+    left: 200px;
+  }
+}
+
+.imagem_policia {
+  z-index: 1;
+  position: fixed;
+  width: 60px;
+  left: 700px;
+  bottom: 0px;
+  animation-name: imagem_policiaacao;
+  animation-duration: 3s;
+
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+}
+
+@keyframes imagem_policiaacao {
+  0% {
+    left: 60px;
+  }
+  25% {
+    left: 200px;
+  }
+  50% {
+    left: 450px;
+  }
+  100% {
+    left: 700px;
+  }
+}
+.butao {
+  background-color: #5d0bf7;
+  border-color: #5d0bf7;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 5px;
+}
+
+.botao_list {
+  display: flex;
+  width: 400px;
+  height: 40px;
+}
+
+.butao:hover {
+  background-color: #170e29;
+}
+
+.text-center {
+  color: #5d0bf7;
+}
+.text-center:hover {
+  color: #170e29;
+}
+.card-body {
+  background-color: #fff;
+}
+.header--btn {
+  width: 150px;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #fff;
+}
+.infor {
+  width: 100%;
+  background-color: #282a36;
+  transition: all ease 20s;
+  display: flex;
+  justify-content: center;
+  border-radius: 50px;
+}
+.intro_info {
+  width: 70%;
+  background-color: #fff;
+  height: 2000px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  transition: all ease 20s;
+}
+.text_info {
+  width: 70%;
+  background-color: #fff;
+  margin-top: 50px;
+  justify-content: center;
+}
+.painel_login {
+  position: fixed;
+  width: 150px;
+  height: 40px;
+  bottom: 0px;
+  right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+/* Aqui finaliza a estilização do LoginSev */
+
+/* Aqui Começa a estilização do LoginAdmin */
+.loginAdmin {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("./image/GPS_MAP2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.quadro_site {
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #fff;
+  width: 70%;
+  min-width: 230px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+  padding-top: 10px;
+}
+
+.quadro_site::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.quadro_site::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.Titulo_pag {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.conteudo {
+  z-index: 2;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 250px;
+  width: 100%;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-around;
+  flex: 1;
+  flex-wrap: wrap;
+}
+.input_cadatro {
+  margin: 10px;
+}
+.conteudo::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.conteudo::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.text_painel {
+  width: 150px;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #fff;
+}
+.text_painel:hover {
+  color: #170e29;
+}
+.caixa_topo {
+  display: flex;
+  background-color: #282a36;
+  padding-top: 20px;
+  align-items: center;
+}
+.painel {
+  background-color: #282a36;
+}
+.Titulo_painel {
+  color: #fff;
+}
+/* Final da estilização do LoginAdmin */
+
+/*Estilização de Componentes  */
+.Text_link {
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #5d0bf7;
+  margin-top: 10px;
+}
+.Text_link:hover {
+  color: #514a5e;
+}
+.pLinsk {
+  margin: 0;
+}
+
+/* Fim da Estilização de Componentes  */
+
+/* Aqui se iniciar a estilização do Header do LoginSev */
+.header_login {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 40px;
+  background-color: #fff;
+  position: fixed;
+}
+
+.header--btnhead {
+  width: 110px;
+  height: 20px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 20px;
+  color: #5d0bf7;
+  font-weight: bold;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.header--btnhead:active {
+  color: #999;
+}
+
+.inter {
+  width: 500px;
+}
+.imagem {
+  margin-bottom: 50px;
+  height: 50px;
+}
+/* Aqui finaliza a estilização do Header do LoginServ */
+
+.App {
+  text-align: center;
+}
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
