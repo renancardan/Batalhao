@@ -91,9 +91,12 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
    
 
   useEffect(() => {
-   console.log(activeChat);
     CondPegar();
  }, [activeChat])
+
+ useEffect(() => {
+  console.log(Loc);
+}, [Loc])
  
 
   useEffect(() => {
@@ -372,6 +375,7 @@ const ShowNot = ()=>{
                         <>
                         {Formu === true ?
                            <ChatWindow
+                           Loc={Loc}
                            data={activeChat}
                            setActiveChat={setActiveChat}
                            setAlert={setAlert}

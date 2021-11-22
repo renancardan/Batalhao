@@ -20,6 +20,10 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, }) => {
  }, []);
 
  useEffect(() => {
+console.log(Grupo)
+  }, [Grupo]);
+
+ useEffect(() => {
    if(Infor.grupo){
     setGrupo(Infor.grupo.nome)
    }

@@ -454,7 +454,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                </div>
             </div>
           </section>
-          {/* <section className="content">
+          <section className="content">
                 <div className="container-fluid">
                   
                 <div className="row">
@@ -559,7 +559,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                     </section>       
                </div>
             </div>
-          </section> */}
+          </section>
         </div>
         :
         <>

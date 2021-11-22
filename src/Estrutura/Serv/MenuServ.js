@@ -32,7 +32,9 @@ export default ({sair , Dados, CriarDados, ApagarDados}) => {
       {/* Sidebar Menu */}
       <nav className="mt-2">
         <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        {Dados.grupo.menu.chat.Ver === true &&
+        {Dados.grupo.menu.chat.Ver &&
+        <>
+         {Dados.grupo.menu.chat.Ver === true &&
          <MenuLink 
          Linkto={"/chat"}
          Icon={"nav-icon fas fa-comments"}
@@ -43,15 +45,18 @@ export default ({sair , Dados, CriarDados, ApagarDados}) => {
          />
 
         }
+        </>
+        }
        
-          {/* <MenuLink 
+       
+          <MenuLink 
               Linkto={"/aplicativo"}
               Icon={"nav-icon fas fa-tablet"}
               Titulo={"APLICATIVOS"}
               Notificacao={false}
               NotiEstilo={"right badge badge-danger"}
               ValorNoti={"New"}
-              /> */}
+              />
         {Dados.grupo.menu.condicionais.Ver === true &&
            <MenuLink 
               Linkto={"/condicionais"}

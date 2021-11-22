@@ -36,137 +36,11 @@ export default {
                                               app:{ativo:false, desbloqueado:false, tipo:""},
                                               NegApp:{ativo:false, desbloqueado:false, tipo:""},
                                               serv:{ativo:true, desbloqueado:false, tipo:ContaCad},
-                                              servApp:{ativo:false, desbloqueado:false, tipo:""},
-                                      
+                                              servApp:{ativo:false, desbloqueado:false, tipo:"App"},
                                             },
-                                      grupo:{
-                                          id:"mjcq9CMFFexmf5JPvTtX",
-                                          nome:"Geral",
-                                          menu:{
-                                            chat:{
-                                              Ver:true,
-                                              caixaChat:{
-                                                  Ver:true,
-                                                  btn_iniciarOc:true,
-                                                  btn_formulario:true,
-                                                  btn_maps:true,
-                                                  btn_enviar:true,
-                                                  btn_addCondicionais:true,
-                                                  btn_chat:true,
-                                                  btn_concluido:true,
-                                                  },
-                                          },
-                                          condicionais:{
-                                            Ver:true,
-                                              listaCondicionais:{
-                                                  Ver:true,
-                                                  btn_editar:true,
-                                                  btn_desativar:true,
-                                                  btn_ativar:true,
-                                                  btn_criarCondicional:true,
-                                                  },
-                                              editarCondicional:{
-                                                  Ver:true,
-                                                  btn_salvar:true,
-                                                  },
-                                              criarCondicional:{
-                                                  Ver:true,
-                                                  btn_salvar:true,
-                                                  },
-                                                  },
-                                          ocorrencia:{
-                                            Ver:true,
-                                              listaOcorrencia:{
-                                                  Ver:true,
-                                                  btn_editar:true,
-                                                  btn_vizualizar:true,
-                                                  },
-                                              vizualizarOcorrencia:{
-                                                  Ver:true,
-                                                  btn_maps:true,
-                                                  },
-                                              editarOcorrencia:{
-                                                  Ver:true,
-                                                  btn_mudarcondicional:true,
-                                                  btn_escolherBO:true,
-                                                  btn_salvar:true,
-                                                  },
-                                          },
-                                          noticias:{
-                                            Ver:true,
-                                              listaNoticia:{
-                                                  Ver:true,
-                                                  btn_editar:true,
-                                                  btn_vizualizar:true,
-                                                  btn_criarNoticia:true,
-                                                  btn_ativar:true,
-                                                  btn_desativa:true,
-                                                  btn_excluir:true,
-                                                  },
-                                              caixaCriarNoticia:{
-                                                  Ver:true,
-                                                  btn_salvar:true,
-                                                  },
-                                              editarNoticia:{
-                                                  Ver:true,
-                                                  btn_escolherArquivo:true,
-                                                  btn_excluir:true,
-                                                  btn_salvar:true,
-                                                  },
-                                          },
-                                          permissao:{
-                                            Ver:true,
-                                              listaGrupo:{
-                                                  Ver:true,
-                                                  btn_criarGrupo:true,
-                                                  btn_editar:true,
-                                                  },
-                                              caixaCriarGrupo:{
-                                                  Ver:true,
-                                                  btn_salvar:true,
-                                                  },
-                                              editarGrupo:{
-                                                  Ver:true,
-                                                  btn_salvar:true,
-                                                  },
-                                          },
-                                          contas:{
-                                            Ver:true,
-                                              listaContasServ:{
-                                                  Ver:true,
-                                                  btn_vizualizar:true,
-                                              },
-                                              contaServ:{
-                                                  Ver:true,
-                                                  btn_bloquear:true,
-                                                  btn_desbloquear:true,
-                                              }
-                                          },
-                                          configuracao:{
-                                            Ver:true,
-                                              criarAvisoPm:{
-                                                  Ver:true,
-                                                  btn_ativar:true,
-                                                  btn_desativar:true,
-                                                  },
-                                              criarAvisoApp:{
-                                                  Ver:true,
-                                                  btn_ativar:true,
-                                                  btn_desativar:true,
-                                                  },
-                                              ListaTelefone:{
-                                                  Ver:true,
-                                                  btn_cadastrarTele:true,
-                                                  btn_bloquear:true,
-                                                  btn_desbloquear:true,
-                                                  btn_excluir:true,
-                                                  },
-                                          },
-                                          anuncio:{
-                                            Ver:false,
-                                          },
-                                                    }
-                                                }
+                                      grupoid:"mjcq9CMFFexmf5JPvTtX",
+                                     
+                                                
                                     })
                                     .then(() => {
                                             return db.collection("movimentacao").add({
@@ -199,131 +73,10 @@ export default {
                                               app:{ativo:false, desbloqueado:false, tipo:""},
                                               NegApp:{ativo:false, desbloqueado:false, tipo:""},
                                               serv:{ativo:true, desbloqueado:false, tipo:ContaCad},
-                                              servApp:{ativo:false, desbloqueado:false, tipo:""},
+                                              servApp:{ativo:false, desbloqueado:false, tipo:"App"},
                                       
                                             },
-                                      grupo:{
-                                          id:"mjcq9CMFFexmf5JPvTtX",
-                                          nome:"Geral",
-                                          menu:{
-                                            chat:{
-                                              Ver:true,
-                                              caixaChat:{
-                                                  Ver:true,
-                                                  btn_iniciarOc:true,
-                                                  btn_formulario:true,
-                                                  btn_maps:true,
-                                                  btn_enviar:true,
-                                                  btn_addCondicionais:true,
-                                                  btn_chat:true,
-                                                  btn_concluido:true,
-                                                  },
-                                          },
-                                          condicionais:{
-                                              listaCondicionais:{
-                                                  Ver:true,
-                                                  btn_editar:true,
-                                                  btn_desativar:true,
-                                                  btn_ativar:true,
-                                                  btn_criarCondicional:true,
-                                                  },
-                                              editarCondicional:{
-                                                  Ver:true,
-                                                  btn_salvar:true,
-                                                  },
-                                              criarCondicional:{
-                                                  Ver:true,
-                                                  btn_salvar:true,
-                                                  },
-                                                  },
-                                          ocorrencia:{
-                                              listaOcorrencia:{
-                                                  Ver:true,
-                                                  btn_editar:true,
-                                                  btn_vizualizar:true,
-                                                  },
-                                              vizualizarOcorrencia:{
-                                                  Ver:true,
-                                                  btn_maps:true,
-                                                  },
-                                              editarOcorrencia:{
-                                                  Ver:true,
-                                                  btn_mudarcondicional:true,
-                                                  btn_escolherBO:true,
-                                                  btn_salvar:true,
-                                                  },
-                                          },
-                                          noticias:{
-                                              listaNoticia:{
-                                                  Ver:true,
-                                                  btn_editar:true,
-                                                  btn_vizualizar:true,
-                                                  btn_criarNoticia:true,
-                                                  btn_ativar:true,
-                                                  btn_desativa:true,
-                                                  btn_excluir:true,
-                                                  },
-                                              caixaCriarNoticia:{
-                                                  Ver:true,
-                                                  btn_salvar:true,
-                                                  },
-                                              editarNoticia:{
-                                                  Ver:true,
-                                                  btn_escolherArquivo:true,
-                                                  btn_excluir:true,
-                                                  btn_salvar:true,
-                                                  },
-                                          },
-                                          permissao:{
-                                              listaGrupo:{
-                                                  Ver:true,
-                                                  btn_criarGrupo:true,
-                                                  btn_editar:true,
-                                                  },
-                                              caixaCriarGrupo:{
-                                                  Ver:true,
-                                                  btn_salvar:true,
-                                                  },
-                                              editarGrupo:{
-                                                  Ver:true,
-                                                  btn_salvar:true,
-                                                  },
-                                          },
-                                          contas:{
-                                              listaContasServ:{
-                                                  Ver:true,
-                                                  btn_vizualizar:true,
-                                              },
-                                              contaServ:{
-                                                  Ver:true,
-                                                  btn_bloquear:true,
-                                                  btn_desbloquear:true,
-                                              }
-                                          },
-                                          configuracao:{
-                                              criarAvisoPm:{
-                                                  Ver:true,
-                                                  btn_ativar:true,
-                                                  btn_desativar:true,
-                                                  },
-                                              criarAvisoApp:{
-                                                  Ver:true,
-                                                  btn_ativar:true,
-                                                  btn_desativar:true,
-                                                  },
-                                              ListaTelefone:{
-                                                  Ver:true,
-                                                  btn_cadastrarTele:true,
-                                                  btn_bloquear:true,
-                                                  btn_desbloquear:true,
-                                                  btn_excluir:true,
-                                                  },
-                                          },
-                                          anuncio:{
-                                            Ver:false,
-                                          },
-                                                    }
-                                                }
+                                      grupoid:"mjcq9CMFFexmf5JPvTtX",
                                   })
                                   .then( () => {
                                           return db.collection("movimentacao").add({
@@ -466,12 +219,34 @@ export default {
     await Auth.onAuthStateChanged( async function(user) {
       if (user) {
       const id = user.uid;
+      let res = {};
       const dados = await db.collection('users').doc(id)
       .onSnapshot((doc) => {
-        setDados(doc.data());
-        setLoading(false);
+        let cid = doc.data().cidade;
+        let est = doc.data().estado;
+        let con = doc.data().conta;
+        let nome = doc.data().nome;
+        let tel = doc.data().telefone;
+        let inst = doc.data().instituicao;
+        let grupoid = doc.data().grupoid; 
+        db.collection('gruposerv').doc(grupoid)
+        .onSnapshot((doce) => {
+          res ={
+            cidade:cid, 
+            estado: est,
+            conta: con,
+            nome: nome,
+            telefone: tel,
+            instituicao: inst,
+            grupo:doce.data(),
+          };
+        
+          setLoading(false);
+          console.log(res);
+          setDados(res);
+      });
+        
     });
-      
      
      
       } else {
@@ -1053,9 +828,30 @@ export default {
     const autenticado =  await Auth.currentUser;
     const id = await autenticado.uid;
     const Setor = "Vizualizar Conta Serv";
+    let res = {};
     await db.collection("users").doc(Id)
     .onSnapshot((doc) => {
-        setInfor(doc.data());
+       let cid = doc.data().cidade;
+        let est = doc.data().estado;
+        let con = doc.data().conta;
+        let nome = doc.data().nome;
+        let tel = doc.data().telefone;
+        let inst = doc.data().instituicao;
+        let grupoid = doc.data().grupoid; 
+        db.collection('gruposerv').doc(grupoid)
+        .onSnapshot((doce) => {
+          res ={
+            cidade:cid, 
+            estado: est,
+            conta: con,
+            nome: nome,
+            telefone: tel,
+            instituicao: inst,
+            grupo:doce.data(),
+          };
+
+        setInfor(res);
+      });
     });
 
     await db.collection("movimentacao").add({
@@ -1498,20 +1294,15 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       .get()
       .then((querySnapshot) => {
        
-       const res = [];
+       let res = "";
 
         querySnapshot.forEach((doc) => {
-          res.push({
-            id: doc.id,
-            menu: doc.data().menu,   
-          });             
+          res = doc.id;           
         });
          db.collection("users")
         .doc(Id)
         .update({
-          "grupo.id":res[0].id,
-          "grupo.nome":Grupo,
-          "grupo.menu":res[0].menu,
+         "grupoid": res,
           "conta.serv.desbloqueado": true,
         }).then(()=>{
           setAlert("Desbloqueado com Sucesso!");
@@ -2192,6 +1983,39 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
              body: text,
              date: now,
              type:"text"
+           }),
+           ultimaMsg:{id:id, nome: nome, data: now, msg:text} 
+       }).then((doc)=>{
+    
+   
+        // db.collection("ocorrencia")
+        // .doc(data)
+        // .get().then((doc) => {
+         
+        //   if (doc.exists) {
+        //       console.log(res);
+        //   } else {
+        //       // doc.data() will be undefined in this case
+        //       console.log("No such document!");
+        //   }
+      }).catch((error) => {
+         
+      });   
+    },
+
+    sendMessageBotao: async(data, text, nome, TemUmlt, Varia)=> {
+      const autenticado =  await Auth.currentUser;
+      const id = await autenticado.uid;
+      let temp = new Date().getTime();
+      let now = temp + (Varia*1000);
+         await db.collection("ocorrencia")
+         .doc(data).update({
+           mensagem: firebase.firestore.FieldValue.arrayUnion ({
+             autor:id,
+             nome: nome,
+             body: "Clique E Envie sua Localização",
+             date: now,
+             type:"botao"
            }),
            ultimaMsg:{id:id, nome: nome, data: now, msg:text} 
        }).then((doc)=>{

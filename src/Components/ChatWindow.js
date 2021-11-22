@@ -19,7 +19,7 @@ import Api from '../Api';
 
 let recorder = '';
 
-export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlertTipo, Alert, AlertTipo, setActiveChat, setFormu}) => {
+export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlertTipo, Alert, AlertTipo, setActiveChat, setFormu, Loc}) => {
     const body = useRef();
     let recognition = null;
     let SpeechRecognition = window.AudioContext || window.webkitAudioContext;
@@ -62,7 +62,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
         ListandoTempo();
      }, [list]);
 
-   
+ 
 
     // useEffect(()=>{ 
     //     if(Recorder !== null){
@@ -269,6 +269,15 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
         
         setFormu(false);
       }
+
+      const AbrirMenu = ()=>{
+            setEmojiOpen(true);
+      }
+
+      const PedirLoc = ()=>{
+        setEmojiOpen(false);
+        Api.sendMessageBotao(data, text, nome, TemUmlt, Varia);
+      }
       
     
 
@@ -341,14 +350,23 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
             <div className="chatWindow--emojiarea"
             style={{height: emojiOpen ? '50px' : '0px'}}
             >
-                {listening === false ?
-                <p>Gravando Audio ...</p>
-                :
-                <audio controls
-                source src={Som} type="audio/mp4"
-                >  
-                </audio>
-                }
+               
+                <div className="chatWindow--headerbuttons">
+               {Loc.lng === 'vazio' &&
+
+                <div className="chatWindow--btn1"
+                onClick={()=>PedirLoc()}
+               >
+                   <p className="textButao" >PEDIR LOCALIZAÇÃO</p>
+               </div>
+
+               }
+                
+
+              
+             
+                  
+               </div>
              
             </div>
             <div className="chatWindow--footer">
@@ -362,7 +380,9 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
                     </div>
            
             </div>
-
+            <div onClick={AbrirMenu} className="chatWindow--btn"  style={{width: emojiOpen? 0:40}}>
+                <AttachFileIcon style={{color:'#5d0bf7'}} />
+                </div>
             <div className="chatWindow--inputarea">
             <input
                         className="chatWindow--input"
@@ -393,6 +413,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
                      
             </>
             }   */}
+             
               {Dados.grupo.menu.chat.caixaChat.btn_enviar === true &&  
                         <div  onClick={handleSendClick} className="chatWindow--btn">
                             <SendIcon style={{color: '#5d0bf7'}} />
