@@ -38,7 +38,7 @@ export default {
                                               serv:{ativo:true, desbloqueado:false, tipo:ContaCad},
                                               servApp:{ativo:false, desbloqueado:false, tipo:"App"},
                                             },
-                                      grupoid:"mjcq9CMFFexmf5JPvTtX",
+                                      grupoid:"XUq86JOsd3YtxPRj9Qjy",
                                      
                                                 
                                     })
@@ -76,7 +76,7 @@ export default {
                                               servApp:{ativo:false, desbloqueado:false, tipo:"App"},
                                       
                                             },
-                                      grupoid:"mjcq9CMFFexmf5JPvTtX",
+                                      grupoid:"XUq86JOsd3YtxPRj9Qjy",
                                   })
                                   .then( () => {
                                           return db.collection("movimentacao").add({
@@ -791,9 +791,6 @@ export default {
       .then(async(dados)=>{
         const result = await dados.data();
           await db.collection("users")
-          .where("estado", "==", result.estado)
-          .where("cidade", "==", result.cidade)
-          .where("instituicao", "==", result.instituicao)
           .where("conta.servApp.tipo", "==", "App")
             .onSnapshot((querySnapshot) => {
             setQuantApp(querySnapshot.size);
@@ -849,7 +846,7 @@ export default {
             instituicao: inst,
             grupo:doce.data(),
           };
-
+          console.log(res)
         setInfor(res);
       });
     });
@@ -941,6 +938,7 @@ export default {
     .doc(Id)
     .update({ 
       "conta.serv.desbloqueado": false,
+      "conta.servApp.desbloqueado": false,
     }).then(()=>{
       setAlertTipo("success");
       setAlert("Bloqueado com sucesso!")
@@ -1078,7 +1076,7 @@ export default {
           await db.collection("ocorrencia")
             .where("dataInicio.seconds", ">=", Antes)
             .where("dataInicio.seconds", "<=", Depois)
-            .onSnapshot((querySnapshot) => {
+            .get().then((querySnapshot) => {
             setQuant(querySnapshot.size);
             var res = []; 
             querySnapshot.forEach((doc) => {
@@ -1304,6 +1302,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         .update({
          "grupoid": res,
           "conta.serv.desbloqueado": true,
+          "conta.servApp.desbloqueado": true,
         }).then(()=>{
           setAlert("Desbloqueado com Sucesso!");
           setAlertTipo("success");

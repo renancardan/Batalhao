@@ -393,6 +393,7 @@ const ShowNot = ()=>{
                            />
                         :
                         <ChatFormulario
+                        tiracond={TirarCond}
                         AdicionaCond={AdicionaCond}
                         data={activeChat}
                         setActiveChat={setActiveChat}
@@ -481,41 +482,19 @@ const ShowNot = ()=>{
                       }
 
                             </div>
-                            {activeChat !== null &&
+                        
                             <>
                               {VirModal === false ?
                                       <div className="formularioCond">
                                       <div className="card card-info">
                                     <div className="card-header">
-                                      <h3 className="card-title">Ocorrência Preenchidas</h3>
+                                      <h3 className="card-title">Pms De Serviço</h3>
                                     </div>
                                   
                                     {/* /.card-header */}
                                     <div className="card-body">
-                                        {Forms.map((item,key)=>(
-                                          <>
-                                          <div className="listCond">
-                                            <div className="listCondText" > 
-                                            <string> {item.nome}</string>
-                                            </div>
-                                          <div className="chatWindow--btn2"
-                                            onClick={()=>TirarCond(item.id, item.nome)}
-                                            >
-                                                <p className="textButao" >EXCLUIR</p>
-                                            </div>
-                                          </div>
-                                       <br/>
-                                          </>
-                                         ))
-                
-                                      }
-                                  {Dados.grupo.menu.chat.caixaChat.btn_addCondicionais === true &&  
-                                    <Butao 
-                                        style={"btn .btn-sm btn-info"}
-                                        titulo={"Add Nome da Ocorrência"}
-                                        onClick={()=>AdicionaCond()}
-                                        />  
-                                  } 
+                                        
+                               
                                         </div>
                                     {/* /.card-body */}
                                   </div>
@@ -532,7 +511,7 @@ const ShowNot = ()=>{
                               }
                               </>
                     
-                         }
+                        
                         </div>                            
                     </div>
                       </>

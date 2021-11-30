@@ -85,6 +85,14 @@ export default ({sair , Dados, CriarDados, ApagarDados}) => {
               ValorNoti={"New"}
               />
               }
+               <MenuLink 
+              Linkto={"/pesquisa"}
+              Icon={"nav-icon fas fa-search"}
+              Titulo={"PESQUISA"}
+              Notificacao={false}
+              NotiEstilo={"right badge badge-danger"}
+              ValorNoti={"New"}
+              />
               
               {Dados.grupo.menu.noticias.Ver === true &&
                <MenuLink 

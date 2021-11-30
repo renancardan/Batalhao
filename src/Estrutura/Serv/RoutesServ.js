@@ -11,6 +11,7 @@ import Ocorrencia from '../../Pages/Serv/Ocorrencia';
 import Noticia from '../../Pages/Serv/Noticia';
 import Anuncio from '../../Pages/Serv/Anuncios'
 import Graficos from '../../Pages/Serv/Graficos'
+import Pesquisa from '../../Pages/Serv/Pesquisa'
 
 
 export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertTipo, setAlertTipo, Avisando, setAvisando }) => {
@@ -160,6 +161,20 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
             </Route>
             <Route exact path= "/graficos">
                 <Graficos
+                    Dados={Dados}
+                    setDados={setDados}
+                    Loading={Loading}
+                    setLoading={setLoading}
+                    Alert={Alert}
+                    setAlert={setAlert}
+                    AlertTipo={AlertTipo}
+                    setAlertTipo={setAlertTipo}
+                    Avisando={Avisando}
+                    setAvisando={setAvisando}
+                />
+            </Route>
+            <Route exact path= "/pesquisa">
+                <Pesquisa
                     Dados={Dados}
                     setDados={setDados}
                     Loading={Loading}

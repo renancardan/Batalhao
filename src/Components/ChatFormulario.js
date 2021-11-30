@@ -12,7 +12,7 @@ import Condic from './Condoc';
 
 let recorder = '';
 let timer = '';
-export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTipo, Alert, AlertTipo,  setFormu, Forms, setActiveChat, AdicionaCond}) => {
+export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTipo, Alert, AlertTipo,  setFormu, Forms, setActiveChat, AdicionaCond, tiracond}) => {
    
     const [User, setUser] = useState('');
     const [list, setList] = useState([]);
@@ -596,7 +596,14 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
                                           <>
                                           <div className="listCond1">
                                           <string> {item.nome}</string>
+                                         
                                           </div>
+                                          <div className="chatWindow--btn2"
+                                            onClick={()=>tiracond(item.id, item.nome)}
+                                            >
+                                                <p className="textButao" >EXCLUIR</p>
+                                            </div>
+                                         
                                             <br/>
                                           </>
                                          ))
