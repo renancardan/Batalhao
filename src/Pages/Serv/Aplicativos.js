@@ -10,6 +10,7 @@ import Pagination from '../../Components/Pagination';
 import Vizualizacao from './VizualizarApp';
 import AtivarApp from './AtivarApp';
 import Api from '../../Api';
+import { ContactlessOutlined } from '@material-ui/icons';
 
 
 export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertTipo,
@@ -28,6 +29,15 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       const [Id, setId] = useState("");
       const [Nome, setNome] = useState("");
       const [Telefone, setTelefone] = useState("");
+      const [Patente, setPatente] = useState("");
+      const [NomeGuerra, setNomeGuerra] = useState("");
+      const [NomeComp, setNomeComp] = useState("");
+      const [Tel, setTel] = useState("");
+      const [VerNomeComp, setVerNomeComp] = useState(false);
+      const [VerNomeGuerra, setVerNomeGuerra] = useState(false);
+      const [VerPatente, setVerPatente] = useState(false);
+      const [VerTel, setVerTel] = useState(false);
+      const [TempAtiv, setTempAtiv] = useState(0)
      
 
       useEffect(() => {
@@ -35,8 +45,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       }, [])
 
       useEffect(() => {
-       
-       }, [Lista])
+       temporizador();
+       }, [])
 
       useEffect(() => {
       
@@ -47,7 +57,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
         Listando();
        }, [Offset])
      
-    
+  
   
      
           const ListApp = async ()=>{
@@ -109,6 +119,132 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                     }          
                          
           }
+          const temporizador = ()=>{
+            let currentDate = '';
+            let now =new Date();
+              let Dia = now.getDate();
+              let Mes = (now.getMonth()+1);
+              let Ano = now.getFullYear();
+              Dia = Dia < 10 ? '0'+Dia : Dia;
+              Mes = Mes < 10 ? '0'+Mes : Mes;
+              currentDate = Ano+'-'+Mes+'-'+Dia;
+              let Dat  = new Date(currentDate +" 08:00:00.000").getTime();
+              let Dat2 = Dat + 86400000;
+              setTempAtiv(Dat2);
+          }
+          const PesqNomComp = ()=>{
+             
+            if(NomeComp !== ""){
+              setVerNomeComp(true);
+           
+            let listra2 = [];
+            for(let i in UsuariosContServ ) {
+            
+                if( UsuariosContServ[i].nome.toLowerCase().includes(NomeComp.toLowerCase())  ) {
+                  
+                  listra2.push({
+                    id: UsuariosContServ[i].id, 
+                    nome: UsuariosContServ[i].nome,
+                    ativo: UsuariosContServ[i].ativo, 
+                    telefone: UsuariosContServ[i].telefone,
+                    nomeGuerra:UsuariosContServ[i].nomeGuerra,
+                    patente:UsuariosContServ[i].patente,
+                });   
+                }
+               
+              }
+              
+              setLista(["list"]);
+              setQuant(listra2.length);
+              setUsuariosContServ(listra2);
+
+            }
+          }
+          const PesqNomGuerra = ()=>{
+             
+            if(NomeGuerra !== ""){
+              setVerNomeGuerra(true);
+           
+            let listra2 = [];
+            for(let i in UsuariosContServ ) {
+            
+                if( UsuariosContServ[i].nomeGuerra.toLowerCase().includes(NomeGuerra.toLowerCase())  ) {
+                  
+                  listra2.push({
+                    id: UsuariosContServ[i].id, 
+                    nome: UsuariosContServ[i].nome,
+                    ativo: UsuariosContServ[i].ativo, 
+                    telefone: UsuariosContServ[i].telefone,
+                    nomeGuerra:UsuariosContServ[i].nomeGuerra,
+                    patente:UsuariosContServ[i].patente,
+                });   
+                }
+               
+              }
+              
+              setLista(["list"]);
+              setQuant(listra2.length);
+              setUsuariosContServ(listra2);
+
+            }
+          }
+          const PesqPatente = ()=>{
+             
+            if(Patente !== ""){
+              setVerPatente(true);
+           
+            let listra2 = [];
+            for(let i in UsuariosContServ ) {
+            
+                if( UsuariosContServ[i].patente.toLowerCase().includes(Patente.toLowerCase())  ) {
+                  
+                  listra2.push({
+                    id: UsuariosContServ[i].id, 
+                    nome: UsuariosContServ[i].nome,
+                    ativo: UsuariosContServ[i].ativo, 
+                    telefone: UsuariosContServ[i].telefone,
+                    nomeGuerra:UsuariosContServ[i].nomeGuerra,
+                    patente:UsuariosContServ[i].patente,
+                });   
+                }
+               
+              }
+              
+              setLista(["list"]);
+              setQuant(listra2.length);
+              setUsuariosContServ(listra2);
+
+            }
+          }
+
+          const PesqTelefone = ()=>{
+             
+            if(Tel !== ""){
+              setVerTel(true);
+           
+            let listra2 = [];
+            for(let i in UsuariosContServ ) {
+            
+                if( UsuariosContServ[i].telefone.toLowerCase().includes(Tel)  ) {
+                  
+                  listra2.push({
+                    id: UsuariosContServ[i].id, 
+                    nome: UsuariosContServ[i].nome,
+                    ativo: UsuariosContServ[i].ativo, 
+                    telefone: UsuariosContServ[i].telefone,
+                    nomeGuerra:UsuariosContServ[i].nomeGuerra,
+                    patente:UsuariosContServ[i].patente,
+                });   
+                }
+               
+              }
+              
+              setLista(["list"]);
+              setQuant(listra2.length);
+              setUsuariosContServ(listra2);
+
+            }
+          }
 
           function confirma() {
             setAlert(" ");
@@ -127,6 +263,30 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
           const Fechar = ()=>{
             setPag2(false);
             setPag1(false);
+          }
+
+          const LimpandoPesq = ()=>{
+           setNomeGuerra("");
+           setVerNomeGuerra(false);
+           setNomeComp("");
+           setVerNomeComp(false);
+           setPatente("");
+           setVerPatente(false);
+           setTel("");
+           setVerTel(false);
+           ListApp();
+          }
+
+          const ativandopermanente = (id, nome)=>{
+            setAlert("Ok");
+            setAlertTipo("ativandosempre");
+            setId(id);
+            setNome(nome)
+            // Api.AtivadoSempe();
+          }
+
+          const ativarPerm = ()=>{
+            Api.AtivadoSempe(Id, setAlertTipo, setAlert);
           }
 
 
@@ -192,6 +352,16 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                   setId(id);
                   setNome(nome);
                 }
+
+                const MsgAtivarDiario = (id, nome)=>{
+                  setAlert("Ok");
+                  setAlertTipo("ativar");
+                  setId(id);
+                  setNome(nome);
+                }
+                const ativandoDiario = ()=>{
+                  Api.AtivandoApp(Id, setAlertTipo, setAlert, TempAtiv);
+                }
                
       
   return (
@@ -205,7 +375,35 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                   <SweetAlert  danger title={Alert} confirmBtnBsStyle="danger" onConfirm={confirma} onCancel={cancelar} />
                 }
 
-            { Alert !== " " && AlertTipo === "Bloqueio" &&
+            { Alert !== " " && AlertTipo === "ativandosempre" &&
+              <SweetAlert
+              warning
+              showCancel
+              confirmBtnText="Sim"
+              cancelBtnText="Não"
+              confirmBtnBsStyle="danger"
+              onConfirm={()=>ativarPerm()}
+              onCancel={cancelar}
+              focusCancelBtn
+            >
+              Tem certeza que deseja ativar o App dessa conta {Nome} para sempre!
+            </SweetAlert>
+            }
+             { Alert !== " " && AlertTipo === "ativar" &&
+              <SweetAlert
+              warning
+              showCancel
+              confirmBtnText="Sim"
+              cancelBtnText="Não"
+              confirmBtnBsStyle="danger"
+              onConfirm={()=>ativandoDiario()}
+              onCancel={cancelar}
+              focusCancelBtn
+            >
+              Tem certeza que deseja ativar o App dessa conta {Nome} durante 24 horas!
+            </SweetAlert>
+            }
+             { Alert !== " " && AlertTipo === "Bloqueio" &&
               <SweetAlert
               warning
               showCancel
@@ -253,6 +451,105 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                         />
                         :
                         <>
+                        <div className="card card-warning">
+                    <div className="card-header">
+                        <h3 className="card-title">Filtros para pesquisa</h3>
+                    </div>
+                    {/* /.card-header */}
+                    <div className="card-body">
+                    <div className="row" >
+                   
+                            <div className="col-sm-2">
+                            <div className="form-group">
+                                <label>Nome Completo</label>
+                                <input 
+                                type="text" 
+                                className="form-control" 
+                                placeholder="Digite o Titulo "
+                                value={NomeComp}
+                                onChange={t=>setNomeComp(t.target.value)}
+                                disabled={VerNomeComp}
+                                onBlur={()=>PesqNomComp()}
+                                />
+                                
+                              
+                            </div>
+                            </div>
+                            <div className="col-sm-2">
+                            <div className="form-group">
+                                <label>Nome de Guerra</label>
+                                <input 
+                                type="text" 
+                                className="form-control" 
+                                placeholder="Digite o Titulo "
+                                value={NomeGuerra}
+                                onChange={t=>setNomeGuerra(t.target.value)}
+                                disabled={VerNomeGuerra}
+                                onBlur={()=>PesqNomGuerra()}
+                                />
+                                
+                              
+                            </div>
+                            </div>
+                            <div className="col-sm-2">
+                            <div className="form-group">
+                                <label>Patente</label>
+                                <input 
+                                type="text" 
+                                className="form-control" 
+                                placeholder="Digite o Titulo "
+                                value={Patente}
+                                onChange={t=>setPatente(t.target.value)}
+                                disabled={VerPatente}
+                                onBlur={()=>PesqPatente()}
+                                />
+                                
+                              
+                            </div>
+                            </div>
+                            {/* <div className="col-sm-2">
+                            <div className="form-group">
+                                <label>Telefone</label>
+                                <input 
+                                type="text" 
+                                className="form-control" 
+                                placeholder="Digite aqui.... "
+                                value={Tel}
+                                onChange={t=>setTel(t.target.value)}
+                                disabled={VerTel}
+                                onBlur={()=>PesqTelefone()}
+                                />
+                            </div>
+                            </div>   */}
+                        
+                            
+                            <div className="col-sm-2" style={{marginTop:"35px"}}>
+                            <div className="form-group">
+                            <Butao 
+                            style={"btn btn-sm btn-warning"}
+                            titulo={"Pesquisar"}
+                            onClick={null}
+                            />
+                            </div>
+                            </div> 
+                            <div className="col-sm-2" style={{marginTop:"35px"}}>
+                            <div className="form-group">
+                            <Butao 
+                            style={"btn btn-sm btn-secondary"}
+                            titulo={"Limpar Pesquisa"}
+                            onClick={()=>LimpandoPesq()}
+                            />
+                            </div>
+                            </div> 
+                            
+                          
+                                   
+                    </div>
+                    </div>
+                       
+                  
+                    {/* /.card-body */}
+                    </div>
                     <div className="card card-info">
                       <div className="card-header">
                         <h3 className="card-title" style={{ marginBottom: "10px"}}>Lista AppServ Desbloqueados  </h3> 
@@ -263,6 +560,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                             <thead>
                               <tr>
                                 <th>Nome</th>
+                                <th>Nome De Guerra</th>
+                                <th>Patente</th>
                                 <th>Telefone</th>
                                 <th>Ativo</th>
                                 
@@ -277,6 +576,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                             
                                     <tr key={item.list.id} style={{backgroundColor: item.list.ativo=== false ?"#F4B0B9":"#FFF"}} >
                                     <td>{item.list.nome}</td>
+                                    <td>{item.list.nomeGuerra}</td>
+                                    <td>{item.list.patente}</td>
                                     <td>{item.list.telefone}</td>
                                     <td>
                                       {item.list.ativo===true ?
@@ -306,8 +607,13 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                                       <>
                                       <Butao 
                                       style={"btn btn-xs btn-success"}
-                                      titulo={"Ativar"}
-                                      onClick={()=>PagAtivar(item.list.id, item.list.nome, item.list.telefone)}
+                                      titulo={"Ativar "}
+                                      onClick={()=>ativandopermanente(item.list.id, item.list.nome)}
+                                      /> 
+                                      <Butao 
+                                      style={"btn btn-xs btn-success"}
+                                      titulo={"Atição Diaria"}
+                                      onClick={()=>MsgAtivarDiario(item.list.id, item.list.nome)}
                                       /> 
                                       <Butao 
                                       style={"btn btn-xs btn-danger"}

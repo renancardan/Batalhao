@@ -21,10 +21,11 @@ function App() {
     const [NomeCad, setNomeCad] = useState("");
     const [TelCad, setTelCad] = useState("");
     const [EmailCad, setEmailCad] = useState("");
-    const [ContaCad, setContaCad] = useState("");
+    const [ContaCad, setContaCad] = useState("Lider");
     const [SenhaCad, setSenhaCad] = useState("");
     const [SenhaComfCad, setSenhaComfCad] = useState("");
-
+    const [NomeGuerra, setNomeGuerra] = useState("");
+    const [Patente, setPatente] = useState("")
     const [User, setUser] = useState("L23252679");
     const [Conta, setConta] = useState("serv");
     const [Loading, setLoading] = useState(false);
@@ -86,7 +87,7 @@ function App() {
                     await setLoading(true);
                     if(EmailCad !== "" && SenhaCad !== "" && NomeCad !== "" && TelCad !== ""
                     && SenhaComfCad !== "" && CidadeCad !== "" && EstadoCad !== ""
-                    && InstCad !== "" && ContaCad !== "") {
+                    && InstCad !== "" && ContaCad !== "" && Patente !== "" && NomeGuerra !== "") {
                             if(SenhaComfCad === SenhaCad) {
                               if(InstCad !== "Instituição" ) {
                                 if(CidadeCad !== "Cidade") {
@@ -94,7 +95,7 @@ function App() {
                                     if(ContaCad !== "Conta") {
                                       await setConta("serv");
                                       const res = await Api.cadastroserv(EmailCad, SenhaCad, NomeCad,
-                                         TelCad, CidadeCad, EstadoCad, InstCad,  ContaCad);
+                                         TelCad, CidadeCad, EstadoCad, InstCad,  ContaCad, NomeGuerra, Patente);
                                       if(res === "ok") {
                                         await localStorage.setItem('brasil', "serv");
                                         await localStorage.setItem('roma', "V23736478");
@@ -229,6 +230,10 @@ function App() {
               logando={logarServ}
               Alert={Alert}
               setAlert={setAlert}
+              NomeGuerra={NomeGuerra}
+              setNomeGuerra={setNomeGuerra}
+              Patente={Patente}
+              setPatente={setPatente}
               />  
               }
 

@@ -14,7 +14,7 @@ export default {
 
 
   cadastroserv:async (EmailCad, SenhaCad, NomeCad, TelCad, CidadeCad, 
-    EstadoCad, InstCad, ContaCad) => {
+    EstadoCad, InstCad, ContaCad,  NomeGuerra, Patente) => {
 
             
 
@@ -27,6 +27,10 @@ export default {
                                   if(ContaCad === "Lider") {
 
                                     return await db.collection("users").doc(id).set({
+                                      patente:Patente,
+                                      nomeGuerra:NomeGuerra,
+                                      ocupado:false,
+                                      tempAtiva: 0,
                                       nome: NomeCad, 
                                       telefone: TelCad, 
                                       cidade: CidadeCad, 
@@ -222,6 +226,8 @@ export default {
       let res = {};
       const dados = await db.collection('users').doc(id)
       .onSnapshot((doc) => {
+        if(doc.data()){
+
         let cid = doc.data().cidade;
         let est = doc.data().estado;
         let con = doc.data().conta;
@@ -244,8 +250,9 @@ export default {
           setLoading(false);
           console.log(res);
           setDados(res);
+          
       });
-        
+    }  
     });
      
      
@@ -327,7 +334,8 @@ export default {
                   nome: doc.data().nome,
                   telefone: doc.data().telefone,
                   ativo: doc.data().conta.servApp.ativo,
-    
+                  nomeGuerra: doc.data().nomeGuerra? doc.data().nomeGuerra : "",
+                  patente: doc.data().patente? doc.data().patente : "",
                 });      
             });
             setUsuariosContServ(res);
@@ -346,48 +354,36 @@ export default {
     
   },
 
-  AtivandoApp: async(Dados, Forms, Id, Placa, Infor, setAlertTipo, setAlert,  Fechar)=> {
+  AtivandoApp: async(Id, setAlertTipo, setAlert, TempAtiv)=> {
     const autenticado =  await Auth.currentUser;
     const id = await autenticado.uid;
     const Setor = "Ativar App Serv";
-    await db.collection("usoAppServ")
-    .add({
-      idApp:Id,
-      responsavel:Forms,
-      palcaVeiculo: Placa,
-      inforVeiculo: Infor,
-      dataInicio:firebase.firestore.FieldValue.serverTimestamp(),
-    }).then(async(doc)=>{
-      const res = doc.id;
-      await db.collection("users")
-      .doc(Id)
-      .update({
-        "conta.servApp.ativo":true,
-        responsavel: Forms,
-        placaVeiculo:Placa,
-        usoAppServ: res,
-        inforVeiculo: Infor,
-
-      }).then(()=>{
-        db.collection("movimentacao").add({
-          id:id,
-          instituicao: Dados.instituicao,
-          cidade: Dados.cidade,
-          estado: Dados.estado,
-          Conta: Dados.conta.serv.tipo,
-          acao:"Atualizar",
-          setor: Setor,
-          data:firebase.firestore.FieldValue.serverTimestamp(),
-          idSofrer:Id,
-          })
-
-        setAlert("Ativado com sucesso!");
-        setAlertTipo("success");
-        Fechar();
-      })
-    })
+    db.collection("users").doc(Id).update({
+      "ativaPerman": false,
+      "tempAtiva": TempAtiv,
+      "conta.servApp.ativo": true,
+  })
+  .then(() => {
+    setAlert("Ativado com sucesso!");
+    setAlertTipo("success");
+  });
   },
 
+  AtivadoSempe: async( Id, setAlertTipo, setAlert )=> {
+    const autenticado =  await Auth.currentUser;
+    const id = await autenticado.uid;
+    const Setor = "Ativar App Serv";
+    db.collection("users").doc(Id).update({
+      "ativaPerman": true,
+      "tempAtiva":0,
+      "conta.servApp.ativo": true,
+  })
+  .then(() => {
+    setAlert("Ativado com sucesso!");
+    setAlertTipo("success");
+  });
+   
+  },
   BloqueandoAppServ: async(Dados, Id, setAlertTipo, setAlert)=> {
     
     const autenticado =  await Auth.currentUser;
@@ -397,6 +393,7 @@ export default {
 
     await db.collection("users").doc(Id).update({
       "conta.servApp.desbloqueado": false,
+      "conta.serv.desbloqueado": false,
     })
     .then(() => {
             setAlert("Bloqueado Com Sucesso!");
@@ -447,41 +444,19 @@ export default {
   },
 
   DesativandoApp: async(Dados, Id, setAlertTipo, setAlert)=> {
+   
     const autenticado =  await Auth.currentUser;
     const id = await autenticado.uid;
-    const Setor = "Desativar App Serv";
-    await db.collection("users")
-    .doc(Id)
-    .get()
-    .then(async(doc)=>{
-      const res = doc.data().usoAppServ;
-      await db.collection("usoAppServ").doc(res).update({
-      dataFim:firebase.firestore.FieldValue.serverTimestamp(),  
-      }).then(async()=>{
-        await db.collection("users").doc(Id).update({
-          "conta.servApp.ativo": false,
-          "responsavel": "",
-          "placaVeiculo":"",
-          "usoAppServ": "",
-          "inforVeiculo": "",
-        }).then(()=>{
-          setAlert("Desativado Com Sucesso!");
-          setAlertTipo("success");
-          db.collection("movimentacao").add({
-            id:id,
-            instituicao: Dados.instituicao,
-            cidade: Dados.cidade,
-            estado: Dados.estado,
-            Conta: Dados.conta.serv.tipo,
-            acao:"Atualizar",
-            setor: Setor,
-            data:firebase.firestore.FieldValue.serverTimestamp(),
-            })
-
-        })
-
-      })
-    })
+    db.collection("users").doc(Id).update({
+      "ativaPerman": false,
+      "tempAtiva":0,
+      "conta.servApp.ativo": false,
+  })
+  .then(() => {
+    setAlert("Ativado com sucesso!");
+    setAlertTipo("success");
+  });
+   
     
   },
 
@@ -757,7 +732,8 @@ export default {
                 res.push({
                   id: doc.id,
                   nome: doc.data().nome,
-                  conta: doc.data().conta.serv.tipo,
+                  nomeGuerra: doc.data().nomeGuerra? doc.data().nomeGuerra : "",
+                  patente: doc.data().patente? doc.data().patente : "",
                   desbloqueado: doc.data().conta.serv.desbloqueado,
     
                 });      

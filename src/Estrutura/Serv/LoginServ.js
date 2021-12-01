@@ -18,7 +18,8 @@ export default ({setConta, setEmail, Email, Senha, setSenha,
   Confirsenha, setConfirsenha, Cidade, setCidade, Estado, 
   setEstado, Instituicao, setInstituicao, Nome, setNome, 
   Telefone, setTelefone,  ContaTipo, setContaTipo,
-   Loading, cadastrando, logando, Alert, setAlert }) => {
+   Loading, cadastrando, logando, Alert, setAlert, NomeGuerra, setNomeGuerra,
+   Patente, setPatente}) => {
 
           
           const [EstCidJson, setEstCidJson] = useState({CidadeJson});
@@ -224,13 +225,35 @@ export default ({setConta, setEmail, Email, Senha, setSenha,
                             <div className="input_cadatro">
                               <Campo 
                                   type={"text"}
-                                  placeholder={"Nome do Responsavel"}
+                                  placeholder={"Nome Completo"}
                                   icon={"fas fa-user"}
                                   value={Nome}
                                   onChange={e=>setNome(e.target.value)}
                                   mask={null}
                                 />
 
+                            </div>
+                            <div className="input_cadatro">
+                              <Campo 
+                                  type={"text"}
+                                  placeholder={"Nome De Guerra"}
+                                  icon={"fas fa-user"}
+                                  value={NomeGuerra}
+                                  onChange={e=>setNomeGuerra(e.target.value)}
+                                  mask={null}
+                                />
+
+                            </div>
+                          
+                            <div className="input_cadatro">
+                              <Select 
+                                  type={null}
+                                  placeholder={"Patente"}
+                                  icon={"fas fa-user"}
+                                  value={Patente}
+                                  onChange={e=>setPatente(e.target.value)}
+                                  List={ListContaTipo}
+                                  /> 
                             </div>
                             <div className="input_cadatro">
                               <Campo 
@@ -252,16 +275,7 @@ export default ({setConta, setEmail, Email, Senha, setSenha,
                                   mask={null}
                                   />
                             </div>
-                            <div className="input_cadatro">
-                              <Select 
-                                  type={null}
-                                  placeholder={"Conta"}
-                                  icon={"fas fa-desktop"}
-                                  value={ContaTipo}
-                                  onChange={e=>setContaTipo(e.target.value)}
-                                  List={ListContaTipo}
-                                  /> 
-                            </div>
+                           
                             <div className="input_cadatro">
                               <Campo 
                                   type={"password"}

@@ -39,6 +39,15 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       const [CarregApp, setCarregApp] = useState(false);
       const [ContApp, setContApp] = useState(0);
       
+      const [Patente, setPatente] = useState("");
+      const [NomeGuerra, setNomeGuerra] = useState("");
+      const [NomeComp, setNomeComp] = useState("");
+      const [Tel, setTel] = useState("");
+      const [VerNomeComp, setVerNomeComp] = useState(false);
+      const [VerNomeGuerra, setVerNomeGuerra] = useState(false);
+      const [VerPatente, setVerPatente] = useState(false);
+      const [VerTel, setVerTel] = useState(false);
+      
 
       useEffect(() => {
        ListConta();
@@ -83,6 +92,18 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
 
                
           }
+
+          const LimpandoPesq = ()=>{
+            setNomeGuerra("");
+            setVerNomeGuerra(false);
+            setNomeComp("");
+            setVerNomeComp(false);
+            setPatente("");
+            setVerPatente(false);
+            setTel("");
+            setVerTel(false);
+            ListConta();
+           }
 
           const ListaApp = async ()=>{
             if (navigator.onLine) {
@@ -190,7 +211,87 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
               }          
                    
     }
+    const PesqNomComp = ()=>{
+             
+      if(NomeComp !== ""){
+        setVerNomeComp(true);
+     
+      let listra2 = [];
+      for(let i in UsuariosContServ ) {
+      
+          if( UsuariosContServ[i].nome.toLowerCase().includes(NomeComp.toLowerCase())  ) {
+            
+            listra2.push({
+              id: UsuariosContServ[i].id, 
+              nome: UsuariosContServ[i].nome,
+              desbloqueado: UsuariosContServ[i].desbloqueado, 
+              nomeGuerra:UsuariosContServ[i].nomeGuerra,
+              patente:UsuariosContServ[i].patente,
+          });   
+          }
+         
+        }
+        
+        setLista(["list"]);
+        setQuant(listra2.length);
+        setUsuariosContServ(listra2);
 
+      }
+    }
+    const PesqNomGuerra = ()=>{
+             
+      if(NomeGuerra !== ""){
+        setVerNomeGuerra(true);
+     
+      let listra2 = [];
+      for(let i in UsuariosContServ ) {
+      
+          if( UsuariosContServ[i].nomeGuerra.toLowerCase().includes(NomeGuerra.toLowerCase())  ) {
+            
+            listra2.push({
+              id: UsuariosContServ[i].id, 
+              nome: UsuariosContServ[i].nome,
+              desbloqueado: UsuariosContServ[i].desbloqueado, 
+              nomeGuerra:UsuariosContServ[i].nomeGuerra,
+              patente:UsuariosContServ[i].patente,
+          });   
+          }
+         
+        }
+        
+        setLista(["list"]);
+        setQuant(listra2.length);
+        setUsuariosContServ(listra2);
+
+      }
+    }
+    const PesqPatente = ()=>{
+       
+      if(Patente !== ""){
+        setVerPatente(true);
+     
+      let listra2 = [];
+      for(let i in UsuariosContServ ) {
+      
+          if( UsuariosContServ[i].patente.toLowerCase().includes(Patente.toLowerCase())  ) {
+            
+            listra2.push({
+              id: UsuariosContServ[i].id, 
+              nome: UsuariosContServ[i].nome,
+              desbloqueado: UsuariosContServ[i].desbloqueado, 
+              nomeGuerra:UsuariosContServ[i].nomeGuerra,
+              patente:UsuariosContServ[i].patente,
+          });   
+          }
+         
+        }
+        
+        setLista(["list"]);
+        setQuant(listra2.length);
+        setUsuariosContServ(listra2);
+
+      }
+    }
           function confirma() {
             setAlert(" ");
             setAlertTipo(" ");
@@ -369,6 +470,105 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                         />
                         :
                         <>
+                        <div className="card card-warning">
+                    <div className="card-header">
+                        <h3 className="card-title">Filtros para pesquisa</h3>
+                    </div>
+                    {/* /.card-header */}
+                    <div className="card-body">
+                    <div className="row" >
+                   
+                            <div className="col-sm-2">
+                            <div className="form-group">
+                                <label>Nome Completo</label>
+                                <input 
+                                type="text" 
+                                className="form-control" 
+                                placeholder="Digite o Titulo "
+                                value={NomeComp}
+                                onChange={t=>setNomeComp(t.target.value)}
+                                disabled={VerNomeComp}
+                                onBlur={()=>PesqNomComp()}
+                                />
+                                
+                              
+                            </div>
+                            </div>
+                            <div className="col-sm-2">
+                            <div className="form-group">
+                                <label>Nome de Guerra</label>
+                                <input 
+                                type="text" 
+                                className="form-control" 
+                                placeholder="Digite o Titulo "
+                                value={NomeGuerra}
+                                onChange={t=>setNomeGuerra(t.target.value)}
+                                disabled={VerNomeGuerra}
+                                onBlur={()=>PesqNomGuerra()}
+                                />
+                                
+                              
+                            </div>
+                            </div>
+                            <div className="col-sm-2">
+                            <div className="form-group">
+                                <label>Patente</label>
+                                <input 
+                                type="text" 
+                                className="form-control" 
+                                placeholder="Digite o Titulo "
+                                value={Patente}
+                                onChange={t=>setPatente(t.target.value)}
+                                disabled={VerPatente}
+                                onBlur={()=>PesqPatente()}
+                                />
+                                
+                              
+                            </div>
+                            </div>
+                            {/* <div className="col-sm-2">
+                            <div className="form-group">
+                                <label>Telefone</label>
+                                <input 
+                                type="text" 
+                                className="form-control" 
+                                placeholder="Digite aqui.... "
+                                value={Tel}
+                                onChange={t=>setTel(t.target.value)}
+                                disabled={VerTel}
+                                onBlur={()=>PesqTelefone()}
+                                />
+                            </div>
+                            </div>   */}
+                        
+                            
+                            <div className="col-sm-2" style={{marginTop:"35px"}}>
+                            <div className="form-group">
+                            <Butao 
+                            style={"btn btn-sm btn-warning"}
+                            titulo={"Pesquisar"}
+                            onClick={null}
+                            />
+                            </div>
+                            </div> 
+                            <div className="col-sm-2" style={{marginTop:"35px"}}>
+                            <div className="form-group">
+                            <Butao 
+                            style={"btn btn-sm btn-secondary"}
+                            titulo={"Limpar Pesquisa"}
+                            onClick={()=>LimpandoPesq()}
+                            />
+                            </div>
+                            </div> 
+                            
+                          
+                                   
+                    </div>
+                    </div>
+                       
+                  
+                    {/* /.card-body */}
+                    </div>
                         {Dados.grupo.menu.contas.listaContasServ.Ver === true &&
                     <div className="card card-info">
                     
@@ -382,7 +582,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                             <thead>
                               <tr>
                                 <th>Nome</th>
-                                <th>Conta</th>
+                                <th>Nome De Guerra</th>
+                                <th>Patente</th>
                                 <th>Debloqueado</th>
                                 
                                 <th>Ações</th>
@@ -396,7 +597,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                             
                                     <tr key={item.list.id} style={{backgroundColor: item.list.desbloqueado=== false ?"#999":"#FFF"}} >
                                     <td>{item.list.nome}</td>
-                                    <td>{item.list.conta}</td>
+                                    <td>{item.list.nomeGuerra}</td>
+                                    <td>{item.list.patente}</td>
                                     <td>
                                       {item.list.desbloqueado===true ?
                                       <span style={{ fontSize: "13px" }}>Sim</span> 
@@ -448,112 +650,6 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                          </div>
                         </div>
                         }
-                        </>
-                        }
-                    </section>       
-               </div>
-            </div>
-          </section>
-          <section className="content">
-                <div className="container-fluid">
-                  
-                <div className="row">
-                  <section className="col-12">
-                  {Loading === true ?
-                        <Spinner 
-                        size={64}
-                        color={"#5d0bf7"}
-                        sizeUnit={'px'} 
-                        />
-                        :
-                        <>
-                    <div className="card card-warning">
-                    
-                      <div className="card-header">
-                      
-                        <h3 className="card-title" style={{ marginBottom: "10px"}}>Lista de App Serv  </h3> 
-
-                      </div>
-                        <div class="card-body table-responsive p-0">
-                          <table class="table table-hover text-nowrap">
-                            <thead>
-                              <tr>
-                                <th>Nome</th>
-                                <th>Telefone</th>
-                                
-                                <th>Desbloqueado</th>
-                                
-                                <th>Ações</th>
-                              </tr>
-                            </thead>
-                            
-                            { AppList[0].list ?
-                            <tbody >
-                            { AppList.map((item, key)=>(
-                            
-                            
-                                    <tr key={item.list.id} style={{backgroundColor: item.list.desbloqueado=== false ?"#999":"#FFF"}} >
-                                    <td>{item.list.nome}</td>
-                                    <td>{item.list.telefone}</td>
-                                   
-                                    <td>
-                                      {item.list.desbloqueado===true ?
-                                      <span style={{ fontSize: "13px" }}>Sim</span> 
-                                      :
-                                      <span style={{ color: "red", fontSize: "13px" }} >Não</span> 
-                                    }                                   
-                                                               
-                                    </td>
-                                   
-                                    <td>
-                                    {item.list.desbloqueado===true ?
-                                    <>
-                                    {item.list.ativo===false &&
-                                      <Butao 
-                                      style={"btn btn-xs btn-danger"}
-                                      titulo={"Bloquear"}
-                                      onClick={()=>MsgBloqueio(item.list.id, item.list.nome)}
-                                      />
-                                    }                  
-                                   </>
-                                    :
-                                    <Butao 
-                                    style={"btn btn-xs btn-warning"}
-                                    titulo={"Desbloquear"}
-                                    onClick={()=>MsgDesbloqueio(item.list.id, item.list.nome)}
-                                    />
-                                     }
-                                                                                                     
-                                                           
-                                    </td>
-                                  </tr>
-                                 
-                             ))}
-                                </tbody> 
-                                :
-                                      <>
-                                      { CarregApp === true ?
-                                        <Spinner 
-                                        size={64}
-                                        color={"#5d0bf7"}
-                                        sizeUnit={'px'} 
-                                        />
-                                        :                                      
-                                      <p style={{color:"red", margin:"20px"}}>Não existe App Cadastrado </p>
-                                      }
-                                      </>
-                            }
-                            
-                            
-                          </table>
-                            <Pagination
-                            limit={Limit} 
-                            total={QuantApp} 
-                            offset={Ofapp}
-                            setOffset={setOfapp}
-                            />
-                         </div>
-                        </div>
                         </>
                         }
                     </section>       

@@ -308,7 +308,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
            
 
             const LimpandoPesq = ()=>{
-              setDataP(new Date());
+              setDataP();
               setDataA(new Date());
               setVerD(false);
               setVerA(false);
@@ -1085,6 +1085,15 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                                 />
                             </div>
                             </div>  
+                            <div className="col-sm-2" style={{marginTop:"35px"}}>
+                            <div className="form-group">
+                            <Butao 
+                            style={"btn btn-sm btn-warning"}
+                            titulo={"Pesquisar"}
+                            onClick={null}
+                            />
+                            </div>
+                            </div> 
                             
                             <div className="col-sm-2">
                             <div className="form-group">
