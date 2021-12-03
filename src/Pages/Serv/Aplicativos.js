@@ -37,8 +37,12 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       const [VerNomeGuerra, setVerNomeGuerra] = useState(false);
       const [VerPatente, setVerPatente] = useState(false);
       const [VerTel, setVerTel] = useState(false);
-      const [TempAtiv, setTempAtiv] = useState(0)
+      const [TempAtiv, setTempAtiv] = useState(0);
+      const [Varia, setVaria] = useState()
      
+      useEffect(() => {
+        LevarTemp();
+    }, [])
 
       useEffect(() => {
        ListApp();     
@@ -58,7 +62,10 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
        }, [Offset])
      
   
-  
+       const LevarTemp = async ()=>{
+        await Api.VariacaoTemp();
+        await Api.VarTempPegar(Dados, setVaria);
+       }
      
           const ListApp = async ()=>{
             if (navigator.onLine) {
@@ -149,6 +156,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                     telefone: UsuariosContServ[i].telefone,
                     nomeGuerra:UsuariosContServ[i].nomeGuerra,
                     patente:UsuariosContServ[i].patente,
+                    ativaPerman:UsuariosContServ[i].ativaPerman,
+                    tempAtiva:UsuariosContServ[i].tempAtiva,
                 });   
                 }
                
@@ -177,6 +186,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                     telefone: UsuariosContServ[i].telefone,
                     nomeGuerra:UsuariosContServ[i].nomeGuerra,
                     patente:UsuariosContServ[i].patente,
+                    ativaPerman:UsuariosContServ[i].ativaPerman,
+                    tempAtiva:UsuariosContServ[i].tempAtiva,
                 });   
                 }
                
@@ -205,6 +216,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                     telefone: UsuariosContServ[i].telefone,
                     nomeGuerra:UsuariosContServ[i].nomeGuerra,
                     patente:UsuariosContServ[i].patente,
+                    ativaPerman:UsuariosContServ[i].ativaPerman,
+                    tempAtiva:UsuariosContServ[i].tempAtiva,
                 });   
                 }
                
@@ -234,6 +247,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                     telefone: UsuariosContServ[i].telefone,
                     nomeGuerra:UsuariosContServ[i].nomeGuerra,
                     patente:UsuariosContServ[i].patente,
+                    ativaPerman:UsuariosContServ[i].ativaPerman,
+                    tempAtiva:UsuariosContServ[i].tempAtiva,
                 });   
                 }
                
@@ -286,7 +301,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
           }
 
           const ativarPerm = ()=>{
-            Api.AtivadoSempe(Id, setAlertTipo, setAlert);
+            Api.AtivadoSempe(Id, Nome, Varia, setAlertTipo, setAlert);
           }
 
 
@@ -360,7 +375,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                   setNome(nome);
                 }
                 const ativandoDiario = ()=>{
-                  Api.AtivandoApp(Id, setAlertTipo, setAlert, TempAtiv);
+                  Api.AtivandoApp(Id, Nome, Varia,  TempAtiv, setAlertTipo, setAlert,);
                 }
                
       
@@ -581,7 +596,15 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                                     <td>{item.list.telefone}</td>
                                     <td>
                                       {item.list.ativo===true ?
-                                      <span style={{ fontSize: "13px" }}>Ativo</span> 
+                                      <>
+                                      {item.list.ativaPerman === true &&
+                                        <span style={{ fontSize: "13px" }}>Ativo Permanente</span> 
+                                      }
+                                      {item.list.tempAtiva !== 0 &&
+                                        <span style={{ fontSize: "13px" }}>Ativo Por tempo</span> 
+                                      }
+                                      
+                                      </>
                                       :
                                       <span style={{ color: "red", fontSize: "13px" }} >Desativo</span> 
                                     }                                   

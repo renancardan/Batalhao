@@ -309,16 +309,7 @@ export default {
       get()
       .then(async(dados)=>{
         const result = await dados.data();
-        await db.collection("movimentacao").add({
-          id:ID,
-          instituicao: result.instituicao,
-          cidade: result.cidade,
-          estado: result.estado,
-          Conta: result.conta.serv.tipo,
-          acao:"Vizualizar",
-          setor: Setor,
-          data:firebase.firestore.FieldValue.serverTimestamp(),
-          });
+       
 
           await db.collection("users")
           .where("estado", "==", result.estado)
@@ -336,8 +327,11 @@ export default {
                   ativo: doc.data().conta.servApp.ativo,
                   nomeGuerra: doc.data().nomeGuerra? doc.data().nomeGuerra : "",
                   patente: doc.data().patente? doc.data().patente : "",
+                  ativaPerman: doc.data().ativaPerman? doc.data().ativaPerman : "",
+                  tempAtiva: doc.data().tempAtiva,
                 });      
             });
+            console.log(res);
             setUsuariosContServ(res);
     
               });
@@ -354,31 +348,177 @@ export default {
     
   },
 
-  AtivandoApp: async(Id, setAlertTipo, setAlert, TempAtiv)=> {
+  AtivandoApp: async(Id, Nome, Varia, TempAtiv, setAlertTipo, setAlert, )=> {
+    let numberTem = parseInt(TempAtiv);
     const autenticado =  await Auth.currentUser;
     const id = await autenticado.uid;
-    const Setor = "Ativar App Serv";
-    db.collection("users").doc(Id).update({
+    let temp = new Date().getTime();
+    let now = temp + (Varia*1000);
+
+    await db.collection("users")
+    .where("ativaPerman", "==", true)
+    .get().then((doc) => {
+      console.log(doc.size)
+      if (doc.size !== 0) {
+          doc.forEach((doc) => {
+
+            db.collection("chat").add({
+              dateCriacao:now,
+              ativo:true,
+              idCriador:Id,
+              nomeCriador:Nome,
+              idSofrer:doc.id,
+              nomeSofrer:doc.data().nome,
+              mensagem: [{autor:Id, 
+                body:"Fui ativado agora e estou iniciando um chat com você",
+                date:now,
+                nome:Nome,
+                type:"text" 
+                  }],
+              ultimaMsg:{data:now, id:Id, nome:Nome, msg:"Fui ativado agora e estou iniciando um chat com você"},
+              vizualS:0,
+              vizualC:0,
+          })
+          .then((docRef) => {
+              console.log("Document written with ID: ", docRef.id);
+          })
+ 
+        });
+      } 
+  }).catch((error) => {
+      console.log("Error getting document:", error);
+  });
+
+  await db.collection("users")
+  .where("tempAtiva", "!=", 0)
+  .get().then((doc) => {
+    if (doc.size !== 0) {
+        doc.forEach((doc) => {
+
+          db.collection("chat").add({
+            dateCriacao:now,
+            ativo:true,
+            idCriador:Id,
+            nomeCriador:Nome,
+            idSofrer:doc.id,
+            nomeSofrer:doc.data().nome,
+            mensagem: [{autor:Id, 
+              body:"Fui ativado agora e estou iniciando um chat com você",
+              date:now,
+              nome:Nome,
+              type:"text" 
+                }],
+            ultimaMsg:{data:now, id:Id, nome:Nome, msg:"Fui ativado agora e estou iniciando um chat com você"},
+            vizualS:0,
+            vizualC:0,
+        })
+        .then((docRef) => {
+            
+        })
+
+      });
+    } 
+}).catch((error) => {
+    console.log("Error getting document:", error);
+});
+
+ await db.collection("users").doc(Id).update({
       "ativaPerman": false,
-      "tempAtiva": TempAtiv,
+      "tempAtiva": numberTem,
       "conta.servApp.ativo": true,
   })
   .then(() => {
     setAlert("Ativado com sucesso!");
     setAlertTipo("success");
   });
+
   },
 
-  AtivadoSempe: async( Id, setAlertTipo, setAlert )=> {
+  AtivadoSempe: async( Id,  Nome, Varia, setAlertTipo, setAlert )=> {
     const autenticado =  await Auth.currentUser;
     const id = await autenticado.uid;
-    const Setor = "Ativar App Serv";
-    db.collection("users").doc(Id).update({
+    let temp = new Date().getTime();
+    let now = temp + (Varia*1000);
+
+
+    await db.collection("users")
+    .where("ativaPerman", "==", true)
+    .get().then((doc) => {
+      console.log(doc.size)
+      if (doc.size !== 0) {
+          doc.forEach((doc) => {
+
+            db.collection("chat").add({
+              dateCriacao:now,
+              ativo:true,
+              idCriador:Id,
+              nomeCriador:Nome,
+              idSofrer:doc.id,
+              nomeSofrer:doc.data().nome,
+              mensagem: [{autor:Id, 
+                body:"Fui ativado agora e estou iniciando um chat com você",
+                date:now,
+                nome:Nome,
+                type:"text" 
+                  }],
+              ultimaMsg:{data:now, id:Id, nome:Nome, msg:"Fui ativado agora e estou iniciando um chat com você"},
+              vizualS:0,
+              vizualC:0,
+          })
+          .then((docRef) => {
+              console.log("Document written with ID: ", docRef.id);
+          })
+ 
+        });
+      } 
+  }).catch((error) => {
+      console.log("Error getting document:", error);
+  });
+
+  await db.collection("users")
+  .where("tempAtiva", "!=", 0)
+  .get().then((doc) => {
+    if (doc.size !== 0) {
+        doc.forEach((doc) => {
+
+          db.collection("chat").add({
+            dateCriacao:now,
+            ativo:true,
+            idCriador:Id,
+            nomeCriador:Nome,
+            idSofrer:doc.id,
+            nomeSofrer:doc.data().nome,
+            mensagem: [{autor:Id, 
+              body:"Fui ativado agora e estou iniciando um chat com você",
+              date:now,
+              nome:Nome,
+              type:"text" 
+                }],
+            ultimaMsg:{data:now, id:Id, nome:Nome, msg:"Fui ativado agora e estou iniciando um chat com você"},
+            vizualS:0,
+            vizualC:0,
+        })
+        .then((docRef) => {
+            
+        })
+
+      });
+    } 
+}).catch((error) => {
+    console.log("Error getting document:", error);
+});
+
+  
+
+
+
+    await db.collection("users").doc(Id).update({
       "ativaPerman": true,
       "tempAtiva":0,
       "conta.servApp.ativo": true,
   })
   .then(() => {
+
     setAlert("Ativado com sucesso!");
     setAlertTipo("success");
   });
@@ -423,21 +563,13 @@ export default {
 
     await db.collection("users").doc(Id).update({
       "conta.servApp.desbloqueado": true,
+      "tempAtiva":0,
+      "ativaPerman":false,
     })
     .then(() => {
             setAlert("Desbloqueado Com Sucesso!");
             setAlertTipo("success");
-             db.collection("movimentacao").add({
-            id:id,
-            instituicao: Dados.instituicao,
-            cidade: Dados.cidade,
-            estado: Dados.estado,
-            Conta: Dados.conta.serv.tipo,
-            acao:"Atualizar",
-            setor: Setor,
-            data:firebase.firestore.FieldValue.serverTimestamp(),
-            idSofrer:Id,
-            })
+             
               
         });
     
@@ -447,13 +579,37 @@ export default {
    
     const autenticado =  await Auth.currentUser;
     const id = await autenticado.uid;
-    db.collection("users").doc(Id).update({
+
+    await db.collection("chat")
+    .where("idCriador", "==", Id)
+    .get().then((doc) => {
+      console.log(doc.size)
+      if (doc.size !== 0) {
+          doc.forEach((doc) => {
+
+            db.collection("chat").doc(doc.id).update({
+              "ativo": false,
+          })
+          
+ 
+        });
+      } 
+  }).catch((error) => {
+      console.log("Error getting document:", error);
+  });
+    // .update({
+    //   "ativo": false,
+    //   });
+     
+  
+
+    await db.collection("users").doc(Id).update({
       "ativaPerman": false,
       "tempAtiva":0,
       "conta.servApp.ativo": false,
   })
   .then(() => {
-    setAlert("Ativado com sucesso!");
+    setAlert("Desativado com sucesso!");
     setAlertTipo("success");
   });
    
@@ -1279,6 +1435,8 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
          "grupoid": res,
           "conta.serv.desbloqueado": true,
           "conta.servApp.desbloqueado": true,
+          "tempAtiva":0,
+          "ativaPerman":false,
         }).then(()=>{
           setAlert("Desbloqueado com Sucesso!");
           setAlertTipo("success");
@@ -1874,7 +2032,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
      PesquisarNumOc: async(Dados, setCodOc)=> {
         
         const dados = await db.collection('ultimaOcorr')
-        .doc("FTKRA384rOgVMPawzEpf")
+        .doc("GV0UVkBRwgWZ9xsczVe6")
         .onSnapshot((querySnapshot) => {
           console.log(querySnapshot);
           setCodOc(querySnapshot.data());
@@ -2014,7 +2172,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
     AtulUltOc: async(Let1, Let2, Let3, NumVal)=> {
    
          await db.collection("ultimaOcorr")
-         .doc("FTKRA384rOgVMPawzEpf").update({
+         .doc("GV0UVkBRwgWZ9xsczVe6").update({
            letra1:Let1,
            letra2:Let2,
            letra3:Let3,

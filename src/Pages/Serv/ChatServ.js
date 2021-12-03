@@ -67,7 +67,10 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
        
         PegarList();
     }, [])
-
+    useEffect(() => {
+       
+     console.log(activeChat)
+  }, [activeChat])
   
 
      useEffect(() => {
