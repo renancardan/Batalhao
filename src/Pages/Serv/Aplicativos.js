@@ -44,6 +44,10 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
         LevarTemp();
     }, [])
 
+    useEffect(() => {
+      DesativoAltomatico();
+  }, [])
+
       useEffect(() => {
        ListApp();     
       }, [])
@@ -60,6 +64,10 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
        useEffect(() => {
         Listando();
        }, [Offset])
+
+       const DesativoAltomatico = ()=>{
+         Api.DesativandoAltoma();
+       }
      
   
        const LevarTemp = async ()=>{
@@ -134,7 +142,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
               let Ano = now.getFullYear();
               Dia = Dia < 10 ? '0'+Dia : Dia;
               Mes = Mes < 10 ? '0'+Mes : Mes;
-              currentDate = Ano+'-'+Mes+'-'+Dia;
+              currentDate = Ano+'-'+Mes+'-'+Dia; 
               let Dat  = new Date(currentDate +" 08:00:00.000").getTime();
               let Dat2 = Dat + 86400000;
               setTempAtiv(Dat2);

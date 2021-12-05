@@ -122,7 +122,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 15px;
-  background-color: yellow;
+  background-color: red;
 }
 .Document {
   width: 100%;
@@ -390,7 +390,7 @@
 
 .formularioCond {
   height: 100%;
-  width: 25%;
+  width: 300px;
   overflow-y: auto;
 }
 .formularioCond1 {
@@ -411,6 +411,11 @@
   flex-direction: column;
   width: 100%;
 }
+.chatWindowPM {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
 
 .chatWindow--header {
   height: 60px;
@@ -418,6 +423,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.chatWindow--headerPM {
+  height: 60px;
+  border: 1px solid #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(181, 182, 202);
 }
 .chatWindow--headerinfo {
   display: flex;
@@ -498,6 +511,14 @@
   background-color: #fff;
   padding-left: 30px;
 }
+.FormWindow--footerPM {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #fff;
+  padding-left: 30px;
+}
 
 .textButao {
   font-size: 12px;
@@ -514,6 +535,15 @@
   background-position: center;
   padding: 20px 30px;
   background-image: url("image/logoapp.png");
+}
+.chatWindow--bodyPM {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid #000;
+  background-size: cover;
+  background-position: center;
+  padding: 20px 30px;
+  background-image: url("image/fundo.png");
 }
 .chatWindow--body1 {
   height: 600;
@@ -537,6 +567,13 @@
   height: 62px;
   display: flex;
   align-items: center;
+}
+.chatWindow--footerPM {
+  height: 62px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #000;
+  background-color: rgb(181, 182, 202);
 }
 .chatWindow--pre {
   display: flex;

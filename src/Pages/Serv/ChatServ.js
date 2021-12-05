@@ -10,6 +10,7 @@ import Pagination from '../../Components/Pagination';
 import ChatListItem from '../../Components/ChatListItem';
 import ChatIntro from '../../Components/ChatIntro';
 import ChatWindow from '../../Components/ChatWindow';
+import ChatWindowPM from '../../Components/ChatWindowPM';
 import ChatFormulario from '../../Components/ChatFormulario';
 import Vizualizacao from './VizualizarApp';
 import AtivarApp from './AtivarApp';
@@ -37,10 +38,15 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       });
       const [Id, setId] = useState("");
       const [Nome, setNome] = useState("");
+      const [IdPM, setIdPM] = useState("");
+      const [NomePM, setNomePM] = useState("");
       const [Telefone, setTelefone] = useState("");
       const [Chatlist, setChatlist] = useState([]);
+      const [ChatListPM, setChatListPM] = useState([]);
+      const [activeChatPM, setActiveChatPM] = useState(null);
       const [activeChat, setActiveChat] = useState(null);
       const [Vizul, setVizul] = useState('');
+      const [VizulPM, setVizulPM] = useState('');
       const [Varia, setVaria] = useState('');
       const [Loc, setLoc] = useState({});
       const [VirModal, setVirModal] = useState(false);
@@ -64,13 +70,13 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
           LevarTemp();
       }, [])
       useEffect(() => {
-       
+        PegarListPM();
         PegarList();
     }, [])
     useEffect(() => {
        
-     console.log(activeChat)
-  }, [activeChat])
+     console.log(activeChatPM);
+  }, [activeChatPM])
   
 
      useEffect(() => {
@@ -97,12 +103,10 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
     CondPegar();
  }, [activeChat])
 
- useEffect(() => {
-  console.log(Loc);
-}, [Loc])
+
  
 
-  useEffect(() => {
+useEffect(() => {
    Vizuali();
 }, [Vizul ,activeChat]);
 
@@ -135,25 +139,6 @@ useEffect(() => {
 
      
 
-const NotFic = ()=>{
-  console.log(Notification.permission);
-  if(Notification.permission === "granted") {
-    ShowNot();
-  } else if(Notification.permission !== "denied") {
-     Notification.requestPermission().then(permission => {
-         ShowNot();
-     });
-  }
-  setQantlis(Chatlist.length)
-}
-
-const ShowNot = ()=>{
-  let n = new Notification("OCORRÊNCIA",{
-      body: "Ocorrência Iniciada",
-      icon: "https://bpmbacabal.herokuapp.com/graficos/assets/logoapp.jpeg"
-    } 
-   )
-}
        
 
      const LevarTemp = async ()=>{
@@ -179,6 +164,10 @@ const ShowNot = ()=>{
         Api.PesquisarList(Dados, setChatlist )
       }
 
+      const PegarListPM = ()=>{
+        Api.PesquisarListPM(Dados, setChatListPM );
+      }
+
     
 
       const AbrirMaps = ()=>{
@@ -191,7 +180,7 @@ const ShowNot = ()=>{
       }
 
       const Verconversa = async (id, nome, Quant)=>{
-        setVirModal(false);
+    
         setMapsCaixa(false);
         setAtuaMaps(false);
         setFormu(true);
@@ -200,6 +189,15 @@ const ShowNot = ()=>{
         await setActiveChat(id);
         await setVizul(Quant);
     
+
+      }
+
+      const VerconversaPM = async (id, nome, Quant)=>{
+        setVirModal(true);
+        await setNomePM(nome);
+        await setActiveChatPM(id);
+        await setVizulPM(Quant);
+        
 
       }
 
@@ -496,19 +494,35 @@ const ShowNot = ()=>{
                                   
                                     {/* /.card-header */}
                                     <div className="card-body">
-                                        
+                                    {ChatListPM.map((item, key)=>(
+                                        <ChatListItem 
+                                        key={key}
+                                        data={item}
+                                        Ocorr={ChatListPM[key].idChat}
+                                        active={activeChatPM === ChatListPM[key].idChat}
+                                        onClick={()=>VerconversaPM(ChatListPM[key].idChat, item.nome, ChatListPM[key].QuantMsg)}
+                                        />
+                                ))}
                                
                                         </div>
                                     {/* /.card-body */}
                                   </div>
                                 </div>
                                 :
-                                <Condic
+                                <ChatWindowPM
+                                Loc={Loc}
+                                data={activeChatPM}
+                                setActiveChat={setActiveChatPM}
                                 setAlert={setAlert}
                                 setAlertTipo={setAlertTipo}
-                                Forms={Forms}
-                                setForms={setForms}
-                                activeChat={activeChat}
+                                Alert={Alert}
+                                AlertTipo={AlertTipo}
+                                MapsCaixa={MapsCaixa}
+                                Nome={NomePM} 
+                                Dados={Dados} 
+                                Vizul={VizulPM}
+                                Varia={Varia}
+                                setVizul={setVizulPM}
                                 setVirModal={setVirModal}
                                 />
                               }

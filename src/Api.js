@@ -368,6 +368,7 @@ export default {
               idCriador:Id,
               nomeCriador:Nome,
               idSofrer:doc.id,
+              userChat:[Id,doc.id],
               nomeSofrer:doc.data().nome,
               mensagem: [{autor:Id, 
                 body:"Fui ativado agora e estou iniciando um chat com você",
@@ -378,15 +379,17 @@ export default {
               ultimaMsg:{data:now, id:Id, nome:Nome, msg:"Fui ativado agora e estou iniciando um chat com você"},
               vizualS:0,
               vizualC:0,
+              digiC:false,
+              digiS:false,
           })
           .then((docRef) => {
-              console.log("Document written with ID: ", docRef.id);
+              
           })
  
         });
       } 
   }).catch((error) => {
-      console.log("Error getting document:", error);
+      
   });
 
   await db.collection("users")
@@ -402,6 +405,7 @@ export default {
             nomeCriador:Nome,
             idSofrer:doc.id,
             nomeSofrer:doc.data().nome,
+            userChat:[Id,doc.id],
             mensagem: [{autor:Id, 
               body:"Fui ativado agora e estou iniciando um chat com você",
               date:now,
@@ -411,6 +415,8 @@ export default {
             ultimaMsg:{data:now, id:Id, nome:Nome, msg:"Fui ativado agora e estou iniciando um chat com você"},
             vizualS:0,
             vizualC:0,
+            digiC:false,
+            digiS:false,
         })
         .then((docRef) => {
             
@@ -455,6 +461,7 @@ export default {
               nomeCriador:Nome,
               idSofrer:doc.id,
               nomeSofrer:doc.data().nome,
+              userChat:[Id,doc.id],
               mensagem: [{autor:Id, 
                 body:"Fui ativado agora e estou iniciando um chat com você",
                 date:now,
@@ -464,6 +471,8 @@ export default {
               ultimaMsg:{data:now, id:Id, nome:Nome, msg:"Fui ativado agora e estou iniciando um chat com você"},
               vizualS:0,
               vizualC:0,
+              digiC:false,
+              digiS:false,
           })
           .then((docRef) => {
               console.log("Document written with ID: ", docRef.id);
@@ -488,6 +497,7 @@ export default {
             nomeCriador:Nome,
             idSofrer:doc.id,
             nomeSofrer:doc.data().nome,
+            userChat:[Id,doc.id],
             mensagem: [{autor:Id, 
               body:"Fui ativado agora e estou iniciando um chat com você",
               date:now,
@@ -497,6 +507,8 @@ export default {
             ultimaMsg:{data:now, id:Id, nome:Nome, msg:"Fui ativado agora e estou iniciando um chat com você"},
             vizualS:0,
             vizualC:0,
+            digiC:false,
+            digiS:false,
         })
         .then((docRef) => {
             
@@ -574,6 +586,62 @@ export default {
         });
     
   },
+  DesativandoAltoma: async()=> {
+    
+    const autenticado =  await Auth.currentUser;
+    let temp = new Date().getTime();
+  
+
+
+    await db.collection("users")
+    .where("tempAtiva", "!=", 0)
+    .get().then((doc) => {
+     
+      if (doc.size !== 0) {
+       
+          doc.forEach(async(doc) => {
+            if(doc.data().tempAtiva < temp){
+
+              let Id = doc.id;
+              await db.collection("chat")
+              .where("userChat", "array-contains", Id)
+              .get().then((doc) => {
+                
+                if (doc.size !== 0) {
+                    doc.forEach((doc) => {
+          
+                      db.collection("chat").doc(doc.id).update({
+                        "ativo": false,
+                    })
+                    
+           
+                  });
+                } 
+            }).catch((error) => {
+               
+            });
+          
+              await db.collection("users").doc(Id).update({
+                "ativaPerman": false,
+                "tempAtiva":0,
+                "conta.servApp.ativo": false,
+            })
+            .then(() => {
+              
+            });
+
+
+            }
+        });
+
+
+      } 
+  }).catch((error) => {
+     
+  });
+
+    
+  },
 
   DesativandoApp: async(Dados, Id, setAlertTipo, setAlert)=> {
    
@@ -581,7 +649,7 @@ export default {
     const id = await autenticado.uid;
 
     await db.collection("chat")
-    .where("idCriador", "==", Id)
+    .where("userChat", "array-contains", Id)
     .get().then((doc) => {
       console.log(doc.size)
       if (doc.size !== 0) {
@@ -595,13 +663,9 @@ export default {
         });
       } 
   }).catch((error) => {
-      console.log("Error getting document:", error);
-  });
-    // .update({
-    //   "ativo": false,
-    //   });
      
-  
+  });
+
 
     await db.collection("users").doc(Id).update({
       "ativaPerman": false,
@@ -2029,6 +2093,71 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       });
         
     },
+    PesquisarListPM: async(Dados, setChatlistPM)=> {
+      await Auth.onAuthStateChanged( async function(user) {
+        if (user) {
+        let ID = user.uid;
+        const Setor = "Lista de Condicionais";
+       
+          
+            await db.collection("chat")
+            .where("ativo", "==", true)
+             .where("userChat", "array-contains", ID)
+            .onSnapshot((querySnapshot) => {
+        
+              const res = [];
+       
+               querySnapshot.forEach((doc) => {
+                 let NomeChat = "";
+                 let Vizual = 0;
+                 let digi =false;
+              
+                  if(doc.data().idSofrer === ID) {
+                    NomeChat = doc.data().nomeCriador;
+                    Vizual = doc.data().vizualC;
+                    digi = doc.data().digiC;
+                  } else {
+                    NomeChat = doc.data().nomeSofrer
+                    Vizual = doc.data().vizualS;
+                    digi = doc.data().digiS;
+                  }
+                  res.push({
+                    id: doc.data().ultimaMsg.id,
+                    nome: NomeChat,
+                    data: doc.data().ultimaMsg.data,
+                    msg: doc.data().ultimaMsg.msg,
+                    idChat:doc.id,
+                    QuantMsg: doc.data().mensagem.length,
+                    Vizualizar: doc.data().Vizual,
+                    digitar: doc.data().digi,
+                  });    
+                
+                         
+               });
+
+               res.sort((a,b)=>{
+                 if(a.data < b.data) {
+                   return 1;
+                 } else {
+                   return -1;
+                 }
+               });
+               console.log(res);
+              setChatlistPM(res);
+            
+               
+             });
+           
+           
+     
+         
+       
+        } 
+    
+      });
+        
+    },
+    
      PesquisarNumOc: async(Dados, setCodOc)=> {
         
         const dados = await db.collection('ultimaOcorr')
@@ -2109,6 +2238,39 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       let temp = new Date().getTime();
       let now = temp + (Varia*1000);
          await db.collection("ocorrencia")
+         .doc(data).update({
+           mensagem: firebase.firestore.FieldValue.arrayUnion ({
+             autor:id,
+             nome: nome,
+             body: text,
+             date: now,
+             type:"text"
+           }),
+           ultimaMsg:{id:id, nome: nome, data: now, msg:text} 
+       }).then((doc)=>{
+    
+   
+        // db.collection("ocorrencia")
+        // .doc(data)
+        // .get().then((doc) => {
+         
+        //   if (doc.exists) {
+        //       console.log(res);
+        //   } else {
+        //       // doc.data() will be undefined in this case
+        //       console.log("No such document!");
+        //   }
+      }).catch((error) => {
+         
+      });   
+    },
+
+    sendMessagePM: async(data, text, nome, TemUmlt, Varia)=> {
+      const autenticado =  await Auth.currentUser;
+      const id = await autenticado.uid;
+      let temp = new Date().getTime();
+      let now = temp + (Varia*1000);
+         await db.collection("chat")
          .doc(data).update({
            mensagem: firebase.firestore.FieldValue.arrayUnion ({
              autor:id,
@@ -2237,6 +2399,28 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
            
      
         
+       
+        } 
+    
+      }); 
+
+      
+        
+    },
+    PesquisarConversaPM: async(data, Dados, setList, setUser)=> {
+     console.log(data)
+      await Auth.onAuthStateChanged( async function(user) {
+        if (user) {
+        const ID = user.uid;
+        setUser(ID);
+        if(data !== null){
+          db.collection("chat").doc(data)
+          .onSnapshot((doc) => {
+            setList(doc.data().mensagem);
+          });
+        }
+      
+          
        
         } 
     
