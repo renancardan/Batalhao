@@ -3,7 +3,7 @@ import AudioPlayer from "react-h5-audio-player";
 import { Spinner  } from "react-awesome-spinners";
 
 
-export default ({data, user, setBody, setVisible}) => {
+export default ({data, user, setBody, setVisible, setVisibleAudio}) => {
     const [time, setTime] = useState('');
     const [Ouvir, setOuvir] = useState(false);
     const [Carre, setCarre] = useState(false);
@@ -36,9 +36,11 @@ export default ({data, user, setBody, setVisible}) => {
         setBody(body);
     }
 
-    const ouviraudio = ()=>{
-        setOuvir(true);
-        setCarre(true);
+    const ouviraudio = (body)=>{
+        setVisibleAudio(true);
+        setBody(body);
+        // setOuvir(true);
+        // setCarre(true);
     }
 
     const carregar = ()=>{
@@ -72,9 +74,9 @@ export default ({data, user, setBody, setVisible}) => {
                }
                {data.type === "audio" &&
                     <>
-                    {Ouvir === false ?
+                    {/* {Ouvir === false ?
                     <div  className="video--btn"  width="200" height="200"
-                    onClick={()=>ouviraudio()}
+                    onClick={()=>ouviraudio(data.body)}
                    >
                        <string style={{"marginRight":10, "marginLeft":5, "fontSize":12 }}>Audio</string>
                        <img src="../assets/video.png" alt="Video" width="30" height="30"/>
@@ -90,9 +92,14 @@ export default ({data, user, setBody, setVisible}) => {
                          sizeUnit={'px'} 
                          />
  
-                    }
+                    } */}
+                    <audio controls preload >
+                    <source src={data.body} type="audio/ogg"/>
+                    <source src={data.body} type="audio/mpeg"/>
+
+                    </audio>
                     
-                    <AudioPlayer
+                    {/* <AudioPlayer
                     layout='stacked'
                     preload='auto'
                     customAdditionalControls={[]}
@@ -103,9 +110,9 @@ export default ({data, user, setBody, setVisible}) => {
                         onPlay = { e  =>  console . log ( "onPlay" ) } 
                     
                         // other props here
-                    />
-                </>
-                    }
+                    /> */}
+                {/* </>
+                    } */}
                 
                 
                   {/* <div className="messageDate">{time}</div> */}
@@ -127,12 +134,17 @@ export default ({data, user, setBody, setVisible}) => {
 
                 {data.type === "video" &&
                     <>
-                     <div  className="video--btn"  width="200" height="200"
-                     onClick={()=>openModal(data.body)}
+                     <video width="240" height="240" controls>
+                    <source src={data.body} type="video/mp4"/>
+                    <source src={data.body} type="video/ogg"/>
+
+                         </video>
+                     {/* <div  className="video--btn"  width="200" height="200"
+                     onClick={()=>ouviraudio(data.body)}
                     >
                         <img src="../assets/video.png" alt="Video" width="100" height="100"/>
                         
-                    </div>
+                    </div> */}
                 {/*  */}
                 
                   {/* <div className="messageDate">{time}</div> */}

@@ -2044,11 +2044,8 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         if (user) {
         const ID = user.uid;
         const Setor = "Lista de Condicionais";
-        const dados = await db.collection('users')
-        .doc(ID).
-        get()
-        .then(async(dados)=>{
-          const result = await dados.data();
+    
+         
             await db.collection("ocorrencia")
             .where("ativo", "==", true)
             .onSnapshot((querySnapshot) => {
@@ -2086,7 +2083,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
            
            
      
-         }); 
+       
        
         } 
     
@@ -2114,11 +2111,11 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
               
                   if(doc.data().idSofrer === ID) {
                     NomeChat = doc.data().nomeCriador;
-                    Vizual = doc.data().vizualC;
+                    Vizual = doc.data().vizualS;
                     digi = doc.data().digiC;
                   } else {
                     NomeChat = doc.data().nomeSofrer
-                    Vizual = doc.data().vizualS;
+                    Vizual = doc.data().vizualC;
                     digi = doc.data().digiS;
                   }
                   res.push({
@@ -2128,8 +2125,8 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
                     msg: doc.data().ultimaMsg.msg,
                     idChat:doc.id,
                     QuantMsg: doc.data().mensagem.length,
-                    Vizualizar: doc.data().Vizual,
-                    digitar: doc.data().digi,
+                    Vizualizar: Vizual,
+                    digitar: digi,
                   });    
                 
                          
@@ -2575,6 +2572,62 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         // The document probably doesn't exist.
         console.error("Error updating document: ", error);
     });   
+           
+    },
+
+    MsgLidaPM: async (activeChatPM, VizulPM) => {
+      
+      await Auth.onAuthStateChanged( async function(user) {
+        if (user) {
+        let ID = user.uid;
+      
+        await db.collection("chat")
+        .doc(activeChatPM)
+        .get().then((doc) => {
+          console.log("entrou");
+          if(doc.data().idSofrer === ID) {
+            db.collection('chat').doc(activeChatPM).update({
+              'vizualS': VizulPM,
+          })
+          .then(() => {
+            
+          })
+          .catch((error) => {
+              // The document probably doesn't exist.
+              console.error("Error updating document: ", error);
+          });   
+
+          } else {
+
+            db.collection('chat').doc(activeChatPM).update({
+              'vizualC': VizulPM,
+          })
+          .then(() => {
+            
+          })
+          .catch((error) => {
+              // The document probably doesn't exist.
+              console.error("Error updating document: ", error);
+          });   
+
+          }
+             
+    
+              
+              
+     
+        
+          
+      }).catch((error) => {
+         
+      });
+
+
+        
+        }});
+    
+     
+     
            
     },
 

@@ -14,7 +14,9 @@ import { CollectionsOutlined, Reorder } from '@material-ui/icons';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import Modal from 'react-awesome-modal';
 import Api from '../Api';
-
+import AudioPlayer from "react-h5-audio-player";
+import { Spinner  } from "react-awesome-spinners";
+import { Video } from 'react-video-stream';
 
 
 let recorder = '';
@@ -35,12 +37,15 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
     const [Mudar, setMudar] = useState(false);
     const [list, setList] = useState([]);
     const [Visible, setVisible] = useState(false);
+    const [VisibleAudio, setVisibleAudio] = useState(false);
     const [Body, setBody] = useState('');
     const [nome, setnome] = useState(Dados.nome);
     const [TemUmlt, setTemUmlt] = useState('');
     const [DateIni, setDateIni] = useState('');
     const [time, setTime] = useState('');
     const [ListInt, setListInt] = useState([]);
+    const [Carre, setCarre] = useState(true);
+
     
     const [users, setUsers] = useState([]);
     const onKeyDown = (event) => {
@@ -245,6 +250,8 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
 
     const closeModal = ()=>{
             setVisible(false);
+            setVisibleAudio(false);
+            setCarre(true);
             setBody('');
     }
 
@@ -278,6 +285,14 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
         setEmojiOpen(false);
         Api.sendMessageBotao(data, text, nome, TemUmlt, Varia);
       }
+      const carregar = ()=>{
+        setCarre(false);
+    }
+
+    const options = {
+  requestHeader: 'Authorization',
+  requestToken: 'access_token'
+}
       
     
 
@@ -302,6 +317,25 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
                     <img className="imgChat1"
                  src={Body} 
                 />
+
+                    
+               
+                
+                        <a href="javascript:void(0);" onClick={() => closeModal()}>Fechar</a>
+                    </div>
+                </Modal>
+                <Modal visible={VisibleAudio} width="500" height="500" effect="fadeInUp" onClickAway={() =>closeModal()}>
+                    <div>
+                    <>
+                    <Video
+                        className='video-class'
+                        controls={true}
+                        autoPlay={true}
+                        options={options}
+                        remoteUrl={Body}
+                    />
+                 
+                </>
 
                     
                
@@ -343,6 +377,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
                         data={item}
                         user={User}
                         setVisible={setVisible}
+                        setVisibleAudio={setVisibleAudio}
                         setBody={setBody}
                     />
                 ))}

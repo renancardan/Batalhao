@@ -73,10 +73,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
         PegarListPM();
         PegarList();
     }, [])
-    useEffect(() => {
-       
-     console.log(activeChatPM);
-  }, [activeChatPM])
+ 
   
 
      useEffect(() => {
@@ -101,6 +98,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
 
   useEffect(() => {
     CondPegar();
+    console.log(activeChat);
  }, [activeChat])
 
 
@@ -109,6 +107,10 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
 useEffect(() => {
    Vizuali();
 }, [Vizul ,activeChat]);
+
+useEffect(() => {
+  VizualiPM();
+}, [VizulPM ,activeChatPM]);
 
 useEffect(() => {
   if(DigEnd) {
@@ -139,6 +141,25 @@ useEffect(() => {
 
      
 
+// const NotFic = ()=>{
+//   console.log(Notification.permission);
+//   if(Notification.permission === "granted") {
+//     ShowNot();
+//   } else if(Notification.permission !== "denied") {
+//      Notification.requestPermission().then(permission => {
+//          ShowNot();
+//      });
+//   }
+//   setQantlis(Chatlist.length)
+// }
+
+// const ShowNot = ()=>{
+//   let n = new Notification("OCORRÊNCIA",{
+//       body: "Ocorrência Iniciada",
+//       icon: "https://bpmbacabal.herokuapp.com/graficos/assets/logoapp.jpeg"
+//     } 
+//    )
+// }
        
 
      const LevarTemp = async ()=>{
@@ -204,6 +225,12 @@ useEffect(() => {
       const Vizuali = ()=>{
         if(Vizul !== '' && activeChat !== null) {
           Api.MsgLida(activeChat, Vizul);
+        }
+      }
+
+      const VizualiPM = ()=>{
+        if(VizulPM !== '' && activeChatPM !== null) {
+          Api.MsgLidaPM(activeChatPM, VizulPM);
         }
       }
 

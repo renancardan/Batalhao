@@ -77,7 +77,7 @@ export default ({  data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlert
             body.current.scrollTop = body.current.scrollHeight - body.current.offsetHeight;
         }
       
-    }, [ListInt]);
+    }, [list]);
 
 
     const ListandoList = ()=>{
