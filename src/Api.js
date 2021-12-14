@@ -2063,6 +2063,9 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
                     dataIn: doc.data().dataInicio.seconds,
                     QuantMsg: doc.data().mensagem.length,
                     Vizualizar: doc.data().vizualS,
+                    PmIndo: doc.data().PmIndo ? doc.data().PmIndo : false,
+                    IdPM:  doc.data().IdPM ? doc.data().IdPM : "",
+                    NomePM: doc.data().NomePM? doc.data().NomePM: "",
                   });    
                 }
                          
@@ -2127,6 +2130,9 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
                     QuantMsg: doc.data().mensagem.length,
                     Vizualizar: Vizual,
                     digitar: digi,
+                    ocupado: doc.data().Ocupado? doc.data().Ocupado : false,
+                    idOc: doc.data().idOC? doc.data().idOC : "",
+                    NomeOc: doc.data().NomeOc? doc.data().NomeOc : "",
                   });    
                 
                          
@@ -2229,7 +2235,8 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       });  
     },
 
-    sendMessage: async(data, text, nome, TemUmlt, Varia)=> {
+    sendMessage: async(data, text, nome, TemUmlt, Varia, VizuS)=> {
+      let Cont = VizuS + 1;
       const autenticado =  await Auth.currentUser;
       const id = await autenticado.uid;
       let temp = new Date().getTime();
@@ -2243,7 +2250,8 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
              date: now,
              type:"text"
            }),
-           ultimaMsg:{id:id, nome: nome, data: now, msg:text} 
+           ultimaMsg:{id:id, nome: nome, data: now, msg:text},
+           vizualS: Cont, 
        }).then((doc)=>{
     
    
@@ -2260,6 +2268,105 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       }).catch((error) => {
          
       });   
+    },
+    EnviandoOc: async(data, text, nome, TemUmlt, Varia, VizuS, IdPM, activeChatPM, NomePM, Nome)=> {
+      let Cont = VizuS + 1;
+      const autenticado =  await Auth.currentUser;
+      const id = await autenticado.uid;
+      let temp = new Date().getTime();
+      let now = temp + (Varia*1000);
+         await db.collection("chat")
+         .doc(activeChatPM).update({
+           mensagem: firebase.firestore.FieldValue.arrayUnion ({
+             autor:id,
+             nome: nome,
+             body: "Ocorrência foi enviada para seu celular, entre na sessão ocorrência",
+             date: now,
+             type:"text"
+           }),
+           ultimaMsg:{id:id, nome: nome, data: now, msg: "Ocorrência foi enviada para seu celular, entre na sessão ocorrência"},
+           Ocupado:true,
+           idOC:data,
+           NomeOc: Nome,
+       }).then((doc)=>{
+    
+   
+       
+      }).catch((error) => {
+         
+      }); 
+
+      await db.collection("ocorrencia")
+      .doc(data).update({
+        mensagem: firebase.firestore.FieldValue.arrayUnion ({
+          autor:id,
+          nome: nome,
+          body: "Viatura já está a caminho",
+          date: now,
+          type:"text"
+        }),
+        ultimaMsg:{id:id, nome: nome, data: now, msg:"Viatura já está a caminho"},
+        vizualS: Cont,
+        IdPM:IdPM,
+        NomePM:NomePM,
+        PmIndo:true,
+        userChat:firebase.firestore.FieldValue.arrayUnion ({
+          id: IdPM,
+          nome: NomePM,
+        }),
+    }).then((doc)=>{
+
+   }).catch((error) => {
+      
+   });     
+    },
+
+    ReenviandoOc: async(data, text, nome, TemUmlt, Varia, VizuS, IdPM, activeChatPM, NomePM)=> {
+      let Cont = VizuS + 1;
+      const autenticado =  await Auth.currentUser;
+      const id = await autenticado.uid;
+      let temp = new Date().getTime();
+      let now = temp + (Varia*1000);
+         await db.collection("chat")
+         .doc(activeChatPM).update({
+           mensagem: firebase.firestore.FieldValue.arrayUnion ({
+             autor:id,
+             nome: nome,
+             body: "A Ocorrência vai ser direcionada para outro PM, por isso está sendo retirada de você",
+             date: now,
+             type:"text"
+           }),
+           ultimaMsg:{id:id, nome: nome, data: now, msg: "A Ocorrência vai ser direcionada para outro PM, por isso está sendo retirada de você"},
+           Ocupado:false,
+           idOC:"",
+           NomeOc:"",
+       }).then((doc)=>{
+    
+   
+       
+      }).catch((error) => {
+         
+      }); 
+
+      await db.collection("ocorrencia")
+      .doc(data).update({
+        mensagem: firebase.firestore.FieldValue.arrayUnion ({
+          autor:id,
+          nome: nome,
+          body: "Desculpe, estamos Reenviando outra Viatura, no momento aguarde! ",
+          date: now,
+          type:"text"
+        }),
+        ultimaMsg:{id:id, nome: nome, data: now, msg:"Desculpe, estamos Reenviando outra Viatura, no momento aguarde!"},
+        vizualS: Cont,
+        IdPM:"",
+        PmIndo:false,
+        NomePM:"",
+    }).then((doc)=>{
+
+   }).catch((error) => {
+      
+   });     
     },
 
     sendMessagePM: async(data, text, nome, TemUmlt, Varia)=> {
@@ -2327,6 +2434,40 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
          
       });   
     },
+
+    sendMessageBotaoPM: async(data, text, nome, TemUmlt, Varia)=> {
+      const autenticado =  await Auth.currentUser;
+      const id = await autenticado.uid;
+      let temp = new Date().getTime();
+      let now = temp + (Varia*1000);
+         await db.collection("chat")
+         .doc(data).update({
+           mensagem: firebase.firestore.FieldValue.arrayUnion ({
+             autor:id,
+             nome: nome,
+             body: "Clique E Envie sua Localização",
+             date: now,
+             type:"botao"
+           }),
+           ultimaMsg:{id:id, nome: nome, data: now, msg:"Clique E Envie sua Localização"} 
+       }).then((doc)=>{
+    
+   
+        // db.collection("ocorrencia")
+        // .doc(data)
+        // .get().then((doc) => {
+         
+        //   if (doc.exists) {
+        //       console.log(res);
+        //   } else {
+        //       // doc.data() will be undefined in this case
+        //       console.log("No such document!");
+        //   }
+      }).catch((error) => {
+         
+      });   
+    },
+
 
     AtulUltOc: async(Let1, Let2, Let3, NumVal)=> {
    
@@ -2404,7 +2545,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       
         
     },
-    PesquisarConversaPM: async(data, Dados, setList, setUser)=> {
+    PesquisarConversaPM: async(data, Dados, setList, setUser,  setVizuM, setVizuT, setDigiM, setDigiT, setStatus, setLocPM, setIdPM, setNomePM)=> {
      console.log(data)
       await Auth.onAuthStateChanged( async function(user) {
         if (user) {
@@ -2414,6 +2555,24 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
           db.collection("chat").doc(data)
           .onSnapshot((doc) => {
             setList(doc.data().mensagem);
+            if(ID === doc.data().idCriador ){
+              setVizuM(doc.data().vizualC);
+              setDigiM(doc.data().digiC);
+              setStatus("Criador");
+              setVizuT(doc.data().vizualS);
+              setDigiT(doc.data().digiS);
+              setIdPM(doc.data().idSofrer);
+              setNomePM(doc.data().nomeSofrer)
+            } else{
+              setNomePM(doc.data().nomeCriador)
+              setIdPM(doc.data().idCriador)
+              setVizuM(doc.data().vizualS);
+              setDigiM(doc.data().digiS);
+              setStatus("Sofredor");
+              setVizuT(doc.data().vizualC);
+              setDigiT(doc.data().digiC);
+              setLocPM(doc.data().localizacao ? doc.data().localizacao : {});
+            }
           });
         }
       
@@ -2646,6 +2805,94 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         // The document probably doesn't exist.
         console.error("Error updating document: ", error);
     });   
+           
+     
+        
+       
+        } 
+    
+      }); 
+     
+   
+    },
+
+    DigitandoPM: async (data, Status) => {
+      await Auth.onAuthStateChanged( async function(user) {
+        if (user) {
+          if(Status === "Criador"){
+            await db.collection('chat')
+            .doc(data)
+            .update({
+              digiC: true,
+         })
+         .then(() => {
+             
+         })
+         .catch((error) => {
+             // The document probably doesn't exist.
+             console.error("Error updating document: ", error);
+         });  
+
+          } else {
+            await db.collection('chat')
+            .doc(data)
+            .update({
+              digiS: true,
+         })
+         .then(() => {
+             
+         })
+         .catch((error) => {
+             // The document probably doesn't exist.
+             console.error("Error updating document: ", error);
+         });  
+
+          }
+   
+           
+     
+        
+       
+        } 
+    
+      }); 
+     
+   
+    },
+
+    NaoDigitandoPM: async (data, Status) => {
+      await Auth.onAuthStateChanged( async function(user) {
+        if (user) {
+          if(Status === "Criador"){
+            await db.collection('chat')
+            .doc(data)
+            .update({
+              digiC: false,
+         })
+         .then(() => {
+             
+         })
+         .catch((error) => {
+             // The document probably doesn't exist.
+             console.error("Error updating document: ", error);
+         });  
+
+          } else {
+            await db.collection('chat')
+            .doc(data)
+            .update({
+              digiS: false,
+         })
+         .then(() => {
+             
+         })
+         .catch((error) => {
+             // The document probably doesn't exist.
+             console.error("Error updating document: ", error);
+         });  
+
+          }
+   
            
      
         

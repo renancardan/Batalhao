@@ -76,9 +76,20 @@ export default ({onClick, active, data, Ocorr}) => {
         onClick={onClick}
         >
             <div className="chatListItem--lines">
+            {data.PmIndo === true &&
+                    <>
+                     <div className="chatListItem--date">Viatura {data.NomePM} Deslocando</div>
+                    </>
+                       
+                    }
+                    {data.ocupado === true &&
+                        <div className="chatListItem--date">Pm na Ocorrência {data.NomeOc}</div>
+                    }
                 <div className="chatListItem--line">
                     <div className="chatListItem--name">{data.nome} </div>
-                    <div className="chatListItem--date"></div>
+                   
+                     
+                    
                 </div>
                 <div className="chatListItem--line">
                     <div className="chatListItem--lastMsg">

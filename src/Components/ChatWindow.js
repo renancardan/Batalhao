@@ -21,7 +21,7 @@ import { Video } from 'react-video-stream';
 
 let recorder = '';
 
-export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlertTipo, Alert, AlertTipo, setActiveChat, setFormu, Loc}) => {
+export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlertTipo, Alert, AlertTipo, setActiveChat, setFormu, Loc, activeChatPM, IdPM, NomePM, PmIndo, VtrOcup,  Pm }) => {
     const body = useRef();
     let recognition = null;
     let SpeechRecognition = window.AudioContext || window.webkitAudioContext;
@@ -45,6 +45,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
     const [time, setTime] = useState('');
     const [ListInt, setListInt] = useState([]);
     const [Carre, setCarre] = useState(true);
+    const [VizuS, setVizuS] = useState(0)
 
     
     const [users, setUsers] = useState([]);
@@ -61,6 +62,9 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
     useEffect(()=>{  
        PegandoList()
     }, [data]);
+    useEffect(()=>{  
+      console.log(Nome);
+     }, [Nome]);
 
     useEffect(()=>{  
         ListandoList();
@@ -98,6 +102,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
                     });
                 });
                 setListInt(listra);
+                setVizuS(listra.length);
             }
         }
 
@@ -236,7 +241,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
 
     const handleSendClick = () => {
         if(text !== '') {
-            Api.sendMessage(data, text, nome, TemUmlt, Varia); 
+            Api.sendMessage(data, text, nome, TemUmlt, Varia, VizuS); 
             setText('');
             setEmojiOpen(false);
         }
@@ -259,6 +264,25 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
         setAlert("ok");
         setAlertTipo("Concluir");
       }
+
+      function MsgEnviaOC() {
+          if(NomePM === ""){
+            setAlert("Por favor escolha um PM para enviar essa ocorrência!");
+            setAlertTipo("danger");
+          } else {
+            setAlert("ok");
+            setAlertTipo("EnviandoOc");
+          }
+       
+      }
+
+
+      function MsgReenviaOC() {
+        setAlert("ok");
+        setAlertTipo("ReenviandoOc");
+      }
+
+      
 
       const ConclusaoOc = ()=>{
         setAlert(" ");
@@ -289,6 +313,18 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
         setCarre(false);
     }
 
+    const EnviandoOcorr = ()=>{
+        setAlert(" ");
+        setAlertTipo(" ");
+        Api.EnviandoOc(data, text, nome, TemUmlt, Varia, VizuS, IdPM, activeChatPM, NomePM,  Nome);
+    }
+
+    const ReenviandoOcorr = ()=>{
+        setAlert(" ");
+        setAlertTipo(" ");
+        Api.ReenviandoOc(data, text, nome, TemUmlt, Varia, VizuS, IdPM, activeChatPM, NomePM, Nome);
+    }
+
     const options = {
   requestHeader: 'Authorization',
   requestToken: 'access_token'
@@ -310,6 +346,35 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
               focusCancelBtn
             >
               Tem certeza que deseja Concluir a Ocorrencia {Nome}!
+            </SweetAlert>
+            }
+             { Alert !== " " && AlertTipo === "EnviandoOc" &&
+              <SweetAlert
+              success
+              showCancel
+              confirmBtnText="Sim"
+              cancelBtnText="Não"
+              confirmBtnBsStyle="success"
+              onConfirm={()=>EnviandoOcorr()}
+              onCancel={cancelar}
+              focusCancelBtn
+            >
+              Tem certeza que deseja Enviar a Ocorrencia para {NomePM}!
+            </SweetAlert>
+            }
+
+                { Alert !== " " && AlertTipo === "ReenviandoOc" &&
+              <SweetAlert
+              success
+              showCancel
+              confirmBtnText="Sim"
+              cancelBtnText="Não"
+              confirmBtnBsStyle="success"
+              onConfirm={()=>ReenviandoOcorr()}
+              onCancel={cancelar}
+              focusCancelBtn
+            >
+              Tem certeza que deseja retirar Ocorrencia do {NomePM} e enviar para outro PM!
             </SweetAlert>
             }
             <Modal visible={Visible} width="500" height="500" effect="fadeInUp" onClickAway={() =>closeModal()}>
@@ -348,11 +413,40 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
            
             <div className="chatWindow--name"  style={{margin: '30px'}}>  
             <string className="textTitulo" >Nome: {Nome}</string><br/>
-            <string className="textTitulo" >Inicio da ocorrencia: {time}</string>
+            <string className="textTitulo" >{time}</string>
             </div>
             </div>
             <div className="chatWindow--headerbuttons">
+                {PmIndo === false &&
+                <>
+                {VtrOcup === false &&
+                 <div className="chatWindow--btn3"
+                 onClick={()=> MsgEnviaOC()}
+                >
+                    <p className="textButao" >Enviar Ocorrência</p>
+                </div>
 
+                } 
+            </>
+                }
+                {IdPM === Pm &&
+                    <>
+                {PmIndo === true && 
+                <>
+                {VtrOcup === true &&
+                 <div className="chatWindow--btn4"
+                 onClick={()=> MsgReenviaOC()}
+                >
+                    <p className="textButao" >Retirar Ocorrência</p>
+                </div>
+
+                } 
+            </>
+                }
+                </>
+                }
+               
+            
             {Dados.grupo.menu.chat.caixaChat.btn_formulario === true && 
                     <div className="chatWindow--btn1"
                      onClick={()=>AbrirFormu()}
@@ -360,6 +454,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
                         <p className="textButao" >FORMULARIO</p>
                     </div>
                     }
+                    
                  {Dados.grupo.menu.chat.caixaChat.btn_maps === true &&     
                     <div className="chatWindow--btn"
                     onClick={AbrirMaps}

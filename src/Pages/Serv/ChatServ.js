@@ -66,6 +66,10 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       const [NumVal, setNumVal] = useState(0);
       const [NuOc, setNuOc] = useState("");
       const [Qantlis, setQantlis] = useState(0);
+      const [LocPM, setLocPM] = useState({});
+      const [PmIndo, setPmIndo] = useState(false);
+      const [VtrOcup, setVtrOcup] = useState(false);
+      const [Pm, setPm] = useState("");
       useEffect(() => {
           LevarTemp();
       }, [])
@@ -74,7 +78,9 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
         PegarList();
     }, [])
  
-  
+    useEffect(() => {
+      console.log(activeChat);
+  }, [activeChat])
 
      useEffect(() => {
        if(Chatlist !== []){
@@ -98,7 +104,6 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
 
   useEffect(() => {
     CondPegar();
-    console.log(activeChat);
  }, [activeChat])
 
 
@@ -180,7 +185,7 @@ useEffect(() => {
 
     
      
-
+     
       const PegarList = ()=>{
         Api.PesquisarList(Dados, setChatlist )
       }
@@ -192,6 +197,7 @@ useEffect(() => {
     
 
       const AbrirMaps = ()=>{
+        console.log("entrou ");
         setAtuaMaps(!AtuaMaps);
         setMapsCaixa(!MapsCaixa);
         setPesEnd(false);
@@ -200,8 +206,8 @@ useEffect(() => {
        
       }
 
-      const Verconversa = async (id, nome, Quant)=>{
-    
+      const Verconversa = async (id, nome, Quant, Indo, PM)=>{
+     console.log(Indo)
         setMapsCaixa(false);
         setAtuaMaps(false);
         setFormu(true);
@@ -209,15 +215,18 @@ useEffect(() => {
         await setNome(nome);
         await setActiveChat(id);
         await setVizul(Quant);
-    
+        await setPmIndo(Indo);
+        await setPm(PM);
 
       }
 
-      const VerconversaPM = async (id, nome, Quant)=>{
+      const VerconversaPM = async (id, nome, Quant, Ocup )=>{
         setVirModal(true);
         await setNomePM(nome);
         await setActiveChatPM(id);
         await setVizulPM(Quant);
+        await setVtrOcup(Ocup)
+        
         
 
       }
@@ -392,7 +401,7 @@ useEffect(() => {
                                         data={item}
                                         Ocorr={Chatlist[key].idOc}
                                         active={activeChat === Chatlist[key].idOc}
-                                        onClick={()=>Verconversa(Chatlist[key].idOc, item.nome, Chatlist[key].QuantMsg)}
+                                        onClick={()=>Verconversa(Chatlist[key].idOc, item.nome, Chatlist[key].QuantMsg, Chatlist[key].PmIndo, Chatlist[key].IdPM,)}
                                         />
                                 ))}
                                 </div>
@@ -403,9 +412,12 @@ useEffect(() => {
                         <>
                         {Formu === true ?
                            <ChatWindow
+                           IdPM={IdPM}
                            Loc={Loc}
+                           activeChatPM={activeChatPM}
                            data={activeChat}
                            setActiveChat={setActiveChat}
+                           activeChatPM={activeChatPM}
                            setAlert={setAlert}
                            setAlertTipo={setAlertTipo}
                            Alert={Alert}
@@ -418,6 +430,10 @@ useEffect(() => {
                            Varia={Varia}
                            setVizul={setVizul}
                            setFormu={setFormu}
+                           NomePM={NomePM}
+                           PmIndo={PmIndo}
+                           VtrOcup={VtrOcup}
+                           Pm={Pm}
                            />
                         :
                         <ChatFormulario
@@ -489,6 +505,7 @@ useEffect(() => {
                          <Maps 
                          MapsCaixa={MapsCaixa}
                          Loc={Loc}
+                         LocPM={LocPM}
                          />
                          :
                          <>
@@ -527,7 +544,7 @@ useEffect(() => {
                                         data={item}
                                         Ocorr={ChatListPM[key].idChat}
                                         active={activeChatPM === ChatListPM[key].idChat}
-                                        onClick={()=>VerconversaPM(ChatListPM[key].idChat, item.nome, ChatListPM[key].QuantMsg)}
+                                        onClick={()=>VerconversaPM(ChatListPM[key].idChat, item.nome, ChatListPM[key].QuantMsg, ChatListPM[key].ocupado )}
                                         />
                                 ))}
                                
@@ -537,9 +554,13 @@ useEffect(() => {
                                 </div>
                                 :
                                 <ChatWindowPM
-                                Loc={Loc}
+                                setNomePM={setNomePM}
+                                setIdPM={setIdPM}
+                                Loc={LocPM}
+                                AbrirMaps={AbrirMaps}
+                                setLocPM={setLocPM}
                                 data={activeChatPM}
-                                setActiveChat={setActiveChatPM}
+                                setActiveChatPM={setActiveChatPM}
                                 setAlert={setAlert}
                                 setAlertTipo={setAlertTipo}
                                 Alert={Alert}

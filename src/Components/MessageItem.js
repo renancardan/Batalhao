@@ -155,7 +155,7 @@ export default ({data, user, setBody, setVisible, setVisibleAudio}) => {
                   <div className="chatWindow--btn1"
                   onClick={null}
                  >
-                     <p className="textButao" >BOTÃO DE LOCALIZAÇÃO DA OCORRÊNCIA</p>
+                     <p className="textButao" >BOTÃO DE LOCALIZAÇÃO DA VTR</p>
                  </div>
                }
               

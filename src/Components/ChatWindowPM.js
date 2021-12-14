@@ -20,7 +20,7 @@ import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 
 let recorder = '';
 
-export default ({  data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlertTipo, Alert, AlertTipo, setActiveChat, setFormu, Loc, setVirModal}) => {
+export default ({  AbrirMaps, data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlertTipo, Alert, AlertTipo, setActiveChatPM, setFormu, Loc, setVirModal, setLocPM, setIdPM, setNomePM}) => {
     const body = useRef();
     let recognition = null;
     let SpeechRecognition = window.AudioContext || window.webkitAudioContext;
@@ -42,8 +42,14 @@ export default ({  data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlert
     const [DateIni, setDateIni] = useState('');
     const [time, setTime] = useState('');
     const [ListInt, setListInt] = useState([]);
-    
+    const [VizuM, setVizuM] = useState(0);
+    const [VizuT, setVizuT] = useState(0)
+    const [DigiM, setDigiM] = useState(false)
+    const [DigiT, setDigiT] = useState(false);
+    const [Status, setStatus] = useState("");
     const [users, setUsers] = useState([]);
+    const [Cont, setCont] = useState(0);
+    
     const onKeyDown = (event) => {
       
         if (event.key === 'Enter') {
@@ -59,8 +65,13 @@ export default ({  data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlert
     }, [data]);
 
     useEffect(()=>{  
+       
+     }, [DigiT]);
+
+    useEffect(()=>{  
         ListandoList();
         ListandoTempo();
+        setCont(list.length);
      }, [list]);
 
  
@@ -145,11 +156,11 @@ export default ({  data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlert
     }
 
     const Digite = ()=> {
-        Api.Digitando(data);
+        Api.DigitandoPM(data, Status);
     }
 
     const NaoDigite = ()=> {
-        Api.NaoDigitando(data);
+        Api.NaoDigitandoPM(data, Status);
     }
 
     const handleEmojiClick = (e, emojiObject) => {
@@ -161,7 +172,7 @@ export default ({  data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlert
     }
 
     const PegandoList = ()=>{
-        Api.PesquisarConversaPM(data, Dados, setList, setUser );
+        Api.PesquisarConversaPM(data, Dados, setList, setUser, setVizuM, setVizuT, setDigiM, setDigiT, setStatus, setLocPM, setIdPM, setNomePM );
     }
 
     const handleCloseEmoji = () => {
@@ -245,8 +256,11 @@ export default ({  data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlert
     }
 
     const closeModal = ()=>{
+            setLocPM({})
             setVisible(false);
             setBody('');
+           setLocPM({});
+        
     }
 
     function Concluir() {
@@ -273,7 +287,7 @@ export default ({  data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlert
 
       const PedirLoc = ()=>{
         setEmojiOpen(false);
-        Api.sendMessageBotao(data, text, nome, TemUmlt, Varia);
+        Api.sendMessageBotaoPM(data, text, nome, TemUmlt, Varia);
       }
        const fecharConv = ()=>{
            setVirModal(false)
@@ -314,6 +328,7 @@ export default ({  data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlert
            
             <div className="chatWindow--name"  style={{margin: '30px'}}>  
             <string className="textTitulo" >Nome: {Nome}</string><br/>
+            <string className="textTitulo2" >{VizuT === Cont ? "Mensagem Vizualizada" : ""} {DigiT === true ? "- Digitando..." : "" }</string><br/>
            
             </div>
             </div>
@@ -344,7 +359,7 @@ export default ({  data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlert
             >
                
                 <div className="chatWindow--headerbuttons">
-               {Loc.lng === 'vazio' &&
+           
 
                 <div className="chatWindow--btn1"
                 onClick={()=>PedirLoc()}
@@ -352,7 +367,7 @@ export default ({  data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlert
                    <p className="textButao" >PEDIR LOCALIZAÇÃO</p>
                </div>
 
-               }
+               
                 
 
               
@@ -361,6 +376,10 @@ export default ({  data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlert
                </div>
              
             </div>
+           
+            
+            
+           
             <div className="chatWindow--footerPM">
 
             <div className="chatWindow--pre">
