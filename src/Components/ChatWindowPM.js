@@ -15,7 +15,7 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 import Modal from 'react-awesome-modal';
 import Api from '../Api';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
-
+import { Spinner  } from "react-awesome-spinners";
 
 
 let recorder = '';
@@ -49,7 +49,8 @@ export default ({  AbrirMaps, data, Nome, Dados, Vizul, setVizul, Varia, setAler
     const [Status, setStatus] = useState("");
     const [users, setUsers] = useState([]);
     const [Cont, setCont] = useState(0);
-    
+    const [Loading, setLoading] = useState(true);
+
     const onKeyDown = (event) => {
       
         if (event.key === 'Enter') {
@@ -172,7 +173,7 @@ export default ({  AbrirMaps, data, Nome, Dados, Vizul, setVizul, Varia, setAler
     }
 
     const PegandoList = ()=>{
-        Api.PesquisarConversaPM(data, Dados, setList, setUser, setVizuM, setVizuT, setDigiM, setDigiT, setStatus, setLocPM, setIdPM, setNomePM );
+        Api.PesquisarConversaPM(data, Dados, setList, setUser, setVizuM, setVizuT, setDigiM, setDigiT, setStatus, setLocPM, setIdPM, setNomePM, setLoading );
     }
 
     const handleCloseEmoji = () => {
@@ -344,15 +345,27 @@ export default ({  AbrirMaps, data, Nome, Dados, Vizul, setVizul, Varia, setAler
                 </div>
             </div>
             <div ref={body} className="chatWindow--bodyPM">
-            {list.map((item, key)=>(
-                    <MessageItem
-                        key={key}
-                        data={item}
-                        user={User}
-                        setVisible={setVisible}
-                        setBody={setBody}
-                    />
-                ))}
+            {Loading === true ?
+                                <Spinner 
+                                size={64}
+                                color={"#5d0bf7"}
+                                sizeUnit={'px'} 
+                                />
+                              :
+                              <>
+                                {list.map((item, key)=>(
+                                    <MessageItem
+                                        key={key}
+                                        data={item}
+                                        user={User}
+                                        setVisible={setVisible}
+                                        setBody={setBody}
+                                    />
+                                ))}
+                               
+                              </>
+                            }
+           
             </div>
             <div className="chatWindow--emojiarea"
             style={{height: emojiOpen ? '50px' : '0px'}}

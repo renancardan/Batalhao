@@ -21,7 +21,7 @@ import { Video } from 'react-video-stream';
 
 let recorder = '';
 
-export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlertTipo, Alert, AlertTipo, setActiveChat, setFormu, Loc, activeChatPM, IdPM, NomePM, PmIndo, VtrOcup,  Pm }) => {
+export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlertTipo, Alert, AlertTipo, setActiveChat, setFormu, Loc, activeChatPM, IdPM, NomePM, PmIndo, VtrOcup,  Pm,  MdEnvi, setMdEnvi, setNomePM, setVirModal, setActiveChatPM, MdREnvi, setMdREnvi  }) => {
     const body = useRef();
     let recognition = null;
     let SpeechRecognition = window.AudioContext || window.webkitAudioContext;
@@ -45,9 +45,10 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
     const [time, setTime] = useState('');
     const [ListInt, setListInt] = useState([]);
     const [Carre, setCarre] = useState(true);
-    const [VizuS, setVizuS] = useState(0)
+    const [VizuS, setVizuS] = useState(0);
+    const [Loading, setLoading] = useState(true);
 
-    
+ 
     const [users, setUsers] = useState([]);
     const onKeyDown = (event) => {
       
@@ -63,8 +64,8 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
        PegandoList()
     }, [data]);
     useEffect(()=>{  
-      console.log(Nome);
-     }, [Nome]);
+  
+     }, [activeChatPM]);
 
     useEffect(()=>{  
         ListandoList();
@@ -103,6 +104,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
                 });
                 setListInt(listra);
                 setVizuS(listra.length);
+                setLoading(false);
             }
         }
 
@@ -170,6 +172,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
     }
 
     const PegandoList = ()=>{
+        setLoading(true);
         Api.PesquisarConversa(data, Dados, setList, setUser, setTemUmlt, setDateIni);
     }
 
@@ -266,12 +269,14 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
       }
 
       function MsgEnviaOC() {
-          if(NomePM === ""){
+          if( activeChatPM === null){
             setAlert("Por favor escolha um PM para enviar essa ocorrência!");
             setAlertTipo("danger");
           } else {
+          
             setAlert("ok");
             setAlertTipo("EnviandoOc");
+            
           }
        
       }
@@ -314,12 +319,18 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
     }
 
     const EnviandoOcorr = ()=>{
+        setVirModal(false);
+        setActiveChatPM(null);
+         setNomePM("");
         setAlert(" ");
         setAlertTipo(" ");
+        setMdEnvi(true);
         Api.EnviandoOc(data, text, nome, TemUmlt, Varia, VizuS, IdPM, activeChatPM, NomePM,  Nome);
+        
     }
 
     const ReenviandoOcorr = ()=>{
+        setMdREnvi(true);
         setAlert(" ");
         setAlertTipo(" ");
         Api.ReenviandoOc(data, text, nome, TemUmlt, Varia, VizuS, IdPM, activeChatPM, NomePM, Nome);
@@ -420,12 +431,26 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
                 {PmIndo === false &&
                 <>
                 {VtrOcup === false &&
-                 <div className="chatWindow--btn3"
-                 onClick={()=> MsgEnviaOC()}
-                >
-                    <p className="textButao" >Enviar Ocorrência</p>
-                </div>
+                <>
+                {MdEnvi === false ?
+                      <div className="chatWindow--btn3"
+                      onClick={()=> MsgEnviaOC()}
+                     >
+                         <p className="textButao" >Enviar Ocorrência</p>
+                     </div>
+                :
 
+                        <div className="chatWindow--btn4"
+                        onClick={()=> MsgReenviaOC()}
+                    >
+                        <p className="textButao" >Retirar Ocorrência</p>
+                    </div>
+
+
+                }
+
+           
+                </>
                 } 
             </>
                 }
@@ -434,12 +459,30 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
                 {PmIndo === true && 
                 <>
                 {VtrOcup === true &&
-                 <div className="chatWindow--btn4"
-                 onClick={()=> MsgReenviaOC()}
-                >
-                    <p className="textButao" >Retirar Ocorrência</p>
-                </div>
+               <>
+                {/* {MdREnvi === true ?
+                      <div className="chatWindow--btn3"
+                      onClick={()=> MsgEnviaOC()}
+                     >
+                         <p className="textButao" >Enviar Ocorrência</p>
+                     </div>
+                :
 
+                        <div className="chatWindow--btn4"
+                        onClick={()=> MsgReenviaOC()}
+                    >
+                        <p className="textButao" >Retirar Ocorrência</p>
+                    </div>
+
+
+                } */}
+                   <div className="chatWindow--btn4"
+                        onClick={()=> MsgReenviaOC()}
+                    >
+                        <p className="textButao" >Retirar Ocorrência</p>
+                    </div>
+
+               </>
                 } 
             </>
                 }
@@ -466,16 +509,28 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
                 </div>
             </div>
             <div ref={body} className="chatWindow--body">
-            {ListInt.map((item, key)=>(
-                    <MessageItem
-                        key={key}
-                        data={item}
-                        user={User}
-                        setVisible={setVisible}
-                        setVisibleAudio={setVisibleAudio}
-                        setBody={setBody}
-                    />
-                ))}
+            {Loading === true ?
+                                <Spinner 
+                                size={64}
+                                color={"#5d0bf7"}
+                                sizeUnit={'px'} 
+                                />
+                              :
+                              <>
+                                {ListInt.map((item, key)=>(
+                                    <MessageItem
+                                        key={key}
+                                        data={item}
+                                        user={User}
+                                        setVisible={setVisible}
+                                        setVisibleAudio={setVisibleAudio}
+                                        setBody={setBody}
+                                    />
+                                ))}
+                               
+                              </>
+                            }
+          
             </div>
             <div className="chatWindow--emojiarea"
             style={{height: emojiOpen ? '50px' : '0px'}}

@@ -70,6 +70,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       const [PmIndo, setPmIndo] = useState(false);
       const [VtrOcup, setVtrOcup] = useState(false);
       const [Pm, setPm] = useState("");
+      const [MdEnvi, setMdEnvi] = useState(false);
+      const [MdREnvi, setMdREnvi] = useState(false);
       useEffect(() => {
           LevarTemp();
       }, [])
@@ -79,7 +81,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
     }, [])
  
     useEffect(() => {
-      console.log(activeChat);
+      
   }, [activeChat])
 
      useEffect(() => {
@@ -110,8 +112,10 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
  
 
 useEffect(() => {
-   Vizuali();
+  //  Vizuali();
 }, [Vizul ,activeChat]);
+
+
 
 useEffect(() => {
   VizualiPM();
@@ -207,7 +211,9 @@ useEffect(() => {
       }
 
       const Verconversa = async (id, nome, Quant, Indo, PM)=>{
-     console.log(Indo)
+     let V = Quant;
+     let Id = id;
+        setMdEnvi(false);
         setMapsCaixa(false);
         setAtuaMaps(false);
         setFormu(true);
@@ -217,16 +223,17 @@ useEffect(() => {
         await setVizul(Quant);
         await setPmIndo(Indo);
         await setPm(PM);
-
+        Api.MsgLida(Id, V);
       }
 
       const VerconversaPM = async (id, nome, Quant, Ocup )=>{
         setVirModal(true);
+       
         await setNomePM(nome);
         await setActiveChatPM(id);
         await setVizulPM(Quant);
         await setVtrOcup(Ocup)
-        
+      
         
 
       }
@@ -414,7 +421,6 @@ useEffect(() => {
                            <ChatWindow
                            IdPM={IdPM}
                            Loc={Loc}
-                           activeChatPM={activeChatPM}
                            data={activeChat}
                            setActiveChat={setActiveChat}
                            activeChatPM={activeChatPM}
@@ -434,6 +440,13 @@ useEffect(() => {
                            PmIndo={PmIndo}
                            VtrOcup={VtrOcup}
                            Pm={Pm}
+                           MdEnvi={MdEnvi}
+                           setMdEnvi={setMdEnvi}
+                           setNomePM={setNomePM}
+                           setVirModal={setVirModal}
+                           setActiveChatPM={setActiveChatPM}
+                           setMdREnvi={setMdREnvi}
+                           MdREnvi={MdREnvi}
                            />
                         :
                         <ChatFormulario

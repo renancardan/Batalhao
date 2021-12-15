@@ -248,7 +248,7 @@ export default {
           };
         
           setLoading(false);
-          console.log(res);
+          
           setDados(res);
           
       });
@@ -2078,7 +2078,6 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
                    return -1;
                  }
                });
-               
               setChatlist(res);
             
                
@@ -2145,7 +2144,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
                    return -1;
                  }
                });
-               console.log(res);
+              
               setChatlistPM(res);
             
                
@@ -2310,6 +2309,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         IdPM:IdPM,
         NomePM:NomePM,
         PmIndo:true,
+        IdChat:activeChatPM,
         userChat:firebase.firestore.FieldValue.arrayUnion ({
           id: IdPM,
           nome: NomePM,
@@ -2545,7 +2545,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       
         
     },
-    PesquisarConversaPM: async(data, Dados, setList, setUser,  setVizuM, setVizuT, setDigiM, setDigiT, setStatus, setLocPM, setIdPM, setNomePM)=> {
+    PesquisarConversaPM: async(data, Dados, setList, setUser,  setVizuM, setVizuT, setDigiM, setDigiT, setStatus, setLocPM, setIdPM, setNomePM,  setLoading)=> {
      console.log(data)
       await Auth.onAuthStateChanged( async function(user) {
         if (user) {
@@ -2573,6 +2573,8 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
               setDigiT(doc.data().digiC);
               setLocPM(doc.data().localizacao ? doc.data().localizacao : {});
             }
+
+            setLoading(false);
           });
         }
       
@@ -2719,10 +2721,9 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
     },
 
 
-    MsgLida: async (activeChat, Vizul) => {   
-     
-      db.collection('ocorrencia').doc(activeChat).update({
-        'vizualS': Vizul
+    MsgLida: async (Id, V) => {   
+      db.collection('ocorrencia').doc(Id).update({
+        'vizualS': V
     })
     .then(() => {
       
