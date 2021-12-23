@@ -64,9 +64,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
        PegandoList()
     }, []);
 
-     useEffect(()=>{ 
-      console.log(NuOc);
-    }, [NuOc]);
+    
 
     useEffect(() => {
         PegNumOcorr()
@@ -84,9 +82,6 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
         PegDados();
     }, []);
 
-    useEffect(()=>{
-       console.log(NumOc);
-    }, [NumOc]);
 
     useEffect(()=>{
         PeriodoHoras();
