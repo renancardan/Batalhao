@@ -19,7 +19,7 @@ export default ({setConta, setEmail, Email, Senha, setSenha,
   setEstado, Instituicao, setInstituicao, Nome, setNome, 
   Telefone, setTelefone,  ContaTipo, setContaTipo,
    Loading, cadastrando, logando, Alert, setAlert, NomeGuerra, setNomeGuerra,
-   Patente, setPatente}) => {
+   Patente, setPatente, Bo}) => {
 
           
           const [EstCidJson, setEstCidJson] = useState({CidadeJson});
@@ -121,6 +121,7 @@ export default ({setConta, setEmail, Email, Senha, setSenha,
                   
                   { CadasPag === false &&
                   <>
+                  
                    <img className='imagem_top' src='../../assets/logoapp.jpeg' style={{ }} alt="" />
                     
                   <div className="quadroAcesso" >
@@ -165,6 +166,10 @@ export default ({setConta, setEmail, Email, Senha, setSenha,
                                       estilo={"Text_link"}
                                       text={"Esquecir Minha Senha"}
                                       />
+                                        <Butao 
+                                        onClick={Bo}
+                                        text={"Ver o B.O Da Ocorrência"}
+                                        /> 
                                 </div>
                               </>
                             }

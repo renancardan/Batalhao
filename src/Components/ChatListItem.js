@@ -31,9 +31,7 @@ export default ({onClick, active, data, Ocorr}) => {
         tempo();
     }, [Hora, Time]);
 
-    useEffect(()=>{
-       console.log();
-    }, []);
+ 
 
 
     // useEffect(()=>{
@@ -76,12 +74,21 @@ export default ({onClick, active, data, Ocorr}) => {
         onClick={onClick}
         >
             <div className="chatListItem--lines">
-            {data.PmIndo === true &&
+                
+            {data.Resolvido === true &&
+            
+                    <>
+                     <div className="chatListItem--date1">Ocorrência Resolvida, Falta Concluir.</div>
+                    </>   
+                    
+                    }
+                {data.PmIndo === true &&
                     <>
                      <div className="chatListItem--date">Viatura {data.NomePM} Deslocando</div>
-                    </>
-                       
+                    </>   
+
                     }
+                    
                     {data.ocupado === true &&
                         <div className="chatListItem--date">Pm na Ocorrência {data.NomeOc}</div>
                     }

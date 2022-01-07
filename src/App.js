@@ -11,6 +11,7 @@ import RoutesServ from './Estrutura/Serv/RoutesServ';
 import VerificarServ from './Pages/Serv/VerificarServ';
 import AtivarServ from './Pages/Serv/AtivarServ';
 import DesbloServ from './Pages/Serv/DesbloServ';
+import BoOc from './Pages/Serv/BoOc';
 import './App.css';
 import EstruServJson from './JSONS/EstruServJson';
 
@@ -162,6 +163,9 @@ function App() {
 
                     //aqui vai servir para colocar qual acesso no site
                   const verStatus = async() => {
+                    console.log(User);
+                    console.log(Conta);
+                  
                     const status = await localStorage.getItem('roma');
                     const fromat = await localStorage.getItem('brasil');
                     
@@ -172,6 +176,9 @@ function App() {
                       setUser("L23252679");
                       setConta("serv");
                     }
+
+                    
+                    
                    } 
                    
                    const sair = async ()=> {
@@ -195,6 +202,13 @@ function App() {
 
                   const ApagarDados = async () => {
                     await Api.excluirDados();
+                  }
+
+                  const VerBo = async () => {
+                    await localStorage.setItem('roma', "BO123");
+                    await localStorage.setItem('brasil', "BO");
+                    setUser("BO123");
+                    setConta("BO");
                   }
 
                  
@@ -234,6 +248,7 @@ function App() {
               setNomeGuerra={setNomeGuerra}
               Patente={Patente}
               setPatente={setPatente}
+              Bo={VerBo}
               />  
               }
 
@@ -262,6 +277,15 @@ function App() {
               <>
               <DesbloServ
               IndoLogar={sair}
+              />
+              </>
+              }
+
+            {User === "BO123" &&  Conta === "BO" &&
+              <>
+              <BoOc
+              setUser={setUser}
+              setConta={setConta}
               />
               </>
               }

@@ -2066,6 +2066,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
                     PmIndo: doc.data().PmIndo ? doc.data().PmIndo : false,
                     IdPM:  doc.data().IdPM ? doc.data().IdPM : "",
                     NomePM: doc.data().NomePM? doc.data().NomePM: "",
+                    Resolvido: doc.data().Resolvido ? doc.data().Resolvido : false,
                   });    
                 }
                          
@@ -2088,6 +2089,28 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
        
        
         } 
+    
+      });
+        
+    },
+    PegarBO: async(BoPesq, setInfo)=> {
+    
+    
+         
+            await db.collection("ocorrencia")
+            .where("ativo", "==", true)
+            .where("Ocorr", "==", BoPesq)
+            .onSnapshot((querySnapshot) => {
+        
+       
+               querySnapshot.forEach((doc) => {
+            setInfo(doc.data())
+                         
+               });
+
+           
+            
+        
     
       });
         
