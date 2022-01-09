@@ -1529,7 +1529,6 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         let march = i+1;
         let Antes = ListDias[i]/1000;
         let Depois = ListDias[march]/1000;
-        console.log(Antes+'-'+Depois);
 
       await db.collection("ocorrencia")
       .where("dataInicio.seconds", ">=", Antes)
@@ -1542,7 +1541,6 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
           querySnapshot.size,
           );  
          
-
 
         querySnapshot.forEach((doc) => {
            

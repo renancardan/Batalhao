@@ -350,22 +350,20 @@
   padding-left: 10px;
 }
 .Text3 {
-  font-size: 10px;
+  font-size: 12px;
   border-top: 1px solid #000;
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
   height: 300px;
+  padding: 10px;
 }
 .Text4 {
-  font-size: 10px;
+  font-size: 12px;
   border-top: 1px solid #000;
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100px;
+  padding: 10px;
 }
 .RelatDire {
   width: 70%;

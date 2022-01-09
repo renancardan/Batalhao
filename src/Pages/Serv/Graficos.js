@@ -17,6 +17,7 @@ import 'react-finderselect/dist/index.css'
 import Maps from '../../Components/mapsOc';
 import ChatWindow from '../../Components/ChatMaps';
 import Modal from 'react-awesome-modal';
+import { Info } from '@material-ui/icons';
 
 
 
@@ -55,6 +56,14 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       const [AtuaMaps, setAtuaMaps] = useState(false);
      const [ListLoc, setListLoc] = useState([]);
      const [Visible, setVisible] = useState(false);
+     const [LDCond, setLDCond] = useState([]);
+     const [LQuantTo, setLQuantTo] = useState([])
+     const [MedI, setMedI] = useState([]);
+     const [DiSemana, setDiSemana] = useState([]);
+     const [SemQuant, setSemQuant] = useState(0);
+     const [DadosSemana, setDadosSemana] = useState([]);
+     const [Espectro, setEspectro] = useState([]);
+     const [ValEspectro, setValEspectro] = useState([])
      
     
 
@@ -70,31 +79,32 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
        }, [ListDias])
 
        useEffect(() => {
-         console.log(QuatD)
+
         DiasQuantizados();
         }, [QuatD])
 
         useEffect(() => {
           setAtuaMaps(false);
          PesqOcrr();
+       
           }, [Cond]);
+         
 
           useEffect(() => {
             if(ListLoc !== []){
               MostarMap();
               
             }
-       
+          
             }, [ListLoc]);
 
             useEffect(() => {
-           console.log(DataB);
-              }, [DataB]);
+              CalcuSemanal();
+              }, []);
 
 
               useEffect(() => {
-                console.log(DataA);
-                   }, [DataA]);
+                   }, [LDGrafi]);
 
     
 
@@ -107,6 +117,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       const MostarMap = ()=>{
         setAtuaMaps(true);
       }
+     
   
      
       const EnviarDados = ()=>{
@@ -140,6 +151,41 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
          
           }
 
+
+           const CalcuSemanal = ()=>{
+             let seg = [];
+            let Inicio = new Date("2021-10-25T00:00:00.000").getTime();
+            let Atual = new Date().getTime();
+            let semanal =  86400000 * 7;
+            let Result = (Atual - Inicio)/semanal;
+            let semaResul = Math.trunc(Result);
+            setSemQuant(semaResul);
+            // console.log(Ver + 86400000);
+            for (let i = 0; i < semaResul; i++) {
+              let Sem = 86400000 * 7;
+              let IniSem = Sem * i;
+              let VerIni = Inicio + IniSem;
+              let VerFim = VerIni + 86400000;
+              seg.push({
+                iniSeg: VerIni,
+                fimSeg: VerFim,
+                iniTer: VerIni + 86400000,
+                fimTer: VerFim + 86400000,
+                iniQua: VerIni + (86400000 * 2),
+                fimQua: VerFim + (86400000 * 2),
+                iniQui: VerIni + (86400000 * 3),
+                fimQui: VerFim + (86400000 * 3),
+                iniSex: VerIni + (86400000 * 4),
+                fimSex: VerFim + (86400000 * 4),
+                iniSab: VerIni + (86400000 * 5),
+                fimSab: VerFim + (86400000 * 5),
+                iniDom: VerIni + (86400000 * 6),
+                fimDom: VerFim + (86400000 * 6),
+              });
+            }
+           
+            setDiSemana(seg);
+           }
 
                
                
@@ -215,6 +261,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                   Dia = Dia < 10 ? '0'+Dia : Dia;
                   Mes = Mes < 10 ? '0'+Mes : Mes;
                   currentDate = Ano+'-'+Mes+'-'+Dia;
+                  console.log(currentDate);
                   let variac = new Date(currentDate +"T00:00:00.000").getTime();
                   setDataA(variac) 
                   setVerA(true)  
@@ -280,6 +327,61 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                   setVisible(false);
                 }
 
+                const GrafCond = ()=>{
+                  let listraCond = [];
+                  let listra11 = [];
+                  let ListraDados = [];
+                  console.log(ListLoc);
+                  for(let i in ListCond ) {
+                    let Cor = (ListCond[i].select);
+                    for(let i in ListLoc ) {
+                          if( ListLoc[i].condi[0].nome.includes(Cor)  ) {
+                          
+
+                            if(listraCond.includes(Cor)){
+                                  for(i in listraCond){
+                                    if(listraCond[i] === Cor){
+                                      let mert = ListraDados[i] + 1;
+                                      let mi = mert/QuatD;
+                                      ListraDados.splice(i, 1, mert);
+                                      listra11.splice(i, 1, mi);
+                                    }
+                                  }
+
+                              
+
+                                  } else {
+                                   let Mi = 1/QuatD;
+                                    listraCond.push(
+                                      Cor
+                                  );
+                                  
+                                  ListraDados.push(
+                                    1
+                                  ); 
+
+                                    listra11.push({
+                                    Mi
+                                  });   
+                           
+                            }
+      
+                        }
+                       
+                       
+                     
+                        
+                        }
+                     
+                       
+                      
+                }
+              
+                setLDCond(listraCond);
+                setLQuantTo(ListraDados);
+                setMedI(listra11);
+              }
+
                 const PesqOcrr = ()=>{
                  
                  
@@ -321,22 +423,60 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       let march = i+1;
                       let Antes = ListDias[i];
                       let Depois = ListDias[march];
-                      console.log(Antes+'-'+Depois);
                       let size = 0;
                       for(let j in listra10 ) {
                           if(listra10[j].dateIn >= Antes && listra10[j].dateIn <= Depois){
                             size +=1;
-                            console.log(size);
-                            console.log("entrou");
+                            
                           }
                       }
                       ListQuant.push(
                         size,
                       );
                     }
-                      console.log(ListQuant);
+                      
                       setListLoc(listra10);
                       setListDados(ListQuant);
+                   console.log(ListQuant);
+                  
+                }
+
+                const SemanalOc = ()=>{
+                
+                  let Semanal = [0, 0, 0, 0, 0, 0, 0];
+                  for(let i in ListLoc ) {
+                    let date = ListLoc[i].dateIn;
+                    for(let i in DiSemana ) {
+                      if(DiSemana[i].iniSeg < date < DiSemana[i].fimSeg ){
+                        let ForSeg = Semanal[0] + 1;
+                        Semanal.splice(0, 1, ForSeg);
+                      } else if (DiSemana[i].iniTer < date < DiSemana[i].fimTer ){
+                        let ForTer = Semanal[1] + 1;
+                        Semanal.splice(1, 1, ForTer);
+                      }  else if (DiSemana[i].iniQua < date < DiSemana[i].fimQua ){
+                        let ForQua = Semanal[2] + 1;
+                        Semanal.splice(2, 1, ForQua);
+                      }  else if (DiSemana[i].iniQui < date < DiSemana[i].fimQui ){
+                        let ForQui = Semanal[3] + 1;
+                        Semanal.splice(3, 1, ForQui);
+                      }  else if (DiSemana[i].iniSex < date < DiSemana[i].fimSex ){
+                        let ForSex = Semanal[4] + 1;
+                        Semanal.splice(4, 1, ForSex);
+                      }  else if (DiSemana[i].iniSab < date < DiSemana[i].fimSab ){
+                        let ForSab = Semanal[5] + 1;
+                        Semanal.splice(5, 1, ForSab);
+                      }  else if (DiSemana[i].iniDom < date < DiSemana[i].fimDom ){
+                        let ForDom = Semanal[6] + 1;
+                        Semanal.splice(6, 1, ForDom);
+                      }
+
+
+
+                    }
+                     
+                    }
+                    
+                    console.log(Semanal);
                    
                   
                 }
@@ -344,6 +484,80 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                 const ColDias = (t)=>{
                   setQuatD(parseInt(t.target.value));
                   setVerB(true);
+                }
+
+                const SemanalExtra = ()=>{
+                  let Semanal = [0, 0, 0, 0, 0, 0, 0];
+                  for (let i = 0; i <  SemQuant; i++) {
+                  let vir = 7 * i;
+                  let ForSeg = Semanal[0] + ListDados[vir];
+                  Semanal.splice(0, 1, ForSeg);
+                  }
+
+                  for (let i = 0; i <  SemQuant; i++) {
+                    let vir = 1 + (7 * i);
+                    let ForSeg = Semanal[1] + ListDados[vir];
+                    Semanal.splice(1, 1, ForSeg);
+                    }
+
+                    for (let i = 0; i <  SemQuant; i++) {
+                      let vir = 2 + (7 * i);
+                      let ForSeg = Semanal[2] + ListDados[vir];
+                      Semanal.splice(2, 1, ForSeg);
+                      }
+
+                      for (let i = 0; i <  SemQuant; i++) {
+                        let vir = 3 + (7 * i);
+                        let ForSeg = Semanal[3] + ListDados[vir];
+                        Semanal.splice(3, 1, ForSeg);
+                        }
+
+                        for (let i = 0; i <  SemQuant; i++) {
+                          let vir = 4 + (7 * i);
+                          let ForSeg = Semanal[4] + ListDados[vir];
+                          Semanal.splice(4, 1, ForSeg);
+                          }
+
+                          for (let i = 0; i < SemQuant; i++) {
+                            let vir = 5 + (7 * i);
+                            let ForSeg = Semanal[5] + ListDados[vir];
+                            Semanal.splice(5, 1, ForSeg);
+                            }
+
+                            for (let i = 0; i <  SemQuant; i++) {
+                              let vir = 6 + (7 * i);
+                              let ForSeg = Semanal[6] + ListDados[vir];
+                              Semanal.splice(6, 1, ForSeg);
+                              }
+                  
+                        setDadosSemana(Semanal);
+
+                }
+
+                const IndiceInc = ()=>{
+                  let Mart = [];
+                  let Org = [];
+                  for (let i = 0; i <  SemQuant; i++) {
+                    let lev = i + 1;
+                    let mek = i;
+                    Mart.push(
+                    lev
+                    );
+                    Org.push(
+                       0   
+                      );
+                    let ind = lev * 7;
+                      for (let i = 0; i < ind ; i++) {
+                       let loi = Org[mek] + ListDados[i];
+                       Org.splice(mek, 1, loi); 
+                      }
+                    let coc = Org[mek]/ind
+                    Org.splice(mek, 1, coc);
+                  }
+
+                  setEspectro(Mart);
+                  setValEspectro(Org);
+                 
                 }
                
                
@@ -492,7 +706,39 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                             onClick={()=>LimparCampo()}
                             />
                             </div>
-                            </div> 
+                            </div>
+
+                            <div className="col-sm-2">
+                            <div className="form-group">
+                            <Butao 
+                            style={"btn btn-sm btn-success"}
+                            titulo={"Pesquisa Grf"}
+                            onClick={()=>GrafCond()}
+                            />
+                           </div>
+                            </div>
+
+                            <div className="col-sm-2">
+                            <div className="form-group">
+                            <Butao 
+                            style={"btn btn-sm btn-success"}
+                            titulo={"Produzir Grafico Semana"}
+                            onClick={()=>SemanalExtra()}
+                            />
+                            </div>
+                            </div>
+
+                            <div className="col-sm-2">
+                            <div className="form-group">
+                            <Butao 
+                            style={"btn btn-sm btn-success"}
+                            titulo={"Produzir Grafico Linha Incidencia"}
+                            onClick={()=>IndiceInc()}
+                            />
+                            </div>
+                            </div>
+                            
+                             
                             
                           
                                    
@@ -529,6 +775,161 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
 
                          </div>
                         </div>
+
+
+                        <div className="card card-success">
+                          
+                          <div className="card-header">
+                          
+                            <h3 className="card-title" style={{ marginBottom: "10px"}}>Todas Ocorrências  </h3> 
+    
+                          </div>
+                            <div class="card-body table-responsive p-0">
+                         
+                            <Bar
+                            data={{
+                              labels: LDCond,
+                                    datasets: [{
+                                        label: ['Bloco de Ocorrencia'],
+                                        data: LQuantTo,
+                                        backgroundColor: [
+                                            'blue',   
+                                        ],
+                                    }],
+                            }}
+                            width={400}
+                            options={{   indexAxis: 'y',
+                            elements: {
+                              bar: {
+                                borderWidth: 2,
+                              },
+                            },
+                            responsive: true,
+                            plugins: {
+                              legend: {
+                                position: 'right',
+                              },
+                              title: {
+                                display: true,
+                                text: 'Quantidade de Cada Ocorrência por determinado Tempo',
+                              },
+                            }, }}
+                            />
+    
+                             </div>
+                            </div>
+
+
+                            <div className="card card-warning">
+                          
+                          <div className="card-header">
+                          
+                            <h3 className="card-title" style={{ marginBottom: "10px"}}>Todas Ocorrências Indices de Incidencia </h3> 
+    
+                          </div>
+                            <div class="card-body table-responsive p-0">
+                         
+                            <Bar
+                            data={{
+                              labels: LDCond,
+                                    datasets: [{
+                                        label: ['Bloco de Ocorrencia'],
+                                        data: MedI,
+                                        backgroundColor: [
+                                            'red',   
+                                        ],
+                                    }],
+                            }}
+                            width={400}
+                            options={{   indexAxis: 'y',
+                            elements: {
+                              bar: {
+                                borderWidth: 2,
+                              },
+                            },
+                            responsive: true,
+                            plugins: {
+                              legend: {
+                                position: 'right',
+                              },
+                              title: {
+                                display: true,
+                                text: 'Indice de Incidência de cada Ocorrência',
+                              },
+                            }, }}
+                            />
+    
+                             </div>
+                            </div>
+                            <div className="card card-secondary">
+                          
+                          <div className="card-header">
+                          
+                            <h3 className="card-title" style={{ marginBottom: "10px"}}>Linhas de Incidencia de Determinada Ocorrência </h3> 
+    
+                          </div>
+                            <div class="card-body table-responsive p-0">
+                         
+                            <Line
+                            data={{
+                              labels: Espectro,
+                                    datasets: [{
+                                        label: ['Ponto de Indice'],
+                                        data: ValEspectro,
+                                        backgroundColor: [
+                                            'purple',   
+                                        ],
+                                        borderColor: [
+                                          'purple',   
+                                      ],
+                                    }],
+                            }}
+                            width={400}
+                            options={{ 
+                              responsive: true,
+                              plugins: {
+                                legend: {
+                                  position: 'top',
+                                },
+                                title: {
+                                  display: true,
+                                  text: 'LInha de Incidencia',
+                                },
+                              },
+                              }}
+                            />
+    
+                             </div>
+                            </div>
+                                         
+                    <div className="card card-info">
+                          
+                          <div className="card-header">
+                          
+                            <h3 className="card-title" style={{ marginBottom: "10px"}}>Quantidade de Ocorrência Por Dia Da Semana  </h3> 
+    
+                          </div>
+                            <div class="card-body table-responsive p-0">
+                         
+                            <Bar
+                            data={{
+                              labels: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"],
+                                    datasets: [{
+                                        label: ['Bloco de Ocorrencia'],
+                                        data: DadosSemana,
+                                        backgroundColor: [
+                                            'yellow',   
+                                        ],
+                                    }],
+                            }}
+                            width={400}
+                            height={200}
+                            options={{ maintainAspectRatio: false }}
+                            />
+    
+                             </div>
+                            </div>
+    
                         <div className="card ">
                            <div className="app-window">
                           <div className="contentarea">
