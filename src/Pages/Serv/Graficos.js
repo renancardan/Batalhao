@@ -63,7 +63,9 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
      const [SemQuant, setSemQuant] = useState(0);
      const [DadosSemana, setDadosSemana] = useState([]);
      const [Espectro, setEspectro] = useState([]);
-     const [ValEspectro, setValEspectro] = useState([])
+     const [ValEspectro, setValEspectro] = useState([]);
+     const [DiaHoras, setDiaHoras] = useState([]);
+     const [EspcHoras, setEspcHoras] = useState([]);
      
     
 
@@ -154,36 +156,29 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
 
            const CalcuSemanal = ()=>{
              let seg = [];
+             let laon = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
             let Inicio = new Date("2021-10-25T00:00:00.000").getTime();
             let Atual = new Date().getTime();
+            let dial = (Atual - Inicio)/86400000;
+            let diaResu =Math.trunc(dial);
+            for (let j in laon) {
+            for (let i = 0; i < diaResu; i++) {
+              let foa = ((j*3600000) + Inicio) + (i*86400000);
+              let toa = foa + 3600000;
+              laon[j].push({
+                ini:foa,
+                fim: toa,
+              });
+            }
+            }
             let semanal =  86400000 * 7;
             let Result = (Atual - Inicio)/semanal;
             let semaResul = Math.trunc(Result);
             setSemQuant(semaResul);
-            // console.log(Ver + 86400000);
-            for (let i = 0; i < semaResul; i++) {
-              let Sem = 86400000 * 7;
-              let IniSem = Sem * i;
-              let VerIni = Inicio + IniSem;
-              let VerFim = VerIni + 86400000;
-              seg.push({
-                iniSeg: VerIni,
-                fimSeg: VerFim,
-                iniTer: VerIni + 86400000,
-                fimTer: VerFim + 86400000,
-                iniQua: VerIni + (86400000 * 2),
-                fimQua: VerFim + (86400000 * 2),
-                iniQui: VerIni + (86400000 * 3),
-                fimQui: VerFim + (86400000 * 3),
-                iniSex: VerIni + (86400000 * 4),
-                fimSex: VerFim + (86400000 * 4),
-                iniSab: VerIni + (86400000 * 5),
-                fimSab: VerFim + (86400000 * 5),
-                iniDom: VerIni + (86400000 * 6),
-                fimDom: VerFim + (86400000 * 6),
-              });
-            }
-           
+            
+            
+
+           setDiaHoras(laon);
             setDiSemana(seg);
            }
 
@@ -559,6 +554,28 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                   setValEspectro(Org);
                  
                 }
+
+                const AnaliseHoras = ()=>{
+                  let Horas = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                  for(let i in ListLoc ) {
+                    let date = ListLoc[i].dateIn;
+                    for(let i in DiaHoras ) {
+                      for(let j in  DiaHoras[i] ) {
+                         if(DiaHoras[i][j].ini <= date  && DiaHoras[i][j].fim >= date ){
+                           let fiq = Horas[i] + 1;
+                           Horas.splice(i, 1, fiq);
+                         } 
+                      }  
+                    }
+                  }
+                  let soma = 0;
+                  for(var i = 0; i < Horas.length; i++) {
+                    soma += Horas[i];
+                }
+                console.log(soma);
+
+                  setEspcHoras(Horas);
+                }
                
                
                
@@ -734,6 +751,16 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                             style={"btn btn-sm btn-success"}
                             titulo={"Produzir Grafico Linha Incidencia"}
                             onClick={()=>IndiceInc()}
+                            />
+                            </div>
+                            </div>
+
+                            <div className="col-sm-2">
+                            <div className="form-group">
+                            <Butao 
+                            style={"btn btn-sm btn-success"}
+                            titulo={"Graficos de Horas"}
+                            onClick={()=>AnaliseHoras()}
                             />
                             </div>
                             </div>
@@ -919,6 +946,33 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                                         data: DadosSemana,
                                         backgroundColor: [
                                             'yellow',   
+                                        ],
+                                    }],
+                            }}
+                            width={400}
+                            height={200}
+                            options={{ maintainAspectRatio: false }}
+                            />
+    
+                             </div>
+                            </div>
+                            <div className="card card-danger">
+                          
+                          <div className="card-header">
+                          
+                            <h3 className="card-title" style={{ marginBottom: "10px"}}>Quantidade de Ocorrência Por Horas  </h3> 
+    
+                          </div>
+                            <div class="card-body table-responsive p-0">
+                         
+                            <Bar
+                            data={{
+                              labels: ["0H", "1H", "2H", "3H", "4H", "5H", "6H", "7H", "8H", "9H", "10H", "11H", "12H", "13H", "14H", "15H", "16H", "17H", "18H", "19H", "20H", "21H", "22H", "23H"],
+                                    datasets: [{
+                                        label: ['Bloco de Ocorrencia'],
+                                        data: EspcHoras,
+                                        backgroundColor: [
+                                            'brown',   
                                         ],
                                     }],
                             }}
