@@ -464,6 +464,7 @@ useEffect(() => {
                         Dados={Dados} 
                         setFormu={setFormu}
                         Forms={Forms}
+                        Varia={Varia}
                         />
 
                         }

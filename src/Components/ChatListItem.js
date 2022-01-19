@@ -74,7 +74,8 @@ export default ({onClick, active, data, Ocorr}) => {
         onClick={onClick}
         >
             <div className="chatListItem--lines">
-                
+            {data.PmIndo === false &&  
+            <>
             {data.Resolvido === true &&
             
                     <>
@@ -82,6 +83,8 @@ export default ({onClick, active, data, Ocorr}) => {
                     </>   
                     
                     }
+                    </>
+                }
                 {data.PmIndo === true &&
                     <>
                      <div className="chatListItem--date">Viatura {data.NomePM} Deslocando</div>

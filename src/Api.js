@@ -31,6 +31,7 @@ export default {
                                       nomeGuerra:NomeGuerra,
                                       ocupado:false,
                                       tempAtiva: 0,
+                                      ativaPerman:false,
                                       nome: NomeCad, 
                                       telefone: TelCad, 
                                       cidade: CidadeCad, 
@@ -71,7 +72,9 @@ export default {
                                     nome: NomeCad, 
                                       telefone: TelCad, 
                                       cidade: CidadeCad, 
-                                      estado: EstadoCad, 
+                                      estado: EstadoCad,
+                                      tempAtiva: 0,
+                                      ativaPerman:false, 
                                       instituicao: InstCad,
                                       conta:{ admin:{ativo:false, desbloqueado:false, tipo:""},
                                               app:{ativo:false, desbloqueado:false, tipo:""},
@@ -1521,7 +1524,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         
     },
 
-    DadosdeGraficos: async(Dados, ListDias, setListDados, setListLoc, QuatD  )=> {
+    DadosdeGraficos: async(Dados, ListDias, setListDados, setListLoc, QuatD,  setLoading )=> {
       
       let list = [];
       let listCod = [];
@@ -1576,7 +1579,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
      
     setListLoc(listCod);
     setListDados(list);
-    
+    setLoading(false)
 
       // await db.collection("gruposerv")
       // .where("estado", "==", Dados.estado)
@@ -2113,6 +2116,19 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       });
         
     },
+
+    PegarBOAut: async(BoPesq, setInfo)=> {
+    
+    
+         
+      await db.collection("ocorrencia")
+      .doc(BoPesq)
+      .onSnapshot((querySnapshot) => {
+
+      setInfo(querySnapshot.data())
+                   });
+  
+},
     PesquisarListPM: async(Dados, setChatlistPM)=> {
       await Auth.onAuthStateChanged( async function(user) {
         if (user) {
@@ -2184,7 +2200,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
      PesquisarNumOc: async(Dados, setCodOc)=> {
         
         const dados = await db.collection('ultimaOcorr')
-        .doc("GV0UVkBRwgWZ9xsczVe6")
+        .doc("FTKRA384rOgVMPawzEpf")
         .onSnapshot((querySnapshot) => {
           console.log(querySnapshot);
           setCodOc(querySnapshot.data());
@@ -2667,7 +2683,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
     AtulUltOc: async(Let1, Let2, Let3, NumVal)=> {
    
          await db.collection("ultimaOcorr")
-         .doc("GV0UVkBRwgWZ9xsczVe6").update({
+         .doc("FTKRA384rOgVMPawzEpf").update({
            letra1:Let1,
            letra2:Let2,
            letra3:Let3,
@@ -3168,12 +3184,35 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
     },
 
 
-      ExcluirOc: async(data)=> {
+      ExcluirOc: async(data, Varia, nome)=> {
       const autenticado =  await Auth.currentUser;
       const id = await autenticado.uid;
-       await db.collection('ocorrencia')
-       .doc(data)
-        .delete();
+      let temp = new Date().getTime();
+      let now = temp + (Varia*1000);
+      await db.collection('ocorrencia') 
+      .doc(data)
+      .get().then((doc) => {
+       
+        let Me = doc.data().IdChat;
+         db.collection("chat")
+        .doc(Me).update({
+        
+          Ocupado:false,
+          idOC:"",
+          NomeOc: "",
+      }).then((doc)=>{
+   
+        db.collection('ocorrencia')
+        .doc(data)
+         .delete();
+      
+     }).catch((error) => {
+        
+     }); 
+
+      })
+
+      
     },
 
     EnviarLocali: async(activeChat, la, ln, setAlert, setAlertTipo  )=> {

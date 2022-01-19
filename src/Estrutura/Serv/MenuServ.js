@@ -134,7 +134,7 @@ export default ({sair , Dados, CriarDados, ApagarDados}) => {
               ValorNoti={"New"}
               />
               }
-               {Dados.grupo.menu.anuncio.Ver === true &&
+               {/* {Dados.grupo.menu.anuncio.Ver === true && */}
               <MenuLink 
               Linkto={"/anuncio"}
               Icon={"nav-icon fas fa-bullhorn"}
@@ -143,7 +143,7 @@ export default ({sair , Dados, CriarDados, ApagarDados}) => {
               NotiEstilo={"right badge badge-danger"}
               ValorNoti={"New"}
               />
-              }
+              {/* } */}
                
           <li className="nav-item">
             <div className="input_cadatro">

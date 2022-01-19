@@ -94,7 +94,7 @@ useEffect(() => {
 
                             </div> 
                     <br />
-                    <strong>Coloque uma Imagem 400px por 100px  :</strong><br />
+                    <strong>Coloque uma Imagem 400px por 50px  :</strong><br />
                     <div className="FotosArqui" >
                     <div className="FotoQuaAnun" >
                       {Img1 === "../assets/avatarimg.png" ?

@@ -423,7 +423,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
             <div className="chatWindow--headerinfo">
            
             <div className="chatWindow--name"  style={{margin: '30px'}}>  
-            <string className="textTitulo" >Nome: {Nome}</string><br/>
+            <string className="textTitulo" >{Nome}</string><br/>
             <string className="textTitulo" >{time}</string>
             </div>
             </div>
@@ -537,7 +537,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
             >
                
                 <div className="chatWindow--headerbuttons">
-               {Loc.lng === 'vazio' &&
+              
 
                 <div className="chatWindow--btn1"
                 onClick={()=>PedirLoc()}
@@ -545,7 +545,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados, Vizul, setVizul, Vari
                    <p className="textButao" >PEDIR LOCALIZAÇÃO</p>
                </div>
 
-               }
+               
                 
 
               

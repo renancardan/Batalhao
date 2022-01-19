@@ -8,12 +8,14 @@ import DataTime from '../../Components/DateFormat';
 import Maps from '../../Components/maps';
 import ChatWindow from '../../Components/ChatVirzul';
 import RelatAni from '../../Components/Analitico';
+import BoOc from './BoOcAuth';
 
 
 export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, AlertTipo, }) => {
   const [Infor, setInfor] = useState("nulo");
   const [Grupo, setGrupo] = useState();
   const [Pag5, setPag5] = useState(false);
+  const [Pag6, setPag6] = useState(false);
   const [ListGrupo, setListGrupo] = useState([]);
   const [AtuaMaps, setAtuaMaps] = useState(false);
   const [MapsCaixa, setMapsCaixa] = useState(false);
@@ -65,9 +67,15 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
   const Pagina5 = ()=>{
     setPag5(true);
   }
+
+  const Pagina6 = ()=>{
+    setPag6(true);
+    setPag5(true);
+  }
   
   const tirar = ()=>{
-    setPag5(false)
+    setPag5(false);
+    setPag6(false);
   }
 
   
@@ -136,6 +144,15 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
                                       style={"btn btn-sm btn-info"}
                                       titulo={"Relatótio Analítico"}
                                       onClick={()=>Pagina5()}
+                                      />
+                                      </div>
+                                      </div> <br /> 
+                                      <div className="col-sm-6">
+                                      <div className="form-group">
+                                      <Butao 
+                                      style={"btn btn-sm btn-info"}
+                                      titulo={"BO da Ocorrência"}
+                                      onClick={()=>Pagina6()}
                                       />
                                       </div>
                                       </div> <br /> 
@@ -269,14 +286,26 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
 
             :
             <>
-            <RelatAni
-            Fechar={tirar}
-            Avisando={Avisando}
-            Infor={Infor}
-            Id={Id}
-            />
-            </>
+            {Pag6 === false ?
+              <>
+              <RelatAni
+              Fechar={tirar}
+              Avisando={Avisando}
+              Infor={Infor}
+              Id={Id}
+              />
+              </>
 
+              :
+              <BoOc
+              Fechar={tirar}
+              Avisando={Avisando}
+              Id={Id}
+              />
+             
+            }
+         
+          </>
             }
 
 {/* /.content-wrapper */}

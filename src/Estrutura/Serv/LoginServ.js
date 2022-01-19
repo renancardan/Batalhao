@@ -164,7 +164,7 @@ export default ({setConta, setEmail, Email, Senha, setSenha,
                                     <TextLink 
                                       onClick={recuperarSenha}
                                       estilo={"Text_link"}
-                                      text={"Esquecir Minha Senha"}
+                                      text={"Esqueci Minha Senha"}
                                       />
                                         <Butao 
                                         onClick={Bo}

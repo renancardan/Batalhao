@@ -18,6 +18,7 @@ import Maps from '../../Components/mapsOc';
 import ChatWindow from '../../Components/ChatMaps';
 import Modal from 'react-awesome-modal';
 import { Info } from '@material-ui/icons';
+import jsPDF  from 'jspdf';
 
 
 
@@ -123,7 +124,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
   
      
       const EnviarDados = ()=>{
-        Api.DadosdeGraficos(Dados, ListDias, setListDados, setListLoc, QuatD)
+        setLoading(true);
+        Api.DadosdeGraficos(Dados, ListDias, setListDados, setListLoc, QuatD,  setLoading)
       }
          
 
@@ -576,6 +578,15 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
 
                   setEspcHoras(Horas);
                 }
+
+                const GerarPdf = ()=>{
+                  var doc = new jsPDF("l", "pt", "a4");
+                  doc.html(document.querySelector("#content"), {
+                    callback: function(pdf) {
+                      pdf.save("analitico.pdf");
+                    }
+                  })
+                }
                
                
                
@@ -628,22 +639,16 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
               Titulo={Titulo}
               /> 
                    
-              <section className="content">
+              <section className="content" 
+              
+              >
                 <div className="container-fluid">
                   
                 <div className="row">
                   <section className="col-12">
-                  {Loading === true ?
-                        <Spinner 
-                        size={64}
-                        color={"#5d0bf7"}
-                        sizeUnit={'px'} 
-                        />
-                        :
-                        <>
-                                                <div className="card card-warning">
+                  <div className="card card-warning">
                     <div className="card-header">
-                        <h3 className="card-title">Filtros para Gráfico Diário</h3>
+                        <h3 className="card-title">Filtros de Datas para Gráfico </h3>
                     </div>
                     {/* /.card-header */}
                     <div className="card-body">
@@ -690,6 +695,49 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                             </div>
 
                         
+                           
+                          
+
+                            
+                            <div className="col-sm-2">
+                            <div className="form-group">
+                            <Butao 
+                            style={"btn btn-sm btn-secondary"}
+                            titulo={"Limpar Pesquisa"}
+                            onClick={()=>LimparCampo()}
+                            />
+                            </div>
+                            </div>
+
+               
+                                   
+                    </div>
+                       
+                    </div>
+                    {/* /.card-body */}
+                    </div>
+                  {Loading === true ?
+                  <>
+                    <Spinner 
+                        size={64}
+                        color={"#5d0bf7"}
+                        sizeUnit={'px'} 
+                        />
+                       <string style={{"font-weight":"bolder", "font-size":15,}}>ESPERE UM MOMENTO ESTAMOS PREPARANDO OS DADOS PARA OS GRÁFICOS</string>
+                  </>
+                      
+                        :
+                        <>
+                    <div className="card card-danger">
+                    <div className="card-header">
+                        <h3 className="card-title">Filtros de Ocorrência para Gráficos </h3>
+                    </div>
+                    {/* /.card-header */}
+                    <div className="card-body">
+                    <div className="row" >
+                  
+
+                        
                             <div className="col-sm-6">
                             <div className="form-group">
                                 <label>Oocorrência</label>
@@ -712,24 +760,12 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                             </div>
                             </div> 
                           
-                          
-
-                            
-                            <div className="col-sm-2">
-                            <div className="form-group">
-                            <Butao 
-                            style={"btn btn-sm btn-secondary"}
-                            titulo={"Limpar Pesquisa"}
-                            onClick={()=>LimparCampo()}
-                            />
-                            </div>
-                            </div>
 
                             <div className="col-sm-2">
                             <div className="form-group">
                             <Butao 
                             style={"btn btn-sm btn-success"}
-                            titulo={"Pesquisa Grf"}
+                            titulo={"Produzir Gráfico das Ocorrências"}
                             onClick={()=>GrafCond()}
                             />
                            </div>
@@ -739,7 +775,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                             <div className="form-group">
                             <Butao 
                             style={"btn btn-sm btn-success"}
-                            titulo={"Produzir Grafico Semana"}
+                            titulo={"Produzir Gráfico Referente a dias da Semana"}
                             onClick={()=>SemanalExtra()}
                             />
                             </div>
@@ -759,13 +795,21 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                             <div className="form-group">
                             <Butao 
                             style={"btn btn-sm btn-success"}
-                            titulo={"Graficos de Horas"}
+                            titulo={"Produzir Gráfico Referente a Horas do Dia "}
                             onClick={()=>AnaliseHoras()}
                             />
                             </div>
                             </div>
                             
-                             
+                            <div className="col-sm-2">
+                            <div className="form-group">
+                            <Butao 
+                            style={"btn btn-sm btn-warning"}
+                            titulo={"Gerar Pdf"}
+                            onClick={()=>GerarPdf()}
+                            />
+                            </div>
+                            </div>
                             
                           
                                    
@@ -775,40 +819,15 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                     {/* /.card-body */}
                     </div>
                   
-                    <div className="card card-primary">
-                          
-                      <div className="card-header">
-                      
-                        <h3 className="card-title" style={{ marginBottom: "10px"}}>Gráficos Diário  </h3> 
-
-                      </div>
-                        <div class="card-body table-responsive p-0">
-                     
-                        <Bar
-                        data={{
-                          labels: LDGrafi,
-                                datasets: [{
-                                    label: ['Bloco de Ocorrencia'],
-                                    data: ListDados,
-                                    backgroundColor: [
-                                        'green',   
-                                    ],
-                                }],
-                        }}
-                        width={400}
-                        height={200}
-                        options={{ maintainAspectRatio: false }}
-                        />
-
-                         </div>
-                        </div>
+                  
+                   
 
 
-                        <div className="card card-success">
+                        <div className="card card-success" id="content">
                           
                           <div className="card-header">
                           
-                            <h3 className="card-title" style={{ marginBottom: "10px"}}>Todas Ocorrências  </h3> 
+                            <h3 className="card-title" style={{ marginBottom: "10px"}}>Gráfico Referente a todas as Ocorrências em Quantidades  </h3> 
     
                           </div>
                             <div class="card-body table-responsive p-0">
@@ -851,7 +870,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                           
                           <div className="card-header">
                           
-                            <h3 className="card-title" style={{ marginBottom: "10px"}}>Todas Ocorrências Indices de Incidencia </h3> 
+                            <h3 className="card-title" style={{ marginBottom: "10px"}}>Gráfico Referente a todas as Ocorrências Indices de Incidencia </h3> 
     
                           </div>
                             <div class="card-body table-responsive p-0">
@@ -928,12 +947,39 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
     
                              </div>
                             </div>
+                            <div className="card card-primary">
+                          
+                          <div className="card-header">
+                          
+                            <h3 className="card-title" style={{ marginBottom: "10px"}}>Gráficos Referente a Dias    </h3> 
+    
+                          </div>
+                            <div class="card-body table-responsive p-0">
+                         
+                            <Bar
+                            data={{
+                              labels: LDGrafi,
+                                    datasets: [{
+                                        label: ['Bloco de Ocorrencia'],
+                                        data: ListDados,
+                                        backgroundColor: [
+                                            'green',   
+                                        ],
+                                    }],
+                            }}
+                            width={400}
+                            height={200}
+                            options={{ maintainAspectRatio: false }}
+                            />
+    
+                             </div>
+                            </div>
                                          
                     <div className="card card-info">
                           
                           <div className="card-header">
                           
-                            <h3 className="card-title" style={{ marginBottom: "10px"}}>Quantidade de Ocorrência Por Dia Da Semana  </h3> 
+                            <h3 className="card-title" style={{ marginBottom: "10px"}}>Gráfico Referente a dias da Semana </h3> 
     
                           </div>
                             <div class="card-body table-responsive p-0">
@@ -960,7 +1006,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                           
                           <div className="card-header">
                           
-                            <h3 className="card-title" style={{ marginBottom: "10px"}}>Quantidade de Ocorrência Por Horas  </h3> 
+                            <h3 className="card-title" style={{ marginBottom: "10px"}}> Gráfico Referente a Horas do Dia </h3> 
     
                           </div>
                             <div class="card-body table-responsive p-0">

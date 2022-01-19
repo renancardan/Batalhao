@@ -4,6 +4,8 @@
   background-color: #ededed;
 }
 
+
+
 .contatos {
   width: 25%;
   max-width: 415px;
@@ -82,7 +84,7 @@
 
 .FotoQua1 {
   width: 400px;
-  height: 100px;
+  height: 50px;
   border: 1px solid #ccc;
   object-fit: cover;
   justify-content: center;

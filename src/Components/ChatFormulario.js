@@ -12,7 +12,7 @@ import Condic from './Condoc';
 
 let recorder = '';
 let timer = '';
-export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTipo, Alert, AlertTipo,  setFormu, Forms, setActiveChat, AdicionaCond, tiracond}) => {
+export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTipo, Alert, AlertTipo,  setFormu, Forms, setActiveChat, AdicionaCond, tiracond, Varia}) => {
    
     const [User, setUser] = useState('');
     const [list, setList] = useState([]);
@@ -70,7 +70,9 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
         PegNumOcorr()
      }, [])
 
-   
+     useEffect(() => {
+        console.log(Lat)
+     }, [Lat])
    
 
     useEffect(()=>{  
@@ -100,30 +102,38 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
     }, [Rua, Numero, Bairro, Cidade, Estado]);
 
     useEffect(() => {
+        
+       if(Lat === 0){
         if(End) {
-          if(timer){
-            clearTimeout(timer);
-          }
-          timer = setTimeout( async ()=>{
-      
-            const geo = await Geocoder.from(End);
-            if(geo.results.length > 0){
-              let tmpResults = []
-              for(let i in geo.results){
-                tmpResults.push({
-                  address:geo.results[i].formatted_address,
-                  latitude:geo.results[i].geometry.location.lat,
-                  longitude:geo.results[i].geometry.location.lng,
-                });
-      
-              }
-              setLat(tmpResults[0].latitude);
-              setLng(tmpResults[0].longitude);
-      
+            if(timer){
+              clearTimeout(timer);
             }
-      
-          }, 500);
-        }
+            timer = setTimeout( async ()=>{
+        
+              const geo = await Geocoder.from(End);
+              if(geo.results.length > 0){
+                let tmpResults = []
+                for(let i in geo.results){
+                  tmpResults.push({
+                    address:geo.results[i].formatted_address,
+                    latitude:geo.results[i].geometry.location.lat,
+                    longitude:geo.results[i].geometry.location.lng,
+                  });
+        
+                }
+                setLat(tmpResults[0].latitude);
+                setLng(tmpResults[0].longitude);
+        
+              }
+        
+            }, 500);
+          }
+
+       }
+           
+
+       
+       
        
       }, [End]);
 
@@ -396,7 +406,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
      const ExcluirOc = ()=>{
         setAlert(" ");
         setAlertTipo(" ");
-        Api.ExcluirOc(data);
+        Api.ExcluirOc(data, Varia);
         setActiveChat(null);
     }
 
