@@ -47,16 +47,23 @@ export default ({sair , Dados, CriarDados, ApagarDados}) => {
         }
         </>
         }
+        {Dados.grupo.menu.aplicativos &&
+        <>
+          {Dados.grupo.menu.aplicativos.Ver === true &&
        
-       
-          <MenuLink 
-              Linkto={"/aplicativo"}
-              Icon={"nav-icon fas fa-tablet"}
-              Titulo={"APLICATIVOS"}
-              Notificacao={false}
-              NotiEstilo={"right badge badge-danger"}
-              ValorNoti={"New"}
-              />
+       <MenuLink 
+           Linkto={"/aplicativo"}
+           Icon={"nav-icon fas fa-tablet"}
+           Titulo={"APLICATIVOS"}
+           Notificacao={false}
+           NotiEstilo={"right badge badge-danger"}
+           ValorNoti={"New"}
+           />
+    }
+
+        </>
+        }
+     
         {Dados.grupo.menu.condicionais.Ver === true &&
            <MenuLink 
               Linkto={"/condicionais"}
@@ -67,6 +74,9 @@ export default ({sair , Dados, CriarDados, ApagarDados}) => {
               ValorNoti={"New"}
               />
         }
+          {Dados.grupo.menu.graficos &&
+        <>
+          {Dados.grupo.menu.graficos.Ver === true &&
           <MenuLink 
               Linkto={"/graficos"}
               Icon={"nav-icon fas fa-signal"}
@@ -75,6 +85,10 @@ export default ({sair , Dados, CriarDados, ApagarDados}) => {
               NotiEstilo={"right badge badge-danger"}
               ValorNoti={"New"}
               />
+            }
+
+            </>
+            }
              {Dados.grupo.menu.ocorrencia.Ver === true &&
             <MenuLink 
               Linkto={"/ocorrencia"}
@@ -85,6 +99,9 @@ export default ({sair , Dados, CriarDados, ApagarDados}) => {
               ValorNoti={"New"}
               />
               }
+                  {Dados.grupo.menu.pesquisa &&
+        <>
+          {Dados.grupo.menu.pesquisa.Ver === true &&
                <MenuLink 
               Linkto={"/pesquisa"}
               Icon={"nav-icon fas fa-search"}
@@ -93,6 +110,10 @@ export default ({sair , Dados, CriarDados, ApagarDados}) => {
               NotiEstilo={"right badge badge-danger"}
               ValorNoti={"New"}
               />
+            }
+
+            </>
+            }
               
               {Dados.grupo.menu.noticias.Ver === true &&
                <MenuLink 
@@ -135,6 +156,9 @@ export default ({sair , Dados, CriarDados, ApagarDados}) => {
               />
               }
                {/* {Dados.grupo.menu.anuncio.Ver === true && */}
+               {Dados.grupo.menu. anuncio &&
+        <>
+          {Dados.grupo.menu.anuncio.Ver === true &&
               <MenuLink 
               Linkto={"/anuncio"}
               Icon={"nav-icon fas fa-bullhorn"}
@@ -143,6 +167,10 @@ export default ({sair , Dados, CriarDados, ApagarDados}) => {
               NotiEstilo={"right badge badge-danger"}
               ValorNoti={"New"}
               />
+            }
+
+            </>
+            }
               {/* } */}
                
           <li className="nav-item">

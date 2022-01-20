@@ -76,6 +76,19 @@ const [res57, setres57] = useState(false);
 const [res58, setres58] = useState(false);
 const [res59, setres59] = useState(false);
 const [res60, setres60] = useState(false);
+const [res61, setres61] = useState(false);
+const [res62, setres62] = useState(false);
+const [res63, setres63] = useState(false);
+const [res64, setres64] = useState(false);
+const [res65, setres65] = useState(false);
+const [res66, setres66] = useState(false);
+const [res67, setres67] = useState(false);
+const [res68, setres68] = useState(false);
+const [res69, setres69] = useState(false);
+const [res70, setres70] = useState(false);
+const [res71, setres71] = useState(false);
+const [res72, setres72] = useState(false);
+const [res73, setres73] = useState(false);
 
 
 
@@ -94,8 +107,8 @@ useEffect(() => {
      res8, res9, res10, res11, res12, res13, res14, res15, res16, res17, res18, res19, res20,
     res21, res22, res23, res24, res25, res26, res27, res28, res29, res30, res31, res32, res33,
   res34, res35, res36, res38, res39, res37, res40, res41, res42, res43, res44, res45, res46, res47, res48, 
-  res49, res50, res51, res52, res53, res54, res55, res56, res54, res55, res56, res57, res58, res59, res60])
-
+  res49, res50, res51, res52, res53, res54, res55, res56, res54, res55, res56, res57, res58, res59, res60,  res61, res62,
+  res63, res64, res65, res66, res67, res68, res69, res70, res71, res72, res73])
  
   const Editando = ()=>{
     console.log(nome);
@@ -185,6 +198,20 @@ useEffect(() => {
      setres58(Infor.configuracao.ListaTelefone.btn_bloquear);
      setres59(Infor.configuracao.ListaTelefone.btn_desbloquear);
      setres60(Infor.configuracao.ListaTelefone.btn_excluir);
+     setres61(Infor.aplicativos? Infor.aplicativos.Ver: false);
+     setres62(Infor.aplicativos? Infor.aplicativos.filtros.Ver : false);
+     setres63(Infor.aplicativos? Infor.aplicativos.filtros.btn_pesquisa : false);
+     setres64(Infor.aplicativos? Infor.aplicativos.filtros.btn_limpapesquisa : false);
+     setres65(Infor.aplicativos? Infor.aplicativos.listaAppServ.Ver : false);
+     setres66(Infor.aplicativos? Infor.aplicativos.listaAppServ.btn_ativar : false);
+     setres67(Infor.aplicativos? Infor.aplicativos.listaAppServ.btn_desativar : false);
+     setres68(Infor.aplicativos? Infor.aplicativos.listaAppServ.btn_ativarDiaria : false);
+     setres69(Infor.aplicativos? Infor.aplicativos.listaAppServ.btn_bloquear : false);
+     setres70(Infor.aplicativos? Infor.aplicativos.listaAppServ.btn_vizualizar : false);
+     setres71(Infor.anuncio? Infor.anuncio.Ver: false);
+     setres72(Infor.graficos? Infor.graficos.Ver: false);
+     setres73(Infor.pesquisa? Infor.pesquisa.Ver: false);
+     
      setMudar(true);
      }
      
@@ -311,8 +338,30 @@ configuracao:{
       btn_excluir:res60,
       },
 },
+aplicativos:{
+  Ver:res61,
+  filtros:{
+      Ver:res62,
+      btn_pesquisa:res63,
+      btn_limpapesquisa:res64,
+      },
+  listaAppServ:{
+      Ver:res65,
+      btn_ativar:res66,
+      btn_desativar:res67,
+      btn_ativarDiaria:res68,
+      btn_bloquear:res69,
+      btn_vizualizar:res70,
+      },
+},
 anuncio:{
-  Ver:false,
+  Ver:res71,
+},
+graficos:{
+  Ver:res72,
+},
+pesquisa:{
+  Ver:res73,
 },
    
   }
@@ -419,6 +468,26 @@ anuncio:{
                    label={"Configurações"} 
                    res={res49} 
                    onChange={(value)=>{setres49(value)}} 
+                   /> <br />
+                      <Checkbox 
+                   label={"Aplicativos"} 
+                   res={res61} 
+                   onChange={(value)=>{setres61(value)}} 
+                   /> <br />
+                      <Checkbox 
+                   label={"Anuncio"} 
+                   res={res71} 
+                   onChange={(value)=>{setres71(value)}} 
+                   /> <br />
+                    <Checkbox 
+                   label={"Gráficos"} 
+                   res={res72} 
+                   onChange={(value)=>{setres72(value)}} 
+                   /> <br />
+                    <Checkbox 
+                   label={"Pesquisa"} 
+                   res={res73} 
+                   onChange={(value)=>{setres73(value)}} 
                    /> <br />
                     </>
 
@@ -828,6 +897,69 @@ anuncio:{
                          
                                 </>
                                  }        
+                            </>
+                        }
+                         {Valor.aplicativos.Ver === true &&
+                                <>
+                                <strong>Caixa Filtros:</strong><br />
+                                <Checkbox 
+                                label={""} 
+                                res={res62} 
+                                onChange={(value)=>{setres62(value)}}/> 
+                                <span style={{color:"green", }}>Botões</span> <br/>
+                                {Valor.aplicativos.filtros.Ver === true &&
+                                <>
+                                <Checkbox 
+                                label={"Botão pesquisar"} 
+                                res={res63} 
+                                onChange={(value)=>{setres63(value)}} 
+                                 /> <br />
+                                  <Checkbox 
+                                label={"Botão Limpar pesquisar"} 
+                                res={res64} 
+                                onChange={(value)=>{setres64(value)}} 
+                                 /> <br />
+                                                               
+                               
+                                </>
+                                 }  
+                                  <strong>Caixa Lista App Serv:</strong><br />
+                                <Checkbox 
+                                label={""} 
+                                res={res65} 
+                                onChange={(value)=>{setres65(value)}}/> 
+                                <span style={{color:"green", }}>Botões</span> <br/>
+                                {Valor.aplicativos.listaAppServ.Ver === true &&
+                                <>
+                                <Checkbox 
+                                label={"Botão Ativar"} 
+                                res={res66} 
+                                onChange={(value)=>{setres66(value)}} 
+                                 /> <br />
+                                  <Checkbox 
+                                label={"Botão Desativar"} 
+                                res={res67} 
+                                onChange={(value)=>{setres67(value)}} 
+                                 /> <br />
+                                  <Checkbox 
+                                label={"Botão Ativação Diaria"} 
+                                res={res68} 
+                                onChange={(value)=>{setres68(value)}} 
+                                 /> <br />
+                                  <Checkbox 
+                                label={"Botão Bloquear"} 
+                                res={res69} 
+                                onChange={(value)=>{setres69(value)}} 
+                                 /> <br />
+                                  <Checkbox 
+                                label={"Botão Vizualizar"} 
+                                res={res70} 
+                                onChange={(value)=>{setres70(value)}} 
+                                 /> <br />
+                                                               
+                               
+                                </>
+                                 }  
                             </>
                         }
    

@@ -474,6 +474,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                         />
                         :
                         <>
+                         
+                            {Dados.grupo.menu.aplicativos.filtros.Ver === true &&
                         <div className="card card-warning">
                     <div className="card-header">
                         <h3 className="card-title">Filtros para pesquisa</h3>
@@ -545,7 +547,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                             </div>
                             </div>   */}
                         
-                            
+                        {Dados.grupo.menu.aplicativos.filtros.btn_pesquisa === true &&
                             <div className="col-sm-2" style={{marginTop:"35px"}}>
                             <div className="form-group">
                             <Butao 
@@ -555,6 +557,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                             />
                             </div>
                             </div> 
+                            }
+                              {Dados.grupo.menu.aplicativos.filtros.btn_limpapesquisa === true &&
                             <div className="col-sm-2" style={{marginTop:"35px"}}>
                             <div className="form-group">
                             <Butao 
@@ -564,6 +568,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                             />
                             </div>
                             </div> 
+                              }
                             
                           
                                    
@@ -571,8 +576,10 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                     </div>
                        
                   
-                    {/* /.card-body */}
+                   
                     </div>
+                  }
+                  {Dados.grupo.menu.aplicativos.listaAppServ.Ver === true &&
                     <div className="card card-info">
                       <div className="card-header">
                         <h3 className="card-title" style={{ marginBottom: "10px"}}>Lista AppServ Desbloqueados  </h3> 
@@ -623,34 +630,44 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                                     
                                     {item.list.ativo===true ?
                                     <>
+                                     {Dados.grupo.menu.aplicativos.listaAppServ.btn_vizualizar === true &&
                                     <Butao 
                                     style={"btn btn-xs btn-primary"}
                                     titulo={"Vizualizar"}
                                     onClick={()=>VizualizarConta(item.list.id, item.list.nome, item.list.telefone)}
                                     />
+                                     }
+                                      {Dados.grupo.menu.aplicativos.listaAppServ.btn_desativar === true &&
                                     <Butao 
                                       style={"btn btn-xs btn-secondary"}
                                       titulo={"Desativar"}
                                       onClick={()=>MsgDesativar(item.list.id, item.list.nome)}
                                       /> 
+                                        }
                                       </>
                                       :
                                       <>
+                                       {Dados.grupo.menu.aplicativos.listaAppServ.btn_ativar === true &&
                                       <Butao 
                                       style={"btn btn-xs btn-success"}
                                       titulo={"Ativar "}
                                       onClick={()=>ativandopermanente(item.list.id, item.list.nome)}
                                       /> 
+                                       }
+                                        {Dados.grupo.menu.aplicativos.listaAppServ.btn_ativarDiaria === true &&
                                       <Butao 
                                       style={"btn btn-xs btn-success"}
                                       titulo={"Atição Diaria"}
                                       onClick={()=>MsgAtivarDiario(item.list.id, item.list.nome)}
                                       /> 
+                                        }
+                                         {Dados.grupo.menu.aplicativos.listaAppServ.btn_bloquear === true &&
                                       <Butao 
                                       style={"btn btn-xs btn-danger"}
                                       titulo={"Bloquear"}
                                       onClick={()=>MsgBloqueio(item.list.id, item.list.nome)}
-                                      />   
+                                      /> 
+                                         }  
                                       </>
                                     }                                     
                                                            
@@ -683,6 +700,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                             />
                          </div>
                         </div>
+                        }
                         </>
                         }
                     </section>       

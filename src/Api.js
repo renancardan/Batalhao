@@ -3145,41 +3145,85 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       console.log("entrou 1");
       const autenticado =  await Auth.currentUser;
       const id = await autenticado.uid;
-       await db.collection('ocorrencia')
-       .doc(data)
-       .update({
-        ativo: false,
-        dataFim: firebase.firestore.FieldValue.serverTimestamp(),
-        excluir:Exc,
-        Ocorr:NuOc,
-    })
-    .then(() => {
+      await db.collection('ocorrencia') 
+      .doc(data)
+      .get().then((doc) => {
+
+        let Me = doc.data().IdChat;
+        db.collection("chat")
+        .doc(Me).update({
+          Ocupado:false,
+          idOC:"",
+          NomeOc: "",
+      }).then((doc)=>{
+
+        db.collection('ocorrencia')
+        .doc(data)
+        .update({
+         ativo: false,
+         dataFim: firebase.firestore.FieldValue.serverTimestamp(),
+         excluir:Exc,
+         Ocorr:NuOc,
+     })
+     .then(() => {
+        
+     })
+     .catch((error) => {
+         // The document probably doesn't exist.
+         console.error("Error updating document: ", error);
+     });   
        
-    })
-    .catch((error) => {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
-    });   
+      
+     }).catch((error) => {
+        
+     }); 
+
+      })
+
+
+     
       
     },
     ConOcorrencia: async(data, Exc)=> {
       console.log("entrou 2");
       const autenticado =  await Auth.currentUser;
       const id = await autenticado.uid;
-       await db.collection('ocorrencia')
-       .doc(data)
-       .update({
-        ativo: false,
-        dataFim: firebase.firestore.FieldValue.serverTimestamp(),
-        excluir:Exc,
-    })
-    .then(() => {
+
+      db.collection('ocorrencia') 
+      .doc(data)
+      .get().then((doc) => {
+        
+        let Me = doc.data().IdChat;
+        db.collection("chat")
+        .doc(Me).update({
+          Ocupado:false,
+          idOC:"",
+          NomeOc: "",
+      }).then((doc)=>{
+
+       db.collection('ocorrencia')
+        .doc(data)
+        .update({
+         ativo: false,
+         dataFim: firebase.firestore.FieldValue.serverTimestamp(),
+         excluir:Exc,
+     })
+     .then(() => {
+        
+     })
+     .catch((error) => {
+         // The document probably doesn't exist.
+         
+     }); 
        
-    })
-    .catch((error) => {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
-    });   
+      
+     }).catch((error) => {
+        
+     }); 
+
+      })
+
+       
       
     },
 
@@ -3196,7 +3240,14 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         let Me = doc.data().IdChat;
          db.collection("chat")
         .doc(Me).update({
-        
+          mensagem: firebase.firestore.FieldValue.arrayUnion ({
+            autor:id,
+            nome: nome,
+            body: "Ocorrência foi excluida",
+            date: now,
+            type:"text"
+          }),
+          ultimaMsg:{id:id, nome: nome, data: now, msg: "Ocorrência foi excluida"},
           Ocupado:false,
           idOC:"",
           NomeOc: "",

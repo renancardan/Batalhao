@@ -406,7 +406,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
      const ExcluirOc = ()=>{
         setAlert(" ");
         setAlertTipo(" ");
-        Api.ExcluirOc(data, Varia);
+        Api.ExcluirOc(data, Varia, nome);
         setActiveChat(null);
     }
 
