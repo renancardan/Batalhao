@@ -163,8 +163,7 @@ function App() {
 
                     //aqui vai servir para colocar qual acesso no site
                   const verStatus = async() => {
-                    console.log(User);
-                    console.log(Conta);
+                   
                   
                     const status = await localStorage.getItem('roma');
                     const fromat = await localStorage.getItem('brasil');

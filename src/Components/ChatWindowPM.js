@@ -20,7 +20,7 @@ import { Spinner  } from "react-awesome-spinners";
 
 let recorder = '';
 
-export default ({  AbrirMaps, data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlertTipo, Alert, AlertTipo, setActiveChatPM, setFormu, Loc, setVirModal, setLocPM, setIdPM, setNomePM}) => {
+export default ({  AbrirMaps, data, Nome, Dados, Vizul, setVizul, Varia, setAlert, setAlertTipo, Alert, AlertTipo, setActiveChatPM, setFormu, Loc, setVirModal, setLocPM, setIdPM, setNomePM }) => {
     const body = useRef();
     let recognition = null;
     let SpeechRecognition = window.AudioContext || window.webkitAudioContext;
@@ -244,7 +244,7 @@ export default ({  AbrirMaps, data, Nome, Dados, Vizul, setVizul, Varia, setAler
 
     const handleSendClick = () => {
         if(text !== '') {
-            Api.sendMessagePM(data, text, nome, TemUmlt, Varia); 
+            Api.sendMessagePM(data, text, nome, TemUmlt, Varia, Vizul, Status); 
             setText('');
             setEmojiOpen(false);
         }

@@ -72,6 +72,9 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       const [Pm, setPm] = useState("");
       const [MdEnvi, setMdEnvi] = useState(false);
       const [MdREnvi, setMdREnvi] = useState(false);
+      const [NumEs, setNumEs] = useState(0);
+      const [NumCas, setNumCas] = useState(0);
+      const [Status, setStatus] = useState("");
       useEffect(() => {
           LevarTemp();
       }, [])
@@ -85,15 +88,12 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
   }, [activeChat])
 
      useEffect(() => {
-       if(Chatlist !== []){
-         
-         if(Chatlist.length > Qantlis){
-            // NotFic();
-         }
-       }
-  
-    
+        QuantMsg();
     }, [Chatlist])
+
+    useEffect(() => {
+      QuantMsgPM();
+  }, [ChatListPM])
 
   
      
@@ -148,27 +148,70 @@ useEffect(() => {
  
 }, [DigEnd]);
 
+
+ const QuantMsg = ()=>{
+   let Mer = 0;
+   let Ter = 0;
+   for(let i in Chatlist){
+    Mer = Mer + Chatlist[i].QuantMsg;
+    Ter = Ter + Chatlist[i].Vizualizar;
+   }
+
+   if(NumEs !== Mer){
+    console.log("QuantMsg"+Mer);
+    console.log("QuantVis"+Ter);
+    if(Mer !== Ter){
+      setNumEs(Mer);
+     NotFic();
+    }
+
+   }
+  
+ }
+
+ const QuantMsgPM =  async()=>{
+  let Mer = 0;
+  let Ter = 0;
+ for(let i in ChatListPM){
+   Mer = Mer + ChatListPM[i].QuantMsg;
+   Ter = Ter + ChatListPM[i].Vizualizar;
+   console.log(Ter);
+  }
+
+  if(NumCas !== Mer){
+   console.log("QuantMsg"+Mer);
+   console.log("QuantVis"+Ter);
+   if(Mer !== Ter){
+     setNumCas(Mer);
+    NotFic();
+   }
+
+  }
+ 
+}
+
      
 
-// const NotFic = ()=>{
-//   console.log(Notification.permission);
-//   if(Notification.permission === "granted") {
-//     ShowNot();
-//   } else if(Notification.permission !== "denied") {
-//      Notification.requestPermission().then(permission => {
-//          ShowNot();
-//      });
-//   }
-//   setQantlis(Chatlist.length)
-// }
+const NotFic = ()=>{
+  console.log(Notification.permission);
+  if(Notification.permission === "granted") {
+    ShowNot();
+  } else if(Notification.permission !== "denied") {
+     Notification.requestPermission().then(permission => {
+         ShowNot();
+     });
+  }
+  setQantlis(Chatlist.length)
+}
 
-// const ShowNot = ()=>{
-//   let n = new Notification("OCORRÊNCIA",{
-//       body: "Ocorrência Iniciada",
-//       icon: "https://bpmbacabal.herokuapp.com/graficos/assets/logoapp.jpeg"
-//     } 
-//    )
-// }
+const ShowNot = ()=>{
+  let n = new Notification("OCORRÊNCIA",{
+      body: "Chegou Mensagem",
+      icon: "https://bpmbacabal.herokuapp.com/graficos/assets/logoapp.jpeg"
+    } 
+   )
+  
+}
        
 
      const LevarTemp = async ()=>{
@@ -226,13 +269,14 @@ useEffect(() => {
         Api.MsgLida(Id, V);
       }
 
-      const VerconversaPM = async (id, nome, Quant, Ocup )=>{
+      const VerconversaPM = async (id, nome, Quant, Ocup, Sta )=>{
         setVirModal(true);
        
         await setNomePM(nome);
         await setActiveChatPM(id);
         await setVizulPM(Quant);
         await setVtrOcup(Ocup)
+        await setStatus(Sta);
       
         
 
@@ -558,7 +602,7 @@ useEffect(() => {
                                         data={item}
                                         Ocorr={ChatListPM[key].idChat}
                                         active={activeChatPM === ChatListPM[key].idChat}
-                                        onClick={()=>VerconversaPM(ChatListPM[key].idChat, item.nome, ChatListPM[key].QuantMsg, ChatListPM[key].ocupado )}
+                                        onClick={()=>VerconversaPM(ChatListPM[key].idChat, item.nome, ChatListPM[key].QuantMsg, ChatListPM[key].ocupado, ChatListPM[key].Sta  )}
                                         />
                                 ))}
                                
@@ -586,6 +630,7 @@ useEffect(() => {
                                 Varia={Varia}
                                 setVizul={setVizulPM}
                                 setVirModal={setVirModal}
+                               
                                 />
                               }
                               </>

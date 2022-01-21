@@ -34,33 +34,7 @@ export default ({onClick, active, data, Ocorr}) => {
  
 
 
-    // useEffect(()=>{
-    //     if(data.QuantMsg !== data.Vizualizar)
-    //     if(data.nome.split("Via ",2)[1] !== "Sist"){
-    //         NotFic();
-    //     }
-        
-    // }, [data.QuantMsg]);
-
-    // const NotFic = ()=>{
-    //     console.log(Notification.permission);
-    //     if(Notification.permission === "granted") {
-    //       ShowNot();
-    //     } else if(Notification.permission !== "denied") {
-    //        Notification.requestPermission().then(permission => {
-    //            ShowNot();
-    //        });
-    //     }
-       
-    //   }
-
-    //   const ShowNot = ()=>{
-    //     let n = new Notification("MENSAGEM DE "+data.nome,{
-    //         body: data.msg,
-    //         icon: "https://bpmbacabal.herokuapp.com/graficos/assets/logoapp.jpeg"
-    //       } 
-    //      )
-    //   }
+  
     
   
     return (

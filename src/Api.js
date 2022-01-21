@@ -2129,7 +2129,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
                    });
   
 },
-    PesquisarListPM: async(Dados, setChatlistPM)=> {
+    PesquisarListPM: async(Dados, setChatListPM)=> {
       await Auth.onAuthStateChanged( async function(user) {
         if (user) {
         let ID = user.uid;
@@ -2147,15 +2147,18 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
                  let NomeChat = "";
                  let Vizual = 0;
                  let digi =false;
+                 let Status = "";
               
                   if(doc.data().idSofrer === ID) {
                     NomeChat = doc.data().nomeCriador;
                     Vizual = doc.data().vizualS;
                     digi = doc.data().digiC;
+                    Status = "Sofredor";
                   } else {
                     NomeChat = doc.data().nomeSofrer
                     Vizual = doc.data().vizualC;
                     digi = doc.data().digiS;
+                    Status = "Criador";
                   }
                   res.push({
                     id: doc.data().ultimaMsg.id,
@@ -2166,6 +2169,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
                     QuantMsg: doc.data().mensagem.length,
                     Vizualizar: Vizual,
                     digitar: digi,
+                    Sta: Status,
                     ocupado: doc.data().Ocupado? doc.data().Ocupado : false,
                     idOc: doc.data().idOC? doc.data().idOC : "",
                     NomeOc: doc.data().NomeOc? doc.data().NomeOc : "",
@@ -2182,7 +2186,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
                  }
                });
               
-              setChatlistPM(res);
+              setChatListPM(res);
             
                
              });
@@ -2580,37 +2584,49 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
    });     
     },
 
-    sendMessagePM: async(data, text, nome, TemUmlt, Varia)=> {
+    sendMessagePM: async(data, text, nome, TemUmlt, Varia, Vizul, Status)=> {
+      let Cont = Vizul + 1;
       const autenticado =  await Auth.currentUser;
       const id = await autenticado.uid;
       let temp = new Date().getTime();
       let now = temp + (Varia*1000);
-         await db.collection("chat")
-         .doc(data).update({
-           mensagem: firebase.firestore.FieldValue.arrayUnion ({
-             autor:id,
-             nome: nome,
-             body: text,
-             date: now,
-             type:"text"
-           }),
-           ultimaMsg:{id:id, nome: nome, data: now, msg:text} 
-       }).then((doc)=>{
-    
+      if(Status === "Sofredor" ) {
+        await db.collection("chat")
+        .doc(data).update({
+          mensagem: firebase.firestore.FieldValue.arrayUnion ({
+            autor:id,
+            nome: nome,
+            body: text,
+            date: now,
+            type:"text"
+          }),
+          ultimaMsg:{id:id, nome: nome, data: now, msg:text},
+          vizualS:Cont,
+      }).then((doc)=>{
    
-        // db.collection("ocorrencia")
-        // .doc(data)
-        // .get().then((doc) => {
-         
-        //   if (doc.exists) {
-        //       console.log(res);
-        //   } else {
-        //       // doc.data() will be undefined in this case
-        //       console.log("No such document!");
-        //   }
-      }).catch((error) => {
-         
-      });   
+     }).catch((error) => {
+        
+     }); 
+
+      } else {
+        await db.collection("chat")
+        .doc(data).update({
+          mensagem: firebase.firestore.FieldValue.arrayUnion ({
+            autor:id,
+            nome: nome,
+            body: text,
+            date: now,
+            type:"text"
+          }),
+          ultimaMsg:{id:id, nome: nome, data: now, msg:text},
+          vizualC:Cont, 
+      }).then((doc)=>{
+
+     }).catch((error) => {
+        
+     });   
+      }
+      
     },
 
     sendMessageBotao: async(data, text, nome, TemUmlt, Varia)=> {
@@ -3148,35 +3164,54 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       await db.collection('ocorrencia') 
       .doc(data)
       .get().then((doc) => {
-
         let Me = doc.data().IdChat;
-        db.collection("chat")
-        .doc(Me).update({
-          Ocupado:false,
-          idOC:"",
-          NomeOc: "",
-      }).then((doc)=>{
+        if(Me === undefined){
+          db.collection('ocorrencia')
+          .doc(data)
+          .update({
+           ativo: false,
+           dataFim: firebase.firestore.FieldValue.serverTimestamp(),
+           excluir:Exc,
+           Ocorr:NuOc,
+       })
+       .then(() => {
+          
+       })
+       .catch((error) => {
+          
+       });   
 
-        db.collection('ocorrencia')
-        .doc(data)
-        .update({
-         ativo: false,
-         dataFim: firebase.firestore.FieldValue.serverTimestamp(),
-         excluir:Exc,
-         Ocorr:NuOc,
-     })
-     .then(() => {
+        } else {
+          db.collection("chat")
+          .doc(Me).update({
+            Ocupado:false,
+            idOC:"",
+            NomeOc: "",
+        }).then((doc)=>{
+  
+          db.collection('ocorrencia')
+          .doc(data)
+          .update({
+           ativo: false,
+           dataFim: firebase.firestore.FieldValue.serverTimestamp(),
+           excluir:Exc,
+           Ocorr:NuOc,
+       })
+       .then(() => {
+          
+       })
+       .catch((error) => {
+          
+       });   
+         
         
-     })
-     .catch((error) => {
-         // The document probably doesn't exist.
-         console.error("Error updating document: ", error);
-     });   
+       }).catch((error) => {
+          
+       }); 
+
+        }
        
-      
-     }).catch((error) => {
-        
-     }); 
+     
 
       })
 
@@ -3194,32 +3229,53 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       .get().then((doc) => {
         
         let Me = doc.data().IdChat;
-        db.collection("chat")
-        .doc(Me).update({
-          Ocupado:false,
-          idOC:"",
-          NomeOc: "",
-      }).then((doc)=>{
 
-       db.collection('ocorrencia')
-        .doc(data)
-        .update({
-         ativo: false,
-         dataFim: firebase.firestore.FieldValue.serverTimestamp(),
-         excluir:Exc,
-     })
-     .then(() => {
-        
-     })
-     .catch((error) => {
-         // The document probably doesn't exist.
+        if(Me === undefined){
+          db.collection('ocorrencia')
+          .doc(data)
+          .update({
+           ativo: false,
+           dataFim: firebase.firestore.FieldValue.serverTimestamp(),
+           excluir:Exc,
+       })
+       .then(() => {
+          
+       })
+       .catch((error) => {
+           // The document probably doesn't exist.
+           
+       }); 
+
+        } else {
+          db.collection("chat")
+          .doc(Me).update({
+            Ocupado:false,
+            idOC:"",
+            NomeOc: "",
+        }).then((doc)=>{
+  
+         db.collection('ocorrencia')
+          .doc(data)
+          .update({
+           ativo: false,
+           dataFim: firebase.firestore.FieldValue.serverTimestamp(),
+           excluir:Exc,
+       })
+       .then(() => {
+          
+       })
+       .catch((error) => {
+           // The document probably doesn't exist.
+           
+       }); 
          
-     }); 
-       
-      
-     }).catch((error) => {
         
-     }); 
+       }).catch((error) => {
+          
+       }); 
+
+        }
+   
 
       })
 
@@ -3229,6 +3285,8 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
 
 
       ExcluirOc: async(data, Varia, nome)=> {
+        
+        
       const autenticado =  await Auth.currentUser;
       const id = await autenticado.uid;
       let temp = new Date().getTime();
@@ -3238,28 +3296,38 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
       .get().then((doc) => {
        
         let Me = doc.data().IdChat;
-         db.collection("chat")
-        .doc(Me).update({
-          mensagem: firebase.firestore.FieldValue.arrayUnion ({
-            autor:id,
-            nome: nome,
-            body: "Ocorrência foi excluida",
-            date: now,
-            type:"text"
-          }),
-          ultimaMsg:{id:id, nome: nome, data: now, msg: "Ocorrência foi excluida"},
-          Ocupado:false,
-          idOC:"",
-          NomeOc: "",
-      }).then((doc)=>{
-   
-        db.collection('ocorrencia')
-        .doc(data)
-         .delete();
-      
-     }).catch((error) => {
+        console.log("entrou aqui"+ Me);
+        if(Me === undefined){
+          db.collection('ocorrencia')
+          .doc(data)
+           .delete();
+
+        } else{
+          db.collection("chat")
+          .doc(Me).update({
+            mensagem: firebase.firestore.FieldValue.arrayUnion ({
+              autor:id,
+              nome: nome,
+              body: "Ocorrência foi excluida",
+              date: now,
+              type:"text"
+            }),
+            ultimaMsg:{id:id, nome: nome, data: now, msg: "Ocorrência foi excluida"},
+            Ocupado:false,
+            idOC:"",
+            NomeOc: "",
+        }).then((doc)=>{
+          
+          db.collection('ocorrencia')
+          .doc(data)
+           .delete();
         
-     }); 
+       }).catch((error) => {
+          
+       }); 
+
+        }
+        
 
       })
 
