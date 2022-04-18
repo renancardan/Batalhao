@@ -1121,7 +1121,6 @@ export default {
     const Setor = "Vizualizar Conta Serv";
     await db.collection("ocorrencia").doc(Id)
     .onSnapshot((doc) => {
-      console.log(doc.data());
         setInfor(doc.data());
     });
 

@@ -385,7 +385,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                   let listra10 = [];
                   for(let i in ListLoc ) {
                     for(let j in ListLoc[i].condi ){
-                        if( ListLoc[i].condi[j].nome.toLowerCase().includes(Cond.toLowerCase())  ) {
+                        if( ListLoc[i].condi[j].nome.includes(Cond)  ) {
                           listra10.push({
                             Loc:ListLoc[i].Loc, 
                             cidade:ListLoc[i].cidade,

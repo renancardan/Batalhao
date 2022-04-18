@@ -75,7 +75,9 @@ export default ({Forms, setForms, activeChat, setVirModal, setAlert, setAlertTip
               }).map((item, key)=>(
             
                 <>
-                {Forms.filter(te => te.id.includes(item.id)).length === 0 &&
+                {Forms &&
+                <>
+                  {Forms.filter(te => te.id.includes(item.id)).length === 0 &&
                    <>
                    <div className="listCond" >
                    <div className="listCondText" > 
@@ -91,6 +93,11 @@ export default ({Forms, setForms, activeChat, setVirModal, setAlert, setAlertTip
                     <br /> 
                   </> 
                 }
+
+                </>
+
+                }
+              
                
                
      

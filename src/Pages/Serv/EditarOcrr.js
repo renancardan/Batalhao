@@ -46,6 +46,7 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
 
 
   useEffect(() => {
+  
     if(Infor.localizacao){
       setLoc(Infor.localizacao);
     }
@@ -74,8 +75,8 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
  }, []);
 
  useEffect(() => {
-
-  }, [ObjRF]);
+console.log(Forms)
+  }, [Forms]);
 
  
 
