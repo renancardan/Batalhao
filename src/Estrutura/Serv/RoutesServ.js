@@ -11,7 +11,8 @@ import Ocorrencia from '../../Pages/Serv/Ocorrencia';
 import Noticia from '../../Pages/Serv/Noticia';
 import Anuncio from '../../Pages/Serv/Anuncios'
 import Graficos from '../../Pages/Serv/Graficos'
-import Pesquisa from '../../Pages/Serv/Pesquisa'
+import Pesquisa from '../../Pages/Serv/Pesquisa';
+import Rastreio from '../../Pages/Serv/RastreServ';
 
 
 export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertTipo, setAlertTipo, Avisando, setAvisando }) => {
@@ -19,6 +20,20 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
    
     return (
         <Switch> 
+            <Route exact path= "/rastreio">
+                <Rastreio
+                    Dados={Dados}
+                    setDados={setDados}
+                    Loading={Loading}
+                    setLoading={setLoading}
+                    Alert={Alert}
+                    setAlert={setAlert}
+                    AlertTipo={AlertTipo}
+                    setAlertTipo={setAlertTipo}
+                    Avisando={Avisando}
+                    setAvisando={setAvisando}
+                />
+            </Route>
             <Route exact path= "/">
                 <Inicio
                     Dados={Dados}

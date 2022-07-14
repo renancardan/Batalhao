@@ -84,8 +84,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
     }, [])
  
     useEffect(() => {
-      
-  }, [activeChat])
+      console.log(ChatListPM) 
+  }, [ChatListPM])
 
      useEffect(() => {
         QuantMsg();
@@ -93,6 +93,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
 
     useEffect(() => {
       QuantMsgPM();
+     
   }, [ChatListPM])
 
   

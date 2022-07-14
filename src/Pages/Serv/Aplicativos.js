@@ -385,6 +385,14 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                 const ativandoDiario = ()=>{
                   Api.AtivandoApp(Id, Nome, Varia,  TempAtiv, setAlertTipo, setAlert,);
                 }
+
+                const AtivandoLocali = (item)=>{
+                  Api.AtivandoLoc(item, setAlertTipo, setAlert,);
+                }
+                const DesativandoLocali = (item)=>{
+                  Api.DesativandoLoc(item, setAlertTipo, setAlert,);
+                }
+               
                
       
   return (
@@ -644,6 +652,19 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                                       onClick={()=>MsgDesativar(item.list.id, item.list.nome)}
                                       /> 
                                         }
+                                          {item.list.LocAtiva=== false ? 
+                                          <Butao 
+                                      style={"btn btn-xs btn-warning"}
+                                      titulo={"Ativar Posição"}
+                                      onClick={()=>AtivandoLocali(item.list.id)}
+                                      /> 
+                                      :
+                                      <Butao 
+                                      style={"btn btn-xs btn-secondary"}
+                                      titulo={"Desativar Posição"}
+                                      onClick={()=>DesativandoLocali(item.list.id)}
+                                      /> 
+                                          }
                                       </>
                                       :
                                       <>
@@ -657,7 +678,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                                         {Dados.grupo.menu.aplicativos.listaAppServ.btn_ativarDiaria === true &&
                                       <Butao 
                                       style={"btn btn-xs btn-success"}
-                                      titulo={"Atição Diaria"}
+                                      titulo={"Ativação Diaria"}
                                       onClick={()=>MsgAtivarDiario(item.list.id, item.list.nome)}
                                       /> 
                                         }
@@ -667,7 +688,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                                       titulo={"Bloquear"}
                                       onClick={()=>MsgBloqueio(item.list.id, item.list.nome)}
                                       /> 
-                                         }  
+                                         } 
+                                        
                                       </>
                                     }                                     
                                                            

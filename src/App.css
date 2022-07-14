@@ -475,7 +475,13 @@
 .maps-contener {
   width: 100%;
   transition: all ease 0.3s;
-  background-color: red;
+  
+}
+
+.maps-text {
+ margin-top: -30px;
+ font-weight: bold;
+  
 }
 .maps--header {
   height: 30px;

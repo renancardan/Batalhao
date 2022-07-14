@@ -155,6 +155,16 @@ export default ({sair , Dados, CriarDados, ApagarDados}) => {
               ValorNoti={"New"}
               />
               }
+            {Dados.grupo.menu.configuracao.Ver === true &&
+            <MenuLink 
+              Linkto={"/rastreio"}
+              Icon={"nav-icon fas fa-taxi"}
+              Titulo={"RASTREADOR"}
+              Notificacao={false}
+              NotiEstilo={"right badge badge-danger"}
+              ValorNoti={"New"}
+              />
+              }
                {/* {Dados.grupo.menu.anuncio.Ver === true && */}
                {Dados.grupo.menu. anuncio &&
         <>

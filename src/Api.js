@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/firebase-auth';
 import 'firebase/firebase-firestore';
 import 'firebase/firebase-storage';
+import { ServerStyleSheet } from 'styled-components';
 
 import firebaseConfig from './JSONS/firebaseConfig';
 
@@ -332,6 +333,7 @@ export default {
                   patente: doc.data().patente? doc.data().patente : "",
                   ativaPerman: doc.data().ativaPerman? doc.data().ativaPerman : "",
                   tempAtiva: doc.data().tempAtiva,
+                  LocAtiva: doc.data().LocAtiva?doc.data().LocAtiva:false, 
                 });      
             });
             console.log(res);
@@ -349,6 +351,36 @@ export default {
     });
     
     
+  },
+
+  LocRast: async(Cidade, Estado, setViat)=> {
+    console.log(Cidade);
+    console.log(Estado);
+  //   db.collection("TestLoc").doc("joVmlQ9WO8mhaGGliRDS")
+  //   .onSnapshot((doc) => {
+  //     var tesV = doc.data().Loc.split(", ");
+  //     var lati = parseFloat(tesV[0]);
+  //     var longi =parseFloat(tesV[1]);
+  //     setViat([{Loc:{lat:lati, lng:longi}, nome:"Renan"}])
+  // });
+
+    await db.collection("users")
+    .where("LocAtiva", "==", true)
+    .where("cidade", "==", Cidade)
+    .where("estado", "==", Estado)
+    .onSnapshot((querySnapshot) => {
+      var cities = [];
+      querySnapshot.forEach((doc) => {
+          cities.push({
+            id:doc.id,
+           nome: doc.data().nome,
+           Loc:doc.data().localizacao?doc.data().localizacao: null,
+          });
+      });
+      setViat(cities)
+
+    });
+
   },
 
   AtivandoApp: async(Id, Nome, Varia, TempAtiv, setAlertTipo, setAlert, )=> {
@@ -682,6 +714,45 @@ export default {
    
     
   },
+
+  DesativandoLoc: async( item, setAlertTipo, setAlert)=> {
+   
+    const autenticado =  await Auth.currentUser;
+    const id = await autenticado.uid;
+
+
+
+    await db.collection("users").doc(item).update({
+      "LocAtiva": false,
+      
+  })
+  .then(() => {
+    setAlert("Desativado Localização com sucesso!");
+    setAlertTipo("success");
+  });
+   
+    
+  },
+
+  AtivandoLoc: async( item, setAlertTipo, setAlert)=> {
+   
+    const autenticado =  await Auth.currentUser;
+    const id = await autenticado.uid;
+
+
+
+    await db.collection("users").doc(item).update({
+      "LocAtiva": true,
+      
+  })
+  .then(() => {
+    setAlert("Ativado Localização com sucesso!");
+    setAlertTipo("success");
+  });
+   
+    
+  },
+
 
   VizualizarApp: async(Id, Dados, setInfor)=> {
 
@@ -1251,6 +1322,61 @@ export default {
       } 
   
     });
+    
+    
+  },
+
+  ListRotasVtr: async(IdVtr, DataA, DataD, setListRotaVt, setVerRtVt, setLoading)=> {
+   
+          console.log(DataA)
+          console.log(DataD)
+          console.log(IdVtr)
+      
+          await db.collection("rotas")
+            .where("Id", "==", IdVtr)
+            .where("date", ">=", DataA)
+            .where("date", "<=", DataD)
+            .get().then((querySnapshot) => {
+              console.log(querySnapshot.size)
+              var res = []
+            querySnapshot.forEach((doc) => {
+
+              let currentDate = '';
+            let now =new Date(doc.data().date);
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let Dia = now.getDate();
+            let Mes = (now.getMonth()+1);
+            let Ano = now.getFullYear(); 
+            hours = hours < 10 ? '0'+hours : hours;
+            minutes = minutes < 10 ? '0'+minutes : minutes;
+            Dia = Dia < 10 ? '0'+Dia : Dia;
+            Mes = Mes < 10 ? '0'+Mes : Mes;
+            currentDate = Dia+'/'+Mes+'/'+Ano;
+            currentDate += ' ';
+            currentDate += hours+':'+minutes;
+
+               res.push({
+                localizacao:doc.data().localizacao,
+                date:currentDate,
+              }) 
+            });
+
+            setListRotaVt(res)
+
+              }).then(()=>{
+                setLoading(false);
+                setVerRtVt(true);
+
+              });
+
+          
+        
+  
+     
+     
+  
+  
     
     
   },
