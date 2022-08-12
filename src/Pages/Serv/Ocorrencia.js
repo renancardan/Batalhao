@@ -17,6 +17,7 @@ import { DatePicker, DatePickerInput } from 'rc-datepicker';
 import 'rc-datepicker/lib/style.css';
 import Checkbox from '../../Components/Checkbox';
 import ViOcrr from '../../Components/VizuOc'
+import RelatAni from '../../Components/Analitico2';
 
 
 
@@ -28,6 +29,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       const [Pag1, setPag1] = useState(false);
       const [Pag2, setPag2] = useState(false);
       const [Pag3, setPag3] = useState(false);
+      const [Pag4, setPag4] = useState(false);
       const [Titulo, setTitulo] = useState("Ocorrências");
       const [Time, setTime] = useState("")
       const [UsuariosContServ, setUsuariosContServ] = useState([]);
@@ -201,6 +203,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
             setPag2(false);
             setPag1(false);
             setPag3(false);
+            setPag4(false);
           }
 
 
@@ -228,6 +231,14 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                 setPag1(true);
                 setPag2(true);
                 setPag3(true);
+              }
+
+              const Pagina4 = async (id)=>{
+                setId(id);
+                setPag1(true);
+                setPag2(true);
+                setPag3(true);
+                setPag4(true);
               }
 
                 const MsgDesativar = (id, nome)=>{
@@ -1144,7 +1155,11 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                                         
                                             
                                        <td>
-                                    
+                                       <Butao 
+                                    style={"btn btn-xs btn-secondary"}
+                                    titulo={"Analitico"}
+                                    onClick={()=>Pagina4(item.list.id)}
+                                    />
                             
                                     {Dados.grupo.menu.ocorrencia.listaOcorrencia.btn_vizualizar === true &&
                                     <Butao 
@@ -1279,11 +1294,26 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
             AlertTipo={AlertTipo}
             />
             :
-            <ViOcrr
-            Lista={UsuariosContServ}
-            Avisando={Avisando}
-            Fechar={Fechar}
-            />
+            <>
+             {Pag4 === false ?
+             <ViOcrr
+             Lista={UsuariosContServ}
+             Avisando={Avisando}
+             Fechar={Fechar}
+             />
+
+             :
+             <RelatAni
+             Fechar={Fechar}
+             Dados={Dados}
+             Id={Id}
+             Avisando={Avisando}
+             />
+
+              }
+
+            </>
+           
           }
         </>
        

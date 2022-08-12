@@ -1603,6 +1603,70 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
           });
       
     },
+
+    MudAtivo: async(IdVtr, setAtiVtr, setAlert, setAlertTipo)=> {
+     
+      await db.collection("servAtivo")
+      .where("IdUser", "==", IdVtr)
+      .get()
+      .then((querySnapshot) => {
+       if(querySnapshot.size !== 0 ){
+        let res = "";
+        querySnapshot.forEach((doc) => {
+          res = doc.id;           
+        });
+         db.collection("servAtivo")
+        .doc(res)
+        .update({
+        "Ativo":1,
+        }).then(()=>{
+          setAlert("Espere Um Momento para Analise!");
+          setAlertTipo("success");
+        });
+
+       } else {
+        db.collection("servAtivo").add({
+          IdUser: IdVtr,
+          Ativo:1,
+      })
+      .then((docRef) => {
+        setAlert("Espere Um Momento para Analise!");
+        setAlertTipo("success");
+      })
+        
+       }
+      
+
+        
+        
+      });
+        
+    },
+
+    VendoAtivo: async(IdVtr, setAtiVtr)=> {
+     
+      await db.collection("servAtivo")
+      .where("IdUser", "==", IdVtr)
+      .onSnapshot((querySnapshot) => {
+       if(querySnapshot.size !== 0 ){
+        let res = 1;
+
+        querySnapshot.forEach((doc) => {
+          res = doc.data().Ativo;           
+        });
+        
+        setAtiVtr(res)
+       } else {
+        setAtiVtr(1)
+        
+       }
+      
+
+        
+        
+      });
+        
+    },
     
     DesbloquearConta: async(Dados, Id, Grupo, setAlert, setAlertTipo)=> {
       const autenticado =  await Auth.currentUser;

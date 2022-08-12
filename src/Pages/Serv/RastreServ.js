@@ -75,6 +75,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
      const [ListRotaVt, setListRotaVt] = useState([]);
      const [DataB, setDataB] = useState("");
      const [VerRtVt, setVerRtVt] = useState(false);
+     const [AtiVtr, setAtiVtr] = useState(1)
   
      
     
@@ -105,6 +106,10 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
           useEffect(() => {
             VenDoRast();
               }, []);
+
+              useEffect(() => {
+                VendoAtiVtr();
+                  }, [IdVtr]);
 
       useEffect(() => {
        
@@ -149,6 +154,20 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
 
       const MostarMap = ()=>{
         setAtuaMaps(true);
+      }
+
+      const MudarAtiVtr= ()=>{
+        if(IdVtr){
+          Api.MudAtivo(IdVtr, setAtiVtr, setAlert, setAlertTipo)
+        }else {
+          setAlert("Escolha A Viatura!");
+          setAlertTipo("danger");
+       
+      }
+    }
+
+      const VendoAtiVtr= ()=>{
+        Api.VendoAtivo(IdVtr, setAtiVtr)
       }
      
   
@@ -820,6 +839,19 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                             />
                             </div>
                             </div> 
+
+                            <div className="col-sm-2">
+                            <div className="form-group">
+                            <Butao 
+                            style={"btn btn-sm btn-primary"}
+                            titulo={"Ver Ativo"}
+                            onClick={()=>MudarAtiVtr()}
+                            />
+                            </div>
+                            </div>
+                            {AtiVtr === 0 &&
+                              <h3 className="card-title">App  {Resu} está Ativo</h3>
+                            } 
                             
                           
                                    
