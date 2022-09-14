@@ -6,6 +6,7 @@ import Geocoder from 'react-native-geocoding';
 import Api from '../Api';
 import Butao from './Butao_list';
 import Condic from './Condoc';
+import Campo from './Campo';
 
 
 
@@ -59,7 +60,10 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
     const [NumVal, setNumVal] = useState(0);
     const [NuOc, setNuOc] = useState("");
     const [ObjRF, setObjRF] = useState("");
-       
+    const [InfVeicu, setInfVeicu] = useState("");
+    const [Placa, setPlaca] = useState("");
+    const [Chassis, setChassis] = useState("");
+
     useEffect(()=>{ 
        PegandoList()
     }, []);
@@ -300,7 +304,7 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
            
           
 
-        Api.EnviVtr(data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, Test, Autor, ObjRF);
+        Api.EnviVtr(data, Vtr, AtenCop, CompVt, Periodo, Rua, Numero, Bairro, Cidade, Estado, Lat, Lng, Conduz, Viti, ObjAp, ResulOc, Relato, Prov, tempoMad, Test, Autor, ObjRF, InfVeicu, Placa, Chassis);
     }
 
     const NumeacaoOc = ()=>{
@@ -899,6 +903,52 @@ export default ({ AbrirMaps, MapsCaixa, data, Nome, Dados,  setAlert, setAlertTi
                                 onChange={t=>setObjRF(t.target.value)}
                                 onBlur={()=>EnviandoVtr()}
                                 />
+                            </div>
+                            </div>
+                            <div className="col-sm-12">
+                            <div className="form-group">
+                            <h5 style={{color:"red"}}>Caso Tenha Algum Veiculo Na Ocorrência Preencha Esse Dados</h5>
+                                <label>Informações do Veiculo</label>
+                              
+                                <textarea 
+                                className="form-control" 
+                                rows={3} 
+                                placeholder="Digite a informação do Veiculo"  
+                                defaultValue={""} 
+                                value={InfVeicu}
+                                onChange={t=>setInfVeicu(t.target.value)}
+                                onBlur={()=>EnviandoVtr()}
+                                />
+                            </div>
+                            </div>
+                            <div className="col-sm-12">
+                            <div className="form-group">
+                                <label>Placa Do Veiculo</label>
+                                <Campo 
+                                type={null}
+                                placeholder={"Placa"}
+                                icon={null}
+                                value={Placa}
+                                onChange={e=>setPlaca(e.target.value)}
+                                mask={"***-****"}
+                                onBlur={()=>EnviandoVtr()}
+                                />
+                                
+                            </div>
+                            </div>
+                            <div className="col-sm-12">
+                            <div className="form-group">
+                                <label>Chassi Do Veiculo</label>
+                                <Campo 
+                                type={null}
+                                placeholder={"Chassi"}
+                                icon={null}
+                                value={Chassis}
+                                onChange={e=>setChassis(e.target.value)}
+                                mask={"*****************"}
+                                onBlur={()=>EnviandoVtr()}
+                                />
+                                
                             </div>
                             </div>
                            

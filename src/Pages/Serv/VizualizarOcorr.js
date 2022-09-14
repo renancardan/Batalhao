@@ -188,7 +188,12 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
                                 {Infor.objetosApre}<br />
                                 <strong>Objetos Roubados/Furtados</strong><br />
                                 {Infor.objRoubados}<br />
-          
+                                <strong>Informação do Veiculo</strong><br />
+                                {Infor.InfVeiculo}<br />
+                                <strong>Placa</strong><br />
+                                {Infor.PlacaVeiculo}<br />
+                                <strong>Chassi</strong><br />
+                                {Infor.ChassisVeiculo}<br />
                                
                                 
                                 

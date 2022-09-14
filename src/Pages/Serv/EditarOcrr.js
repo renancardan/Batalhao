@@ -41,7 +41,11 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
   const [Bairro, setBairro] = useState("");
   const [Cidade, setCidade] = useState("");
   const [Estado, setEstado] = useState("");
-  const [ObjRF, setObjRF] = useState("")
+  const [ObjRF, setObjRF] = useState("");
+  const [InfVeicu, setInfVeicu] = useState("");
+  const [Placa, setPlaca] = useState("");
+  const [Chassis, setChassis] = useState("");
+
   
 
 
@@ -66,6 +70,9 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
       setAutor(Infor.autores);
       setNumOc(Infor.Ocorr);
       setObjRF(Infor.objRoubados);
+      setInfVeicu(Infor.InfVeiculo);
+      setPlaca(Infor.PlacaVeiculo);
+      setChassis(Infor.ChassisVeiculo);
     }
     }, [Infor]);
 
@@ -114,7 +121,7 @@ console.log(Forms)
     setVisi2(true);
     Api.EnviOcSalvar(Id, Vtr, AtenCop, CompVt,  
     Conduz, Viti, ObjAp, ResulOc, Relato, Prov, 
-    setAlert, setAlertTipo, Arq, Pdf,setVisi2, Test, Autor, NumOc, ObjRF );
+    setAlert, setAlertTipo, Arq, Pdf,setVisi2, Test, Autor, NumOc, ObjRF, InfVeicu, Placa, Chassis );
 }
 
 const closeModal = ()=>{
@@ -404,7 +411,52 @@ const ExBo = ()=>{
                                         value={ObjRF}
                                         onChange={t=>setObjRF(t.target.value)}
                                         /><br />
+                          <div className="col-sm-12">
+                            <div className="form-group">
+                         
+                                <label>Informações do Veiculo</label>
                               
+                                <textarea 
+                                className="form-control" 
+                                rows={3} 
+                                placeholder="Digite a informação do Veiculo"  
+                                defaultValue={""} 
+                                value={InfVeicu}
+                                onChange={t=>setInfVeicu(t.target.value)}
+                                
+                                />
+                            </div>
+                            </div>
+                            <div className="col-sm-12">
+                            <div className="form-group">
+                                <label>Placa Do Veiculo</label>
+                                <Campo 
+                                type={null}
+                                placeholder={"Placa"}
+                                icon={null}
+                                value={Placa}
+                                onChange={e=>setPlaca(e.target.value)}
+                                mask={"***-****"}
+                              
+                                />
+                                
+                            </div>
+                            </div>
+                            <div className="col-sm-12">
+                            <div className="form-group">
+                                <label>Chassi Do Veiculo</label>
+                                <Campo 
+                                type={null}
+                                placeholder={"Chassi"}
+                                icon={null}
+                                value={Chassis}
+                                onChange={e=>setChassis(e.target.value)}
+                                mask={"*****************"}
+                                
+                                />
+                                
+                            </div>
+                            </div>      
                               
                      
 

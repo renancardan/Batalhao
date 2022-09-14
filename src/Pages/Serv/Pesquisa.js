@@ -66,6 +66,10 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
       const [TemAtu, setTemAtu] = useState(0);
       const [TemPad, setTemPad] = useState(0);
       const [TiraEdit, setTiraEdit] = useState(false);
+      const [VerPlaca, setVerPlaca] = useState(false)
+      const [Placa, setPlaca] = useState("");
+      const [VerChassi, setVerChassi] = useState(false);
+      const [Chassis, setChassis] = useState("");
      
      
    
@@ -337,6 +341,10 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
               setExc(true);
               setOffset(0);
               setTiraEdit(false);
+              setPlaca("")
+              setChassis("");
+              setVerPlaca(false);
+              setVerChassi(false);
             }
 
 
@@ -364,7 +372,82 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
              
           }
 
-            
+          const PesqPlaca = ()=>{
+            if(Placa !== ""){ 
+            setVerPlaca(true);
+            let listra1 = [];
+            for(let i in UsuariosContServ ) {
+              
+                if( UsuariosContServ[i].PlacaVeiculo.toLowerCase() == Placa.toLowerCase() ) {
+                  listra1.push({
+                    id: UsuariosContServ[i].id, 
+                    date: UsuariosContServ[i].date,
+                    ativo: UsuariosContServ[i].ativo, 
+                    dateIn: UsuariosContServ[i].dateIn,
+                    bairro: UsuariosContServ[i].bairro,
+                    resultado: UsuariosContServ[i].resultado,
+                    condi: UsuariosContServ[i].condi,
+                    rua:  UsuariosContServ[i].rua,
+                    vtr:  UsuariosContServ[i].vtr, 
+                    atendenteCopom:  UsuariosContServ[i].atendenteCopom,
+                    componentesVtr:  UsuariosContServ[i].componentesVtr,
+                    conduzidos:  UsuariosContServ[i].conduzidos,
+                    vitimas:  UsuariosContServ[i].vitimas,
+                    objetosApre:  UsuariosContServ[i].objetosApre,
+                    excluir: UsuariosContServ[i].excluir,
+                    periodo: UsuariosContServ[i].periodo,
+                    numero: UsuariosContServ[i].numero,
+                    oCorr:UsuariosContServ[i].oCorr,
+                    PlacaVeiculo:UsuariosContServ[i].PlacaVeiculo,
+                    ChassisVeiculo:UsuariosContServ[i].ChassisVeiculo,    
+                });   
+                }
+               
+              }
+              setLista(["list"]);
+               setQuant(listra1.length);
+              setUsuariosContServ(listra1);
+            }
+          }
+
+          const PesqChassi = ()=>{
+            if(Chassis !== ""){ 
+            setVerChassi(true);
+            let listra1 = [];
+            for(let i in UsuariosContServ ) {
+              
+                if( UsuariosContServ[i].ChassisVeiculo.toLowerCase() == Chassis.toLowerCase() ) {
+                  listra1.push({
+                    id: UsuariosContServ[i].id, 
+                    date: UsuariosContServ[i].date,
+                    ativo: UsuariosContServ[i].ativo, 
+                    dateIn: UsuariosContServ[i].dateIn,
+                    bairro: UsuariosContServ[i].bairro,
+                    resultado: UsuariosContServ[i].resultado,
+                    condi: UsuariosContServ[i].condi,
+                    rua:  UsuariosContServ[i].rua,
+                    vtr:  UsuariosContServ[i].vtr, 
+                    atendenteCopom:  UsuariosContServ[i].atendenteCopom,
+                    componentesVtr:  UsuariosContServ[i].componentesVtr,
+                    conduzidos:  UsuariosContServ[i].conduzidos,
+                    vitimas:  UsuariosContServ[i].vitimas,
+                    objetosApre:  UsuariosContServ[i].objetosApre,
+                    excluir: UsuariosContServ[i].excluir,
+                    periodo: UsuariosContServ[i].periodo,
+                    numero: UsuariosContServ[i].numero,
+                    oCorr:UsuariosContServ[i].oCorr,
+                    PlacaVeiculo:UsuariosContServ[i].PlacaVeiculo,
+                    ChassisVeiculo:UsuariosContServ[i].ChassisVeiculo,    
+                });   
+                }
+               
+              }
+              setLista(["list"]);
+               setQuant(listra1.length);
+              setUsuariosContServ(listra1);
+            }
+          }
+             
 
    
 
@@ -393,7 +476,9 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       excluir: UsuariosContServ[i].excluir,
                       periodo: UsuariosContServ[i].periodo,
                       numero: UsuariosContServ[i].numero,
-                      oCorr:UsuariosContServ[i].oCorr,    
+                      oCorr:UsuariosContServ[i].oCorr,
+                      PlacaVeiculo:UsuariosContServ[i].PlacaVeiculo,
+                      ChassisVeiculo:UsuariosContServ[i].ChassisVeiculo,    
                   });   
                   }
                  
@@ -432,6 +517,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       periodo: UsuariosContServ[i].periodo,
                       numero: UsuariosContServ[i].numero,
                          oCorr:UsuariosContServ[i].oCorr, 
+                         PlacaVeiculo:UsuariosContServ[i].PlacaVeiculo,
+                         ChassisVeiculo:UsuariosContServ[i].ChassisVeiculo,    
                   });   
                   }
                  
@@ -474,6 +561,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                         periodo: UsuariosContServ[i].periodo,
                         numero: UsuariosContServ[i].numero,
                            oCorr:UsuariosContServ[i].oCorr, 
+                           PlacaVeiculo:UsuariosContServ[i].PlacaVeiculo,
+                           ChassisVeiculo:UsuariosContServ[i].ChassisVeiculo,    
                     });   
                     }
                    
@@ -511,7 +600,9 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       excluir: UsuariosContServ[i].excluir,
                       periodo: UsuariosContServ[i].periodo,
                       numero: UsuariosContServ[i].numero,
-                         oCorr:UsuariosContServ[i].oCorr, 
+                         oCorr:UsuariosContServ[i].oCorr,
+                         PlacaVeiculo:UsuariosContServ[i].PlacaVeiculo,
+                         ChassisVeiculo:UsuariosContServ[i].ChassisVeiculo,     
                   });   
                   }
                  
@@ -550,7 +641,9 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       excluir: UsuariosContServ[i].excluir,
                       periodo: UsuariosContServ[i].periodo,
                       numero: UsuariosContServ[i].numero,
-                         oCorr:UsuariosContServ[i].oCorr, 
+                         oCorr:UsuariosContServ[i].oCorr,
+                         PlacaVeiculo:UsuariosContServ[i].PlacaVeiculo,
+                         ChassisVeiculo:UsuariosContServ[i].ChassisVeiculo,     
                   });   
                   }
                  
@@ -589,7 +682,9 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       excluir: UsuariosContServ[i].excluir,
                       periodo: UsuariosContServ[i].periodo,
                       numero: UsuariosContServ[i].numero,
-                        oCorr:UsuariosContServ[i].oCorr, 
+                      oCorr:UsuariosContServ[i].oCorr,
+                      PlacaVeiculo:UsuariosContServ[i].PlacaVeiculo,
+                      ChassisVeiculo:UsuariosContServ[i].ChassisVeiculo,     
                   });   
                   }
                  
@@ -628,7 +723,9 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       excluir: UsuariosContServ[i].excluir,
                       periodo: UsuariosContServ[i].periodo,
                       numero: UsuariosContServ[i].numero,
-                         oCorr:UsuariosContServ[i].oCorr, 
+                         oCorr:UsuariosContServ[i].oCorr,
+                         PlacaVeiculo:UsuariosContServ[i].PlacaVeiculo,
+                         ChassisVeiculo:UsuariosContServ[i].ChassisVeiculo,     
                   });   
                   }
                  
@@ -667,7 +764,9 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       excluir: UsuariosContServ[i].excluir,
                       periodo: UsuariosContServ[i].periodo,
                       numero: UsuariosContServ[i].numero,
-                        oCorr:UsuariosContServ[i].oCorr, 
+                        oCorr:UsuariosContServ[i].oCorr,
+                        PlacaVeiculo:UsuariosContServ[i].PlacaVeiculo,
+                        ChassisVeiculo:UsuariosContServ[i].ChassisVeiculo,     
                   });   
                   }
                  
@@ -706,7 +805,9 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       excluir: UsuariosContServ[i].excluir,
                       periodo: UsuariosContServ[i].periodo,
                       numero: UsuariosContServ[i].numero,
-                         oCorr:UsuariosContServ[i].oCorr, 
+                         oCorr:UsuariosContServ[i].oCorr,
+                         PlacaVeiculo:UsuariosContServ[i].PlacaVeiculo,
+                         ChassisVeiculo:UsuariosContServ[i].ChassisVeiculo,     
                   });   
                   }
                  
@@ -745,7 +846,9 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                         excluir: UsuariosContServ[i].excluir,
                         periodo: UsuariosContServ[i].periodo,
                         numero: UsuariosContServ[i].numero,
-                           oCorr:UsuariosContServ[i].oCorr, 
+                           oCorr:UsuariosContServ[i].oCorr,
+                           PlacaVeiculo:UsuariosContServ[i].PlacaVeiculo,
+                           ChassisVeiculo:UsuariosContServ[i].ChassisVeiculo,     
                     });   
                     }
 
@@ -788,6 +891,8 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                       periodo: UsuariosContServ[i].periodo,
                       numero: UsuariosContServ[i].numero,
                       oCorr:UsuariosContServ[i].oCorr, 
+                      PlacaVeiculo:UsuariosContServ[i].PlacaVeiculo,
+                      ChassisVeiculo:UsuariosContServ[i].ChassisVeiculo,    
                   });   
                   }
                  
@@ -1085,6 +1190,34 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
                                 />
                             </div>
                             </div>  
+                            <div className="col-sm-2">
+                            <div className="form-group">
+                                <label>Placa do Veiculo</label>
+                                <input 
+                                type="text" 
+                                className="form-control" 
+                                placeholder="Digite A Placa"
+                                disabled={VerPlaca}
+                                value={Placa}
+                                onChange={t=>setPlaca(t.target.value)}
+                                onBlur={()=>PesqPlaca()}
+                                />
+                            </div>
+                            </div> 
+                            <div className="col-sm-2">
+                            <div className="form-group">
+                                <label>Chassi do Veiculo</label>
+                                <input 
+                                type="text" 
+                                className="form-control" 
+                                placeholder="Digite o Chassis"
+                                disabled={VerChassi}
+                                value={Chassis}
+                                onChange={t=>setChassis(t.target.value)}
+                                onBlur={()=>PesqChassi()}
+                                />
+                            </div>
+                            </div> 
                             <div className="col-sm-2" style={{marginTop:"35px"}}>
                             <div className="form-group">
                             <Butao 
