@@ -70,9 +70,9 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
       setAutor(Infor.autores);
       setNumOc(Infor.Ocorr);
       setObjRF(Infor.objRoubados);
-      setInfVeicu(Infor.InfVeiculo);
-      setPlaca(Infor.PlacaVeiculo);
-      setChassis(Infor.ChassisVeiculo);
+      setInfVeicu(Infor.InfVeiculo?Infor.InfVeiculo:"");
+      setPlaca(Infor.PlacaVeiculo?Infor.PlacaVeiculo:"" );
+      setChassis(Infor.ChassisVeiculo?Infor.ChassisVeiculo:"");
     }
     }, [Infor]);
 
