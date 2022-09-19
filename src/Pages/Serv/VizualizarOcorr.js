@@ -191,9 +191,32 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
                                 <strong>Informação do Veiculo</strong><br />
                                 {Infor.InfVeiculo}<br />
                                 <strong>Placa</strong><br />
-                                {Infor.PlacaVeiculo}<br />
+                                {Infor.PlacaVeiculo &&
+                                  <>
+                                   {Infor.PlacaVeiculo.map( (item, index )=> (
+                                      <>
+                                      {item}<br />
+                                        </>
+                                    ))
+                                  }
+                                  </>
+                                }
+                               
                                 <strong>Chassi</strong><br />
-                                {Infor.ChassisVeiculo}<br />
+                                {Infor.ChassisVeiculo &&
+                                <>
+                                {Infor.ChassisVeiculo.map( (item, index )=> (
+                                  <>
+                                  {item}<br />
+                                            </>
+                                ))
+                              }
+                                
+                                </>
+
+                                }
+                                
+                               
                                
                                 
                                 

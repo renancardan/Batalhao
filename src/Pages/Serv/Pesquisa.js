@@ -378,7 +378,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
             let listra1 = [];
             for(let i in UsuariosContServ ) {
               
-                if( UsuariosContServ[i].PlacaVeiculo.toLowerCase() == Placa.toLowerCase() ) {
+                if( UsuariosContServ[i].PlacaVeiculo.includes(Placa.toLowerCase())  ) {
                   listra1.push({
                     id: UsuariosContServ[i].id, 
                     date: UsuariosContServ[i].date,
@@ -416,7 +416,7 @@ export default ({Dados, setDados, Loading,  setLoading,  Alert, setAlert, AlertT
             let listra1 = [];
             for(let i in UsuariosContServ ) {
               
-                if( UsuariosContServ[i].ChassisVeiculo.toLowerCase() == Chassis.toLowerCase() ) {
+                if( UsuariosContServ[i].ChassisVeiculo.includes(Chassis.toLowerCase()) ) {
                   listra1.push({
                     id: UsuariosContServ[i].id, 
                     date: UsuariosContServ[i].date,

@@ -1425,8 +1425,8 @@ export default {
                   numero:doc.data().numero,
                   oCorr:doc.data().Ocorr,
                   InfVeiculo:doc.data().InfVeiculo?doc.data().InfVeiculo: "" ,
-                  PlacaVeiculo:doc.data().PlacaVeiculo?doc.data().PlacaVeiculo: "" ,
-                  ChassisVeiculo:doc.data().ChassisVeiculo?doc.data().ChassisVeiculo:"" ,
+                  PlacaVeiculo:doc.data().PlacaVeiculo?doc.data().PlacaVeiculo: [] ,
+                  ChassisVeiculo:doc.data().ChassisVeiculo?doc.data().ChassisVeiculo:[] ,
                 });    
               }
               setCarreg(false);    
@@ -3114,7 +3114,7 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
            
     },
 
-    DadosForm: async (data, setVtr, setAtenCop, setCompVt, setRua, setNumero, setBairro, setCidade, setEstado, setLat, setLng, setConduz, setViti, setObjAp, setResulOc, setRelato, setProv, setDataTime, setTest, setNumOc, setAutor, setObjRF  ) => {   
+    DadosForm: async (data, setVtr, setAtenCop, setCompVt, setRua, setNumero, setBairro, setCidade, setEstado, setLat, setLng, setConduz, setViti, setObjAp, setResulOc, setRelato, setProv, setDataTime, setTest, setNumOc, setAutor, setObjRF, setPlaca, setChassis  ) => {   
       console.log()
       await db.collection('ocorrencia')
       .doc(data)
@@ -3141,6 +3141,8 @@ EditarGrupo: async(Dados, Id, nome, Valor, setAlertTipo, setAlert)=> {
         setTest(doc.data().testemunha);
         setAutor(doc.data().autores);
         setObjRF(doc.data().objRoubados);
+        setPlaca(doc.data().PlacaVeiculo?doc.data().PlacaVeiculo: [] )
+        setChassis(doc.data().ChassisVeiculo?doc.data().ChassisVeiculo:[])
       });
        
            

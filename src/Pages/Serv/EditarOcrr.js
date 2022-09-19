@@ -43,8 +43,8 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
   const [Estado, setEstado] = useState("");
   const [ObjRF, setObjRF] = useState("");
   const [InfVeicu, setInfVeicu] = useState("");
-  const [Placa, setPlaca] = useState("");
-  const [Chassis, setChassis] = useState("");
+  const [Placa, setPlaca] = useState([]);
+  const [Chassis, setChassis] = useState([]);
 
   
 
@@ -71,8 +71,8 @@ export default ({Dados, Avisando, Fechar, Id, setAlert, setAlertTipo, Alert, Ale
       setNumOc(Infor.Ocorr);
       setObjRF(Infor.objRoubados);
       setInfVeicu(Infor.InfVeiculo?Infor.InfVeiculo:"");
-      setPlaca(Infor.PlacaVeiculo?Infor.PlacaVeiculo:"" );
-      setChassis(Infor.ChassisVeiculo?Infor.ChassisVeiculo:"");
+      setPlaca(Infor.PlacaVeiculo?Infor.PlacaVeiculo:[] );
+      setChassis(Infor.ChassisVeiculo?Infor.ChassisVeiculo:[]);
     }
     }, [Infor]);
 
@@ -99,6 +99,51 @@ console.log(Forms)
   const AbrirMaps = ()=>{
     setAtuaMaps(true);
     setMapsCaixa(!MapsCaixa);
+   
+  }
+
+
+  const addInput = (e)=>{
+    e.preventDefault();
+    
+    setPlaca([...Placa, ""]);
+   
+  }
+
+  const DigitandoNomes = (e, index)=> {
+    Placa[index] = e.target.value;
+    setPlaca([...Placa]);
+    if(Placa[index].length === 8){
+      
+    }
+   
+  }
+
+  const TirarEsse = (position) =>{
+    setPlaca([...Placa.filter((item, index) => index !== position)]);
+   
+  }
+
+  const addInput2 = (e)=>{
+    e.preventDefault();
+    
+    setChassis([...Chassis, ""]);
+    
+   
+  }
+
+  const DigitandoNomes2 = (e, index)=> {
+    Chassis[index] = e.target.value;
+    setChassis([...Chassis]);
+
+    if(Chassis[index].length === 17){
+     
+    }
+   
+  }
+
+  const TirarEsse2 = (position) =>{
+    setChassis([...Chassis.filter((item, index) => index !== position)]);
    
   }
  
@@ -427,36 +472,74 @@ const ExBo = ()=>{
                                 />
                             </div>
                             </div>
+                            {Infor !== "nulo" &&
+                            <>
+                               <div className="col-sm-12">
+                            <div className="form-group">
+                            <strong>Add Placa Dos Veiculos:</strong><br />
+                      <a class="btn btn-app" onClick={addInput}>
+                      <i class="fas fa-plus"></i> Add</a><br />
+                      {
+                        Placa.map( (item, index )=> (
+                          <>
+                          <div key={index} className="input_cadatro">
+                           
+                          <Campo 
+                              type={"text"}
+                              placeholder= {(index+1)+ "° Placa "}
+                              icon={"fas"}
+                              value={item}
+                              onChange={e=>DigitandoNomes(e, index)}
+                              mask={"***-****"}
+                            
+                            />
+                           
+                           <a class="btn btn-danger" onClick={()=>TirarEsse(index)}>
+                           <i class="fas fa-trash"></i> 
+                            </a> 
+                        </div> <br />
+                        </>
+                        ))
+                      }
+                                
+                            </div>
+                            </div>
                             <div className="col-sm-12">
                             <div className="form-group">
-                                <label>Placa Do Veiculo</label>
-                                <Campo 
-                                type={null}
-                                placeholder={"Placa"}
-                                icon={null}
-                                value={Placa}
-                                onChange={e=>setPlaca(e.target.value)}
-                                mask={"***-****"}
-                              
-                                />
+                             
+                        <strong>Add Chassis Dos Veiculos:</strong><br />
+                      <a class="btn btn-app" onClick={addInput2}>
+                      <i class="fas fa-plus"></i> Add</a><br />
+                      {
+                        Chassis.map( (item, index )=> (
+                          <>
+                          <div key={index} className="input_cadatro">
+                           
+                          <Campo 
+                              type={"text"}
+                              placeholder= {(index+1)+ "° Chassis "}
+                              icon={"fas"}
+                              value={item}
+                              onChange={e=>DigitandoNomes2(e, index)}
+                              mask={"*****************"}
+                             
+                            />
+                           
+                           <a class="btn btn-danger" onClick={()=>TirarEsse2(index)}>
+                           <i class="fas fa-trash"></i> 
+                            </a> 
+                        </div> <br />
+                        </>
+                        ))
+                      }
                                 
                             </div>
-                            </div>
-                            <div className="col-sm-12">
-                            <div className="form-group">
-                                <label>Chassi Do Veiculo</label>
-                                <Campo 
-                                type={null}
-                                placeholder={"Chassi"}
-                                icon={null}
-                                value={Chassis}
-                                onChange={e=>setChassis(e.target.value)}
-                                mask={"*****************"}
-                                
-                                />
-                                
-                            </div>
-                            </div>      
+                            </div>    
+                            
+                            </>
+
+                            }
+                           
                               
                      
 
